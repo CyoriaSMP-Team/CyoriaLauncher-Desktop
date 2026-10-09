@@ -258,3 +258,19 @@ Made with care by **FoxStudio**
 <a href="https://github.com/foxstudio-201/VoxelXClient">Star on GitHub</a>
 
 </div>
+
+---
+
+<!-- CYTECH_STAR_HISTORY:START -->
+
+## Star History
+
+<a href="https://star-history.dera.page/#CyoriaSMP-Team/CyoriaLauncher-Desktop&type=date&legend=top-left">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://star-history.dera.page/svg?repos=CyoriaSMP-Team/CyoriaLauncher-Desktop&type=date&legend=top-left&theme=dark" />
+    <source media="(prefers-color-scheme: light)" srcset="https://star-history.dera.page/svg?repos=CyoriaSMP-Team/CyoriaLauncher-Desktop&type=date&legend=top-left" />
+    <img alt="GitHub star history for CyoriaSMP-Team/CyoriaLauncher-Desktop" src="https://star-history.dera.page/svg?repos=CyoriaSMP-Team/CyoriaLauncher-Desktop&type=date&legend=top-left" width="800" />
+  </picture>
+</a>
+
+<!-- CYTECH_STAR_HISTORY:END -->
