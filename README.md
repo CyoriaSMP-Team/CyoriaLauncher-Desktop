@@ -40,6 +40,18 @@
 
 </div>
 
+<!-- CYTECH_README_REFRESH:START -->
+<p align="center"><img alt="Desktop Minecraft launcher section accent" width="100%" height="10" src="https://capsule-render.vercel.app/api?type=rect&color=0:0F172A,100:6366F1&height=10&section=header"></p>
+
+<p align="center"><sub>Desktop Minecraft launcher</sub></p>
+
+<p align="center"><a href="#features">Features</a> &nbsp;·&nbsp; <a href="#download">Download</a> &nbsp;·&nbsp; <a href="#getting-started">Getting Started</a> &nbsp;·&nbsp; <a href="#tech-stack">Tech Stack</a> &nbsp;·&nbsp; <a href="https://github.com/CyoriaSMP-Team/CyoriaLauncher-Desktop/issues">Issues</a> &nbsp;·&nbsp; <a href="https://github.com/CyoriaSMP-Team/CyoriaLauncher-Desktop/releases">Releases</a></p>
+
+<!-- CYTECH_README_REFRESH:END -->
+
+> [!NOTE]
+> The README currently includes material and assets from [VoxelXClient](https://github.com/foxstudio-201/VoxelXClient). That source attribution remains intact; packaging and branding should be checked before a public CyoriaLauncher release.
+
 ---
 
 ## Features
