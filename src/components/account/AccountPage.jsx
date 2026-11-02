@@ -190,32 +190,13 @@ export default function AccountPage() {
     if (!selected?.uuid) { setAppliedSkinUrl(null); return }
     const load = async () => {
       try {
-        // Ưu tiên 1: web skin URL (từ voxelxclient.vercel.app)
+        // Prefer account skin and local preferences without querying another launcher's account API.
         const webSkin = selected.webSkinUrl || null
-
-        // Ưu tiên 2: local prefs
         const prefs = isElectron
           ? await window.electronAPI.getSkinPrefs({ uuid: selected.uuid })
           : JSON.parse(localStorage.getItem(`vxc_skin_prefs_${selected.uuid}`) || 'null')
-
         const localSkin = prefs?.skinUrl
-
-        // Nếu chưa có webSkinUrl, thử fetch từ web API theo UUID
-        let fetchedWebSkin = webSkin
-        if (!fetchedWebSkin && selected.uuid && isElectron) {
-          try {
-            const res = await fetch(
-              `https://www.voxelx.io.vn/api/auth?action=lookup-by-uuid&uuid=${encodeURIComponent(selected.uuid)}`,
-              { signal: AbortSignal.timeout(5000) }
-            )
-            if (res.ok) {
-              const data = await res.json()
-              if (data.ok && data.skinUrl) fetchedWebSkin = data.skinUrl
-            }
-          } catch {}
-        }
-
-        const finalSkin = fetchedWebSkin || (localSkin && !localSkin.startsWith('blob:') ? localSkin : null)
+        const finalSkin = webSkin || (localSkin && !localSkin.startsWith('blob:') ? localSkin : null)
         setAppliedSkinUrl(finalSkin || null)
       } catch { setAppliedSkinUrl(null) }
     }
