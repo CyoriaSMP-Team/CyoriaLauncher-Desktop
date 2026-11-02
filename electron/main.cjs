@@ -35,6 +35,7 @@ const fs   = require('fs')
 const rpc  = require('./discordRPC.cjs')
 const { getHwid, getHwidFormatted } = require('./hwid.cjs')
 const { startDiscordLink } = require('./discordAuth.cjs')
+const cyoriaIdentity = require('./cyoriaIdentity.cjs')
 const { registerProfileHandlers, registerGroupHandlers, registerProfileContentHandlers, registerJavaDistroHandlers } = require('./profileManager.cjs')
 const { registerServerHandlers } = require('./serverManager.cjs')
 const { registerLauncherHandlers } = require('./launcher.cjs')
@@ -1221,6 +1222,20 @@ ipcMain.handle('ms:refreshToken', async (e, id) => {
   } catch (err) {
     return { error: err.message }
   }
+})
+
+// Cyoria account is an OPTIONAL launcher identity, separate from Microsoft Minecraft auth.
+ipcMain.handle('cyoria:identityStatus', (event) => {
+  if (!getTrustedWindow(event)) return { error: 'Unauthorized' }
+  return cyoriaIdentity.status()
+})
+ipcMain.handle('cyoria:identityLogin', async (event) => {
+  if (!getTrustedWindow(event)) return { error: 'Unauthorized' }
+  try { return await cyoriaIdentity.login() } catch (err) { return { error: err.message } }
+})
+ipcMain.handle('cyoria:identityLogout', (event) => {
+  if (!getTrustedWindow(event)) return { error: 'Unauthorized' }
+  return cyoriaIdentity.logout()
 })
 
 ipcMain.handle('shell:openExternal', (e, url) => {
