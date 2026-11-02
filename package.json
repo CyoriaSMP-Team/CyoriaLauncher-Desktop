@@ -1,11 +1,10 @@
 {
-  "name": "voxelxlauncher",
+  "name": "cyoria-launcher",
   "private": true,
   "version": "1.4.0",
-  "description": "VoxelXLauncher - Minecraft Launcher by FoxStudios",
+  "description": "Cyoria Launcher — independent Minecraft Java Edition launcher for any server",
   "author": {
-    "name": "FoxStudio",
-    "email": "contact@foxstudio.dev"
+    "name": "CyoriaSMP Team"
   },
   "type": "module",
   "main": "electron/main.cjs",
@@ -55,9 +54,9 @@
     "wait-on": "^9.0.5"
   },
   "build": {
-    "appId": "com.voxelxclient.launcher",
-    "productName": "VoxelXLauncher",
-    "copyright": "Copyright © 2024 FoxStudio",
+    "appId": "com.cyoria.launcher",
+    "productName": "Cyoria Launcher",
+    "copyright": "Copyright © 2026 CyoriaSMP Team; based on VoxelXLauncher © FoxStudio",
     "asar": true,
     "directories": {
       "output": "dist-electron",
@@ -122,7 +121,7 @@
       ],
       "icon": "public/icon.png",
       "category": "Game",
-      "maintainer": "FoxStudio <contact@foxstudio.dev>"
+      "maintainer": "CyoriaSMP Team"
     },
     "mac": {
       "target": [
@@ -161,7 +160,7 @@
       "installerHeaderIcon": "public/icon.ico",
       "createDesktopShortcut": true,
       "createStartMenuShortcut": true,
-      "shortcutName": "VoxelXLauncher"
+      "shortcutName": "Cyoria Launcher"
     },
     "publish": null
   }
