@@ -34,6 +34,7 @@ import { useAccounts } from '../../hooks/useAccounts'
 import { useToast } from '../../hooks/useToast'
 import { useLang } from '../../i18n/LangProvider'
 import AddAccountModal from './AddAccountModal'
+import CyoriaIdentityPanel from './CyoriaIdentityPanel'
 import SkinCustomizeModal from './SkinCustomizeModal'
 import AccountSettingsPanel from './AccountSettingsPanel'
 import PlayerHead from '../ui/PlayerHead'
@@ -307,6 +308,8 @@ export default function AccountPage() {
   return (
     <div className="flex w-full min-h-0 flex-1 overflow-hidden">
 
+      {/* Cyoria identity never replaces the selected Minecraft account. */}
+      <div className="hidden" aria-hidden="true" />
       {/* Nếu đang mở settings — hiển thị AccountSettingsPanel thay thế toàn bộ left panel */}
       {settingsAccount ? (
         <div className="relative flex-1 min-w-0 border-r border-white/5">
@@ -319,6 +322,7 @@ export default function AccountPage() {
         </div>
       ) : (
       <div className="flex flex-col flex-1 min-w-0 overflow-hidden border-r border-white/5">
+        <CyoriaIdentityPanel />
 
         {}
         <div className="flex flex-col" style={{ maxHeight: '55%', minHeight: 180 }}>
