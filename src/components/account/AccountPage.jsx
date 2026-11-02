@@ -34,6 +34,7 @@ import { useAccounts } from '../../hooks/useAccounts'
 import { useToast } from '../../hooks/useToast'
 import { useLang } from '../../i18n/LangProvider'
 import AddAccountModal from './AddAccountModal'
+import CyoriaIdentityPanel from './CyoriaIdentityPanel'
 import SkinCustomizeModal from './SkinCustomizeModal'
 import AccountSettingsPanel from './AccountSettingsPanel'
 import PlayerHead from '../ui/PlayerHead'
@@ -189,32 +190,13 @@ export default function AccountPage() {
     if (!selected?.uuid) { setAppliedSkinUrl(null); return }
     const load = async () => {
       try {
-        // Ưu tiên 1: web skin URL (từ voxelxclient.vercel.app)
+        // Prefer account skin and local preferences without querying another launcher's account API.
         const webSkin = selected.webSkinUrl || null
-
-        // Ưu tiên 2: local prefs
         const prefs = isElectron
           ? await window.electronAPI.getSkinPrefs({ uuid: selected.uuid })
           : JSON.parse(localStorage.getItem(`vxc_skin_prefs_${selected.uuid}`) || 'null')
-
         const localSkin = prefs?.skinUrl
-
-        // Nếu chưa có webSkinUrl, thử fetch từ web API theo UUID
-        let fetchedWebSkin = webSkin
-        if (!fetchedWebSkin && selected.uuid && isElectron) {
-          try {
-            const res = await fetch(
-              `https://www.voxelx.io.vn/api/auth?action=lookup-by-uuid&uuid=${encodeURIComponent(selected.uuid)}`,
-              { signal: AbortSignal.timeout(5000) }
-            )
-            if (res.ok) {
-              const data = await res.json()
-              if (data.ok && data.skinUrl) fetchedWebSkin = data.skinUrl
-            }
-          } catch {}
-        }
-
-        const finalSkin = fetchedWebSkin || (localSkin && !localSkin.startsWith('blob:') ? localSkin : null)
+        const finalSkin = webSkin || (localSkin && !localSkin.startsWith('blob:') ? localSkin : null)
         setAppliedSkinUrl(finalSkin || null)
       } catch { setAppliedSkinUrl(null) }
     }
@@ -307,6 +289,8 @@ export default function AccountPage() {
   return (
     <div className="flex w-full min-h-0 flex-1 overflow-hidden">
 
+      {/* Cyoria identity never replaces the selected Minecraft account. */}
+      <div className="hidden" aria-hidden="true" />
       {/* Nếu đang mở settings — hiển thị AccountSettingsPanel thay thế toàn bộ left panel */}
       {settingsAccount ? (
         <div className="relative flex-1 min-w-0 border-r border-white/5">
@@ -319,6 +303,7 @@ export default function AccountPage() {
         </div>
       ) : (
       <div className="flex flex-col flex-1 min-w-0 overflow-hidden border-r border-white/5">
+        <CyoriaIdentityPanel />
 
         {}
         <div className="flex flex-col" style={{ maxHeight: '55%', minHeight: 180 }}>
