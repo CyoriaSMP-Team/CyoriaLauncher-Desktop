@@ -1,6 +1,19 @@
 {
   "languages": [
-    { "code": "vi", "name": "Tiếng Việt", "flag": "🇻🇳" },
-    { "code": "en", "name": "English", "flag": "🇬🇧" }
+    {
+      "code": "en",
+      "name": "English",
+      "flag": "🇬🇧"
+    },
+    {
+      "code": "th",
+      "name": "ภาษาไทย",
+      "flag": "🇹🇭"
+    },
+    {
+      "code": "vi",
+      "name": "Tiếng Việt",
+      "flag": "🇻🇳"
+    }
   ]
 }

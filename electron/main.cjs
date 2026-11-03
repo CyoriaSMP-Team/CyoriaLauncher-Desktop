@@ -337,7 +337,7 @@ function createMainWindow() {
     minWidth: 1024, minHeight: 600,
     frame: false, transparent: false,
     backgroundColor: '#0f0f0f',
-    title: 'VoxelXLauncher',
+    title: 'Cyoria Launcher',
     icon,
     webPreferences: secureWebPrefs(),
   })
@@ -383,7 +383,7 @@ function createUpdateWindow() {
     width: 480, height: 620,
     resizable: false, frame: false,
     backgroundColor: '#0f0f0f',
-    title: 'VoxelXLauncher – Check for Updates',
+    title: 'Cyoria Launcher – Check for Updates',
     icon,
     modal:       false,
     skipTaskbar: false,
@@ -427,8 +427,8 @@ function createTray() {
     }
 
     tray = new Tray(trayIcon)
-    tray.setToolTip('VoxelXLauncher')
-    tray.setTitle('VoxelXLauncher')
+    tray.setToolTip('Cyoria Launcher')
+    tray.setTitle('Cyoria Launcher')
 
     const openMainWindow = () => {
       if (!mainWindow || mainWindow.isDestroyed()) {
@@ -446,12 +446,12 @@ function createTray() {
 
     const trayMenu = Menu.buildFromTemplate([
       {
-        label: 'VoxelXLauncher', enabled: false,
+        label: 'Cyoria Launcher', enabled: false,
         ...(menuIcon ? { icon: menuIcon } : {}),
       },
       { type: 'separator' },
       {
-        label: 'Mở VoxelXLauncher',
+        label: 'Open Cyoria Launcher',
         click: () => openMainWindow(),
       },
       {
@@ -600,7 +600,7 @@ ipcMain.on('window-close', (e) => {
   else win.hide()
 })
 
-const GITHUB_REPO = 'foxstudio-201/VoxelXClient'
+const GITHUB_REPO = 'CyoriaSMP-Team/CyoriaLauncher-Desktop'
 
 ipcMain.handle('updater:openUpdateWindow', (e, checkResult) => {
   if (!getTrustedWindow(e)) return { error: 'Unauthorized' }

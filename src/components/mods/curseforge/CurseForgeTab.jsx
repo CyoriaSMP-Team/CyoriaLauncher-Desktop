@@ -12,78 +12,78 @@
  *   - Minecraft is a trademark of Mojang Studios / Microsoft. This project is not affiliated with Mojang.
  */
 
- /**
- * VoxelXLauncher — Minecraft Launcher
- * Created by FoxStudio. AI-assisted development.
- *
- * Source code : https://github.com/foxstudio-201/VoxelXLauncher
- * Website     : https://voxxelxclient.vercel.app
- *
- * NOTICE:
- *   - Dành cho mấy cháu cứ thích phỉ báng.
- *   - Launcher sử dụng ai đi kèm trong việc tạo, bản thân người tạo không tự nhận là code toàn bộ do có sự hỗ trợ của ai.
- *   - Giỏi giang thì tự code bằng năng lực của mình đang video làm toàn bộ từ đầu đến cuối, còn không làm được đừng có kích đểu ảnh hưởng đến người sử dụng.
- *   - Bạn chẳng phải là anh hùng mặc áo choàng đỏ mặc quần xịt như thằng trẻ trâu rồi lên mạng ra vẻ ta đây là người tốt, là anh hùng, là người bảo vệ công lý gì đâu :).
- *   - Vậy nên bớt ảo tưởng đi.
- *   - Nếu có sử dụng hoặc tham khảo code này, hãy ghi công cho FoxStudio.
- *   - Minecraft là một thương hiệu của Mojang Studios / Microsoft. Dự án này không liên kết với Mojang.
- */
+/**
+* VoxelXLauncher — Minecraft Launcher
+* Created by FoxStudio. AI-assisted development.
+*
+* Source code : https://github.com/foxstudio-201/VoxelXLauncher
+* Website     : https://voxxelxclient.vercel.app
+*
+* NOTICE:
+*   - Dành cho mấy cháu cứ thích phỉ báng.
+*   - Launcher sử dụng ai đi kèm trong việc tạo, bản thân người tạo không tự nhận là code toàn bộ do có sự hỗ trợ của ai.
+*   - Giỏi giang thì tự code bằng năng lực của mình đang video làm toàn bộ từ đầu đến cuối, còn không làm được đừng có kích đểu ảnh hưởng đến người sử dụng.
+*   - Bạn chẳng phải là anh hùng mặc áo choàng đỏ mặc quần xịt như thằng trẻ trâu rồi lên mạng ra vẻ ta đây là người tốt, là anh hùng, là người bảo vệ công lý gì đâu :).
+*   - Vậy nên bớt ảo tưởng đi.
+*   - Nếu có sử dụng hoặc tham khảo code này, hãy ghi công cho FoxStudio.
+*   - Minecraft là một thương hiệu của Mojang Studios / Microsoft. Dự án này không liên kết với Mojang.
+*/
 
-import { useState, useCallback, useEffect, useRef } from 'react'
-import CurseForgeSubTabs from './CurseForgeSubTabs'
-import CurseForgeFilters from './CurseForgeFilters'
-import CurseForgeGrid from './CurseForgeGrid'
-import CurseForgeDetail from './CurseForgeDetail'
-import ViewToggle from '../shared/ViewToggle'
-import TabLoadingOverlay from '../shared/TabLoadingOverlay'
-import { useCurseForgeSearch } from './useCurseForge'
+import { useState, useCallback, useEffect, useRef } from 'react';
+import CurseForgeSubTabs from './CurseForgeSubTabs';
+import CurseForgeFilters from './CurseForgeFilters';
+import CurseForgeGrid from './CurseForgeGrid';
+import CurseForgeDetail from './CurseForgeDetail';
+import ViewToggle from '../shared/ViewToggle';
+import TabLoadingOverlay from '../shared/TabLoadingOverlay';
+import { useCurseForgeSearch } from './useCurseForge';import LocalizedText from "../../../i18n/LocalizedText.jsx";
 
 const DEFAULT_FILTERS = {
-  query:        '',
-  projectType:  'mod',
-  sortBy:       'relevance',
+  query: '',
+  projectType: 'mod',
+  sortBy: 'relevance',
   gameVersions: [],
-  loaders:      [],
-  categories:   [],
-}
+  loaders: [],
+  categories: []
+};
 
 export default function CurseForgeTab() {
-  const [filters, setFilters]         = useState(DEFAULT_FILTERS)
-  const [view, setView]               = useState('grid')
-  const [selectedProject, setProject] = useState(null)
-  const [searchInput, setSearchInput] = useState('')
-  const [tabLoading, setTabLoading]   = useState(false)
-  const tabLoadingTimer               = useRef(null)
+  const [filters, setFilters] = useState(DEFAULT_FILTERS);
+  const [view, setView] = useState('grid');
+  const [selectedProject, setProject] = useState(null);
+  const [searchInput, setSearchInput] = useState('');
+  const [tabLoading, setTabLoading] = useState(false);
+  const tabLoadingTimer = useRef(null);
 
-  const { results, total, loading, error, loadMore, hasMore, refresh } = useCurseForgeSearch(filters)
+  const { results, total, loading, error, loadMore, hasMore, refresh } = useCurseForgeSearch(filters);
 
   useEffect(() => {
     if (!loading && tabLoading) {
 
-      tabLoadingTimer.current = setTimeout(() => setTabLoading(false), 120)
+      tabLoadingTimer.current = setTimeout(() => setTabLoading(false), 120);
     }
-    return () => clearTimeout(tabLoadingTimer.current)
-  }, [loading, tabLoading])
+    return () => clearTimeout(tabLoadingTimer.current);
+  }, [loading, tabLoading]);
 
   function updateFilters(patch) {
-    setFilters(prev => ({ ...prev, ...patch }))
-    setProject(null)
+    setFilters((prev) => ({ ...prev, ...patch }));
+    setProject(null);
   }
 
   function handleSubTab(type) {
-    setTabLoading(true)
-    setProject(null)
-    setSearchInput('')
-    setFilters(prev => ({ ...prev, projectType: type, query: '' }))
+    setTabLoading(true);
+    setProject(null);
+    setSearchInput('');
+    setFilters((prev) => ({ ...prev, projectType: type, query: '' }));
   }
 
   function handleSearch(e) {
-    e.preventDefault()
-    updateFilters({ query: searchInput })
+    e.preventDefault();
+    updateFilters({ query: searchInput });
   }
 
   function handleSelectProject(project) {
-    setProject({ id: project.project_id, type: filters.projectType })
+    setProject({ id: project.project_id, type: filters.projectType });
   }
 
   if (selectedProject) {
@@ -93,9 +93,9 @@ export default function CurseForgeTab() {
         projectType={selectedProject.type}
         activeLoaders={filters.loaders}
         activeGameVersions={filters.gameVersions}
-        onBack={() => setProject(null)}
-      />
-    )
+        onBack={() => setProject(null)} />);
+
+
   }
 
   return (
@@ -107,41 +107,41 @@ export default function CurseForgeTab() {
         <form onSubmit={handleSearch} className="flex items-center gap-2">
           <div className="flex-1 relative">
             <svg className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-white/25" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0"/>
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0" />
             </svg>
             <input
               type="text"
               value={searchInput}
-              onChange={e => setSearchInput(e.target.value)}
+              onChange={(e) => setSearchInput(e.target.value)}
               placeholder={`Search ${filters.projectType}s...`}
-              className="w-full bg-white/5 border border-white/10 rounded-lg pl-9 pr-3 py-2.5 text-sm text-white placeholder-white/25 focus:outline-none focus:border-green-500/50 transition-colors"
-            />
+              className="w-full bg-white/5 border border-white/10 rounded-lg pl-9 pr-3 py-2.5 text-sm text-white placeholder-white/25 focus:outline-none focus:border-green-500/50 transition-colors" />
+            
           </div>
           <ViewToggle view={view} onChange={setView} />
         </form>
 
         {}
         <div className="flex items-center justify-center min-h-[18px]">
-          {loading ? (
+          {loading ?
 
-            <div className="w-full h-0.5 rounded-full overflow-hidden bg-white/5">
+          <div className="w-full h-0.5 rounded-full overflow-hidden bg-white/5">
               <div
-                className="h-full rounded-full"
-                style={{
-                  background: 'linear-gradient(90deg, transparent 0%, #4ade80 40%, #22c55e 60%, transparent 100%)',
-                  backgroundSize: '200% 100%',
-                  animation: 'shimmer-bar 1.4s linear infinite',
-                  width: '100%',
-                }}
-              />
-            </div>
-          ) : total > 0 ? (
+              className="h-full rounded-full"
+              style={{
+                background: 'linear-gradient(90deg, transparent 0%, #4ade80 40%, #22c55e 60%, transparent 100%)',
+                backgroundSize: '200% 100%',
+                animation: 'shimmer-bar 1.4s linear infinite',
+                width: '100%'
+              }} />
+            
+            </div> :
+          total > 0 ?
 
-            <p className="text-sm font-semibold text-white/75">
+          <p className="text-sm font-semibold text-white/75">
               {total.toLocaleString()}
-              <span className="text-white/40 font-normal text-xs ml-1">results</span>
-            </p>
-          ) : null}
+              <span className="text-white/40 font-normal text-xs ml-1"><LocalizedText id="auto.b7b2448655dd" /></span>
+            </p> :
+          null}
         </div>
 
         <style>{`
@@ -158,8 +158,8 @@ export default function CurseForgeTab() {
         {}
         <div
           className="flex-shrink-0 w-64 border-r relative"
-          style={{ borderColor: 'var(--app-border-color)' }}
-        >
+          style={{ borderColor: 'var(--app-border-color)' }}>
+          
           <CurseForgeFilters filters={filters} onChange={updateFilters} />
         </div>
 
@@ -173,11 +173,10 @@ export default function CurseForgeTab() {
             view={view}
             onSelect={handleSelectProject}
             hasMore={hasMore}
-            onLoadMore={loadMore}
-          />
+            onLoadMore={loadMore} />
+          
         </div>
       </div>
-    </div>
-  )
-}
+    </div>);
 
+}

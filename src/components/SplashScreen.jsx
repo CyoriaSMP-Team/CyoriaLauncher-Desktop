@@ -12,164 +12,164 @@
  *   - Minecraft is a trademark of Mojang Studios / Microsoft. This project is not affiliated with Mojang.
  */
 
- /**
- * VoxelXLauncher — Minecraft Launcher
- * Created by FoxStudio. AI-assisted development.
- *
- * Source code : https://github.com/foxstudio-201/VoxelXLauncher
- * Website     : https://voxxelxclient.vercel.app
- *
- * NOTICE:
- *   - Dành cho mấy cháu cứ thích phỉ báng.
- *   - Launcher sử dụng ai đi kèm trong việc tạo, bản thân người tạo không tự nhận là code toàn bộ do có sự hỗ trợ của ai.
- *   - Giỏi giang thì tự code bằng năng lực của mình đang video làm toàn bộ từ đầu đến cuối, còn không làm được đừng có kích đểu ảnh hưởng đến người sử dụng.
- *   - Bạn chẳng phải là anh hùng mặc áo choàng đỏ mặc quần xịt như thằng trẻ trâu rồi lên mạng ra vẻ ta đây là người tốt, là anh hùng, là người bảo vệ công lý gì đâu :).
- *   - Vậy nên bớt ảo tưởng đi.
- *   - Nếu có sử dụng hoặc tham khảo code này, hãy ghi công cho FoxStudio.
- *   - Minecraft là một thương hiệu của Mojang Studios / Microsoft. Dự án này không liên kết với Mojang.
- */
+/**
+* VoxelXLauncher — Minecraft Launcher
+* Created by FoxStudio. AI-assisted development.
+*
+* Source code : https://github.com/foxstudio-201/VoxelXLauncher
+* Website     : https://voxxelxclient.vercel.app
+*
+* NOTICE:
+*   - Dành cho mấy cháu cứ thích phỉ báng.
+*   - Launcher sử dụng ai đi kèm trong việc tạo, bản thân người tạo không tự nhận là code toàn bộ do có sự hỗ trợ của ai.
+*   - Giỏi giang thì tự code bằng năng lực của mình đang video làm toàn bộ từ đầu đến cuối, còn không làm được đừng có kích đểu ảnh hưởng đến người sử dụng.
+*   - Bạn chẳng phải là anh hùng mặc áo choàng đỏ mặc quần xịt như thằng trẻ trâu rồi lên mạng ra vẻ ta đây là người tốt, là anh hùng, là người bảo vệ công lý gì đâu :).
+*   - Vậy nên bớt ảo tưởng đi.
+*   - Nếu có sử dụng hoặc tham khảo code này, hãy ghi công cho FoxStudio.
+*   - Minecraft là một thương hiệu của Mojang Studios / Microsoft. Dự án này không liên kết với Mojang.
+*/
 
-import { useEffect, useState, useRef } from 'react'
-import { loadAppSettings } from '../utils/appSettings'
-import { useLang } from '../i18n/LangProvider'
+import { useEffect, useState, useRef } from 'react';
+import { loadAppSettings } from '../utils/appSettings';
+import { useLang } from '../i18n/LangProvider';import LocalizedText from "../i18n/LocalizedText.jsx";
 
-const isElectron = typeof window !== 'undefined' && window.electronAPI
+const isElectron = typeof window !== 'undefined' && window.electronAPI;
 
 export default function SplashScreen({ onDone }) {
-  const { t } = useLang()
-  const tRef = useRef(t)
-  tRef.current = t
-  const [pct, setPct]         = useState(0)
-  const [log, setLog]         = useState('')
-  const [fadeOut, setFadeOut] = useState(false)
-  const [version, setVersion] = useState('')
-  const doneRef               = useRef(false)
-  const pctRef                = useRef(0)
+  const { t } = useLang();
+  const tRef = useRef(t);
+  tRef.current = t;
+  const [pct, setPct] = useState(0);
+  const [log, setLog] = useState('');
+  const [fadeOut, setFadeOut] = useState(false);
+  const [version, setVersion] = useState('');
+  const doneRef = useRef(false);
+  const pctRef = useRef(0);
 
   function setProgress(p, label) {
-    pctRef.current = p
-    setPct(p)
-    if (label) setLog(label)
+    pctRef.current = p;
+    setPct(p);
+    if (label) setLog(label);
   }
 
   useEffect(() => {
-    let cancelled = false
+    let cancelled = false;
 
     async function run() {
 
-      setProgress(5, (tRef.current('splash.init')))
+      setProgress(5, tRef.current('splash.init'));
       if (isElectron) {
         try {
-          const v = await window.electronAPI.getVersion()
-          if (v && !cancelled) setVersion(v)
+          const v = await window.electronAPI.getVersion();
+          if (v && !cancelled) setVersion(v);
         } catch {}
       }
-      await delay(120)
+      await delay(120);
 
-      if (cancelled) return
+      if (cancelled) return;
 
-      setProgress(20, (tRef.current('splash.loadSettings')))
-      let autoCheckUpdate = true
+      setProgress(20, tRef.current('splash.loadSettings'));
+      let autoCheckUpdate = true;
       try {
-        const s = await loadAppSettings()
+        const s = await loadAppSettings();
         if (s?.background && !cancelled) {
-          window.dispatchEvent(new CustomEvent('vxc-bg-change', { detail: s.background }))
+          window.dispatchEvent(new CustomEvent('vxc-bg-change', { detail: s.background }));
         }
         if (typeof s?.autoCheckUpdate === 'boolean') {
-          autoCheckUpdate = s.autoCheckUpdate
+          autoCheckUpdate = s.autoCheckUpdate;
         }
       } catch {}
-      await delay(100)
+      await delay(100);
 
-      if (cancelled) return
+      if (cancelled) return;
 
       if (autoCheckUpdate && isElectron) {
-        setProgress(30, (tRef.current('splash.checkUpdate')))
+        setProgress(30, tRef.current('splash.checkUpdate'));
         try {
-          const updateResult = await window.electronAPI.checkUpdate()
+          const updateResult = await window.electronAPI.checkUpdate();
           if (!cancelled && updateResult?.hasUpdate) {
 
-            setProgress(35, (tRef.current('splash.newVersion', { version: updateResult.latestVersion || '' })))
-            await delay(400)
-            window.electronAPI.openUpdateWindow(updateResult)
-            return
+            setProgress(35, tRef.current('splash.newVersion', { version: updateResult.latestVersion || '' }));
+            await delay(400);
+            window.electronAPI.openUpdateWindow(updateResult);
+            return;
           }
         } catch {}
       }
 
-      setProgress(45, (tRef.current('splash.loadAccounts')))
+      setProgress(45, tRef.current('splash.loadAccounts'));
       if (isElectron) {
         try {
-          const accountData = await window.electronAPI.getAccounts()
-          const selected = (accountData?.accounts || []).find(a => a.id === accountData?.selectedId)
+          const accountData = await window.electronAPI.getAccounts();
+          const selected = (accountData?.accounts || []).find((a) => a.id === accountData?.selectedId);
 
           if (selected?.type === 'microsoft') {
-            setProgress(50, (tRef.current('splash.syncMs', { username: selected.username || '' })))
+            setProgress(50, tRef.current('splash.syncMs', { username: selected.username || '' }));
             try {
-              await window.electronAPI.msRefreshToken(selected.id)
+              await window.electronAPI.msRefreshToken(selected.id);
             } catch {}
           }
 
           const otherMs = (accountData?.accounts || []).filter(
-            a => a.type === 'microsoft' && a.id !== selected?.id
-          )
+            (a) => a.type === 'microsoft' && a.id !== selected?.id
+          );
           for (const acc of otherMs) {
-            try { await window.electronAPI.msRefreshToken(acc.id) } catch {}
+            try {await window.electronAPI.msRefreshToken(acc.id);} catch {}
           }
         } catch {}
       }
-      await delay(100)
+      await delay(100);
 
-      if (cancelled) return
+      if (cancelled) return;
 
-      setProgress(65, (tRef.current('splash.loadProfiles')))
+      setProgress(65, tRef.current('splash.loadProfiles'));
       if (isElectron) {
-        try { await window.electronAPI.getProfiles() } catch {}
+        try {await window.electronAPI.getProfiles();} catch {}
       }
-      await delay(100)
+      await delay(100);
 
-      if (cancelled) return
+      if (cancelled) return;
 
-      setProgress(80, (tRef.current('splash.loadVersions')))
+      setProgress(80, tRef.current('splash.loadVersions'));
       if (isElectron) {
-        try { await window.electronAPI.minecraftListVersions() } catch {}
+        try {await window.electronAPI.minecraftListVersions();} catch {}
       }
-      await delay(100)
+      await delay(100);
 
-      if (cancelled) return
+      if (cancelled) return;
 
-      setProgress(95, (tRef.current('splash.finishing')))
-      await delay(200)
+      setProgress(95, tRef.current('splash.finishing'));
+      await delay(200);
 
-      if (cancelled) return
+      if (cancelled) return;
 
-      setProgress(100, (tRef.current('splash.ready')))
-      await delay(350)
+      setProgress(100, tRef.current('splash.ready'));
+      await delay(350);
 
-      if (cancelled) return
+      if (cancelled) return;
 
-      setFadeOut(true)
-      await delay(550)
+      setFadeOut(true);
+      await delay(550);
 
       if (!doneRef.current && !cancelled) {
-        doneRef.current = true
-        onDone()
+        doneRef.current = true;
+        onDone();
       }
     }
 
-    run()
-    return () => { cancelled = true }
-  }, [])
+    run();
+    return () => {cancelled = true;};
+  }, []);
 
   return (
     <div
       className="fixed inset-0 z-[9999] flex flex-col bg-[#080808]"
-      style={{ opacity: fadeOut ? 0 : 1, transition: 'opacity 550ms ease-in-out', pointerEvents: fadeOut ? 'none' : 'auto' }}
-    >
+      style={{ opacity: fadeOut ? 0 : 1, transition: 'opacity 550ms ease-in-out', pointerEvents: fadeOut ? 'none' : 'auto' }}>
+      
       {}
       <div className="absolute inset-0 opacity-[0.04]" style={{
         backgroundImage: `linear-gradient(rgba(74,222,128,0.8) 1px,transparent 1px),linear-gradient(90deg,rgba(74,222,128,0.8) 1px,transparent 1px)`,
-        backgroundSize: '48px 48px',
+        backgroundSize: '48px 48px'
       }} />
 
       {}
@@ -231,8 +231,8 @@ export default function SplashScreen({ onDone }) {
 
         {}
         <div className="text-center">
-          <h1 className="text-3xl font-black text-white tracking-tight">
-            VoxelX<span className="text-green-400">Launcher</span>
+          <h1 className="text-3xl font-black text-white tracking-tight"><LocalizedText id="auto.8649a2b37fbb" />
+            <span className="text-green-400"><LocalizedText id="auto.79f73a1cb6f8" /></span>
           </h1>
           <p className="text-xs text-white/25 mt-1 font-mono tracking-widest">{version ? `v${version}` : ''}</p>
         </div>
@@ -251,19 +251,18 @@ export default function SplashScreen({ onDone }) {
                   width: `${pct}%`,
                   background: 'linear-gradient(90deg,#16a34a,#4ade80)',
                   boxShadow: '0 0 8px rgba(74,222,128,0.6)',
-                  transition: 'width 300ms ease-out',
-                }}
-              />
+                  transition: 'width 300ms ease-out'
+                }} />
+              
             </div>
             <span className="text-[11px] text-green-400 font-mono font-bold w-8 text-right flex-shrink-0">{pct}%</span>
           </div>
         </div>
       </div>
-    </div>
-  )
+    </div>);
+
 }
 
 function delay(ms) {
-  return new Promise(r => setTimeout(r, ms))
+  return new Promise((r) => setTimeout(r, ms));
 }
-

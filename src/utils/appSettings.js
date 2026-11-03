@@ -51,7 +51,7 @@ export const DEFAULT_SETTINGS = {
   agreedPrivacy:        false,
   musicEnabled:         true,
   musicVolume:          35,
-  language:             'vi',
+  language:             'en',
 }
 
 const SETTING_KEYS = Object.keys(DEFAULT_SETTINGS)
