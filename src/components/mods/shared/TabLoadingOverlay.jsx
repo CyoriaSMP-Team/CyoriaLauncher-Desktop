@@ -87,32 +87,32 @@ export default function TabLoadingOverlay({ visible }) {
           className="absolute inset-0 flex items-center justify-center pointer-events-none"
           style={{ animation: 'tab-glow 3s ease-in-out infinite' }}
         >
-          <div className="w-16 h-16 bg-green-500/25 rounded-full blur-2xl" />
+          <div className="w-16 h-16 bg-sky-500/25 rounded-full blur-2xl" />
         </div>
 
         {}
         <div className="absolute rounded-lg" style={{
           width: 18, height: 18,
-          background: '#4ade80',
-          boxShadow: '0 0 10px #4ade8099',
+          background: '#38bdf8',
+          boxShadow: '0 0 10px #38bdf899',
           animation: 'tab-tl 3s ease-in-out 0s infinite',
         }} />
         <div className="absolute rounded-lg" style={{
           width: 18, height: 18,
-          background: '#22c55e',
-          boxShadow: '0 0 10px #22c55e99',
+          background: '#0284c7',
+          boxShadow: '0 0 10px #0284c799',
           animation: 'tab-tr 3s ease-in-out 0.06s infinite',
         }} />
         <div className="absolute rounded-lg" style={{
           width: 18, height: 18,
-          background: '#16a34a',
-          boxShadow: '0 0 10px #16a34a99',
+          background: '#0284c7',
+          boxShadow: '0 0 10px #0284c799',
           animation: 'tab-bl 3s ease-in-out 0.12s infinite',
         }} />
         <div className="absolute rounded-lg" style={{
           width: 18, height: 18,
-          background: '#4ade80',
-          boxShadow: '0 0 10px #4ade8099',
+          background: '#38bdf8',
+          boxShadow: '0 0 10px #38bdf899',
           animation: 'tab-br 3s ease-in-out 0.18s infinite',
         }} />
       </div>

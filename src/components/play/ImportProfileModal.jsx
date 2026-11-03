@@ -72,7 +72,7 @@ const SOURCES = {
   modrinth: {
     id: 'modrinth',
     label: 'Modrinth',
-    color: '#22c55e',
+    color: '#0284c7',
     icon: modrinthIcon,
     ext: '.zip / .mrpack'
   }
@@ -99,7 +99,7 @@ function PreviewCard({ source, meta }) {const { t } = useLang();
   return (
     <div
       className="rounded-2xl overflow-hidden border"
-      style={{ borderColor: theme.color + '44', background: `linear-gradient(135deg, ${theme.color}12 0%, #141414 60%)` }}>
+      style={{ borderColor: theme.color + '44', background: `linear-gradient(135deg, ${theme.color}12 0%, #0a0c0f 60%)` }}>
       
       <div className="relative h-24 overflow-hidden">
         <img src={bgImage} alt={t("auto.8335bbb443da")} className="w-full h-full object-cover" draggable={false} />
@@ -281,7 +281,7 @@ export default function ImportProfileModal({ onClose, onCreate, groups = [] }) {
           bottom: 20,
           left: MINIMIZED_LEFT,
           background: '#1a1a1a',
-          border: `1px solid ${isError ? '#ef444455' : isDone ? '#22c55e55' : theme.color + '55'}`,
+          border: `1px solid ${isError ? '#ef444455' : isDone ? '#0284c755' : theme.color + '55'}`,
           minWidth: 260,
           maxWidth: 340
         }}
@@ -308,7 +308,7 @@ export default function ImportProfileModal({ onClose, onCreate, groups = [] }) {
               
               </div>
               <span className="text-[10px] font-mono flex-shrink-0"
-            style={{ color: isError ? '#f87171' : isDone ? '#4ade80' : theme.color }}>
+            style={{ color: isError ? '#f87171' : isDone ? '#38bdf8' : theme.color }}>
                 {progress.percent ?? 0}%
               </span>
             </div> :
@@ -328,7 +328,7 @@ export default function ImportProfileModal({ onClose, onCreate, groups = [] }) {
             </svg>
           }
           {isDone &&
-          <svg viewBox="0 0 24 24" fill="currentColor" className="w-4 h-4 text-green-400">
+          <svg viewBox="0 0 24 24" fill="currentColor" className="w-4 h-4 text-sky-400">
               <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />
             </svg>
           }

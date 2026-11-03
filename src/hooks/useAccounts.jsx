@@ -170,7 +170,7 @@ export function AccountsProvider({ children }) {
     } else {
       const data = localFallback.get()
       const exists = data.accounts.find(a => a.username === newAccount.username && a.type === newAccount.type)
-      if (exists) return { error: 'Tài khoản đã tồn tại' }
+      if (exists) return { error: 'Account already exists' }
       data.accounts.push(newAccount)
       if (!data.selectedId) data.selectedId = newAccount.id
       localFallback.set(data)
@@ -189,7 +189,7 @@ export function AccountsProvider({ children }) {
     } else {
       const data = localFallback.get()
       const idx = data.accounts.findIndex(a => a.id === id)
-      if (idx === -1) return { error: 'Tài khoản không tồn tại' }
+      if (idx === -1) return { error: 'Account not found' }
       data.accounts[idx] = { ...data.accounts[idx], ...patch }
       localFallback.set(data)
       result = { ok: true, data }

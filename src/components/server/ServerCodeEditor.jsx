@@ -47,7 +47,7 @@ function highlightJson(line) {
       j++;
       const str = line.slice(i, j);
       const rest = line.slice(j).trimStart();
-      push(str, rest.startsWith(':') ? '#93c5fd' : '#86efac');
+      push(str, rest.startsWith(':') ? '#93c5fd' : '#7dd3fc');
       i = j;continue;
     }
     const numMatch = line.slice(i).match(/^-?\d+(\.\d+)?([eE][+-]?\d+)?/);
@@ -73,7 +73,7 @@ function highlightYaml(line) {
     { text: indentStr, color: '#e5e7eb' },
     { text: trimmed.slice(0, colonIdx), color: '#93c5fd' },
     { text: ':', color: '#94a3b8' },
-    { text: trimmed.slice(colonIdx + 1), color: '#86efac' }];
+    { text: trimmed.slice(colonIdx + 1), color: '#7dd3fc' }];
 
   }
   if (trimmed.startsWith('- ')) {
@@ -95,7 +95,7 @@ function highlightProperties(line) {
     return [
     { text: line.slice(0, sepIdx), color: '#93c5fd' },
     { text: line[sepIdx], color: '#94a3b8' },
-    { text: line.slice(sepIdx + 1), color: '#86efac' }];
+    { text: line.slice(sepIdx + 1), color: '#7dd3fc' }];
 
   }
   return [{ text: line, color: '#e5e7eb' }];
@@ -172,8 +172,8 @@ export default function ServerCodeEditor({ fileName, content, onChange, onSave, 
         <button
           onClick={async () => {await onSave();}}
           disabled={saving}
-          className="px-3 py-1 rounded-lg text-xs font-semibold bg-green-500/20 text-green-400 hover:bg-green-500/30 border border-green-500/20 transition-all disabled:opacity-50">
-          {saving ? 'Đang lưu...' : 'Lưu'}
+          className="px-3 py-1 rounded-lg text-xs font-semibold bg-sky-500/20 text-sky-400 hover:bg-sky-500/30 border border-sky-500/20 transition-all disabled:opacity-50">
+          {saving ? 'Saving…' : 'Save'}
         </button>
       </div>
 
@@ -223,7 +223,7 @@ export default function ServerCodeEditor({ fileName, content, onChange, onSave, 
             style={{
               padding: '8px 12px',
               color: 'transparent',
-              caretColor: '#4ade80',
+              caretColor: '#38bdf8',
               scrollbarColor: 'rgba(255,255,255,0.1) transparent',
               border: 'none',
               outline: 'none',

@@ -54,7 +54,7 @@ export default function TechnicSubTabs({ active, onChange }) {
           onClick={() => onChange(id)}
           className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap transition-all flex-shrink-0 ${
             active === id
-              ? 'bg-green-500/15 text-green-400 border border-green-500/25'
+              ? 'bg-sky-500/15 text-sky-400 border border-sky-500/25'
               : 'text-white/35 hover:text-white/60 hover:bg-white/5 border border-transparent'
           }`}
         >

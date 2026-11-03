@@ -58,10 +58,10 @@ const ICONS = {
 
 const STYLES = {
   success: {
-    icon:    'text-green-400',
-    iconBg:  'bg-green-500/15',
-    border:  'border-green-500/25',
-    bar:     'bg-green-500',
+    icon:    'text-sky-400',
+    iconBg:  'bg-sky-500/15',
+    border:  'border-sky-500/25',
+    bar:     'bg-sky-500',
   },
   error: {
     icon:    'text-red-400',

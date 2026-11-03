@@ -34,7 +34,7 @@ import PlayerHead from '../ui/PlayerHead';
 import { useLang } from '../../i18n/LangProvider';import LocalizedText from "../../i18n/LocalizedText.jsx";
 
 const isElectron = typeof window !== 'undefined' && window.electronAPI;
-const inputCls = 'w-full bg-white/5 border border-white/10 rounded-lg px-3 py-2 text-sm text-white/80 focus:outline-none focus:border-green-500/50 transition-all placeholder-white/20';
+const inputCls = 'w-full bg-white/5 border border-white/10 rounded-lg px-3 py-2 text-sm text-white/80 focus:outline-none focus:border-sky-500/50 transition-all placeholder-white/20';
 
 function Toggle({ value, onChange, label, desc }) {
   const { t } = useLang();
@@ -47,7 +47,7 @@ function Toggle({ value, onChange, label, desc }) {
       <button type="button" onClick={() => onChange(!value)}
       className="flex-shrink-0 relative transition-all"
       style={{ width: 40, height: 22 }}>
-        <div className={`w-full h-full rounded-full transition-all ${value ? 'bg-green-500' : 'bg-white/15'}`} />
+        <div className={`w-full h-full rounded-full transition-all ${value ? 'bg-sky-500' : 'bg-white/15'}`} />
         <div className={`absolute top-0.5 w-4 h-4 rounded-full bg-white shadow transition-all ${value ? 'left-5' : 'left-0.5'}`} />
       </button>
     </div>);
@@ -96,7 +96,7 @@ function Select({ value, onChange, options }) {
         <button key={o.value} type="button"
         onClick={() => {onChange(o.value);setOpen(false);}}
         className={`w-full flex items-center gap-2 px-3 py-2.5 text-left text-sm transition-all ${
-        value === o.value ? 'bg-green-500/15 text-green-400 font-semibold' : 'text-white/70 hover:bg-white/6 hover:text-white'}`
+        value === o.value ? 'bg-sky-500/15 text-sky-400 font-semibold' : 'text-white/70 hover:bg-white/6 hover:text-white'}`
         }>
               {value === o.value ?
           <svg viewBox="0 0 24 24" fill="currentColor" className="w-3.5 h-3.5 flex-shrink-0"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" /></svg> :
@@ -171,7 +171,7 @@ function ConfigTab({ server, onServerUpdated }) {
 
   if (loading) return (
     <div className="flex items-center justify-center h-32 gap-2 text-white/30">
-      <svg className="animate-spin w-4 h-4 text-green-400/50" viewBox="0 0 24 24" fill="none">
+      <svg className="animate-spin w-4 h-4 text-sky-400/50" viewBox="0 0 24 24" fill="none">
         <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
         <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
       </svg>
@@ -245,13 +245,13 @@ function ConfigTab({ server, onServerUpdated }) {
               <Field label={t('server.settings.ramLabel', { value: config.ramGb })}>
                 <input type="range" min="1" max="32" step="1" value={config.ramGb}
                 onChange={(e) => setConfig((c) => ({ ...c, ramGb: Number(e.target.value) }))}
-                className="w-full accent-green-500 cursor-pointer" />
+                className="w-full accent-sky-500 cursor-pointer" />
                 <div className="flex justify-between text-[10px] text-white/20"><span><LocalizedText id="auto.b1bcece2c912" /></span><span><LocalizedText id="auto.3c51ff65e4d3" /></span></div>
               </Field>
               <Field label={t('server.settings.coresLabel', { value: config.cores })}>
                 <input type="range" min="1" max="16" step="1" value={config.cores}
                 onChange={(e) => setConfig((c) => ({ ...c, cores: Number(e.target.value) }))}
-                className="w-full accent-green-500 cursor-pointer" />
+                className="w-full accent-sky-500 cursor-pointer" />
                 <div className="flex justify-between text-[10px] text-white/20"><span>1</span><span>16</span></div>
               </Field>
             </div>
@@ -274,7 +274,7 @@ function ConfigTab({ server, onServerUpdated }) {
       <div className="flex-shrink-0 px-4 py-3 border-t border-white/5">
         <button onClick={handleSave} disabled={saving}
         className="w-full py-2.5 rounded-xl text-sm font-bold text-white transition-all disabled:opacity-40 flex items-center justify-center gap-2"
-        style={{ background: saved ? 'rgba(34,197,94,0.3)' : 'linear-gradient(135deg,#22c55e,#16a34a)', boxShadow: '0 4px 16px rgba(34,197,94,0.2)' }}>
+        style={{ background: saved ? 'rgba(34,197,94,0.3)' : 'linear-gradient(135deg,#0284c7,#0284c7)', boxShadow: '0 4px 16px rgba(34,197,94,0.2)' }}>
           {saved ?
           <><svg viewBox="0 0 24 24" fill="currentColor" className="w-4 h-4"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" /></svg>{t('server.settings.saved')}</> :
           saving ?
@@ -336,9 +336,9 @@ function WhitelistTab({ server }) {
           <input value={addName} onChange={(e) => setAddName(e.target.value)}
           onKeyDown={(e) => e.key === 'Enter' && handleAdd()}
           placeholder={t('server.settings.whitelistAddPlaceholder')}
-          className="flex-1 bg-white/5 border border-white/10 rounded-lg px-3 py-2 text-sm text-white/80 focus:outline-none focus:border-green-500/50 transition-all placeholder-white/20" />
+          className="flex-1 bg-white/5 border border-white/10 rounded-lg px-3 py-2 text-sm text-white/80 focus:outline-none focus:border-sky-500/50 transition-all placeholder-white/20" />
           <button onClick={handleAdd} disabled={!addName.trim() || adding}
-          className="px-4 py-2 rounded-lg bg-green-500 hover:bg-green-400 text-white text-sm font-bold transition-all disabled:opacity-40 flex items-center gap-1.5">
+          className="px-4 py-2 rounded-lg bg-sky-500 hover:bg-sky-400 text-white text-sm font-bold transition-all disabled:opacity-40 flex items-center gap-1.5">
             <svg viewBox="0 0 24 24" fill="currentColor" className="w-4 h-4"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z" /></svg>
             {t('server.settings.whitelistAdd')}
           </button>
@@ -349,7 +349,7 @@ function WhitelistTab({ server }) {
       <div className="flex-shrink-0 flex items-center justify-between px-4 py-2 border-b border-white/5 bg-black/10">
           <div className="flex items-center gap-2">
             <button onClick={toggleAll}
-          className={`w-4 h-4 rounded border-2 flex items-center justify-center transition-all ${selected.size === list.length && list.length > 0 ? 'bg-green-500 border-green-500' : 'border-white/25'}`}>
+          className={`w-4 h-4 rounded border-2 flex items-center justify-center transition-all ${selected.size === list.length && list.length > 0 ? 'bg-sky-500 border-sky-500' : 'border-white/25'}`}>
               {selected.size === list.length && list.length > 0 &&
             <svg viewBox="0 0 24 24" fill="currentColor" className="w-2.5 h-2.5 text-white"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" /></svg>
             }
@@ -369,7 +369,7 @@ function WhitelistTab({ server }) {
       <div className="flex-1 overflow-y-auto px-4 py-2 space-y-1" style={{ scrollbarColor: 'rgba(255,255,255,0.1) transparent' }}>
         {loading ?
         <div className="flex items-center justify-center h-24 gap-2 text-white/30">
-            <svg className="animate-spin w-4 h-4 text-green-400/50" viewBox="0 0 24 24" fill="none">
+            <svg className="animate-spin w-4 h-4 text-sky-400/50" viewBox="0 0 24 24" fill="none">
               <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
               <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
             </svg>
@@ -384,9 +384,9 @@ function WhitelistTab({ server }) {
           </div> :
         list.map((p) =>
         <div key={p.name}
-        className={`flex items-center gap-3 px-3 py-2.5 rounded-xl transition-all ${selected.has(p.name) ? 'bg-green-500/8 border border-green-500/20' : 'bg-white/2 border border-white/6 hover:bg-white/4'}`}>
+        className={`flex items-center gap-3 px-3 py-2.5 rounded-xl transition-all ${selected.has(p.name) ? 'bg-sky-500/8 border border-sky-500/20' : 'bg-white/2 border border-white/6 hover:bg-white/4'}`}>
             <button onClick={() => toggleSelect(p.name)}
-          className={`w-4 h-4 rounded border-2 flex-shrink-0 flex items-center justify-center transition-all ${selected.has(p.name) ? 'bg-green-500 border-green-500' : 'border-white/25'}`}>
+          className={`w-4 h-4 rounded border-2 flex-shrink-0 flex items-center justify-center transition-all ${selected.has(p.name) ? 'bg-sky-500 border-sky-500' : 'border-white/25'}`}>
               {selected.has(p.name) && <svg viewBox="0 0 24 24" fill="currentColor" className="w-2.5 h-2.5 text-white"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" /></svg>}
             </button>
             <PlayerHead username={p.name} uuid={p.uuid} size={32} />
@@ -473,7 +473,7 @@ function BannedTab({ server }) {
       <div className="flex-shrink-0 flex items-center justify-between px-4 py-2.5 border-b border-white/5 bg-black/10">
           <div className="flex items-center gap-2">
             <button onClick={toggleAll}
-          className={`w-4 h-4 rounded border-2 flex items-center justify-center transition-all ${selected.size === list.length && list.length > 0 ? 'bg-green-500 border-green-500' : 'border-white/25'}`}>
+          className={`w-4 h-4 rounded border-2 flex items-center justify-center transition-all ${selected.size === list.length && list.length > 0 ? 'bg-sky-500 border-sky-500' : 'border-white/25'}`}>
               {selected.size === list.length && list.length > 0 &&
             <svg viewBox="0 0 24 24" fill="currentColor" className="w-2.5 h-2.5 text-white"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" /></svg>
             }
@@ -482,7 +482,7 @@ function BannedTab({ server }) {
           </div>
           {selected.size > 0 &&
         <button onClick={() => handleUnban([...selected])} disabled={unbanning}
-        className="flex items-center gap-1.5 px-3 py-1 rounded-lg bg-green-500/15 text-green-400 text-xs font-semibold hover:bg-green-500/25 transition-all disabled:opacity-40">
+        className="flex items-center gap-1.5 px-3 py-1 rounded-lg bg-sky-500/15 text-sky-400 text-xs font-semibold hover:bg-sky-500/25 transition-all disabled:opacity-40">
               {t('server.settings.unbanCount', { count: selected.size })}
             </button>
         }
@@ -492,7 +492,7 @@ function BannedTab({ server }) {
       <div className="flex-1 overflow-y-auto px-4 py-2 space-y-1.5" style={{ scrollbarColor: 'rgba(255,255,255,0.1) transparent' }}>
         {loading ?
         <div className="flex items-center justify-center h-24 gap-2 text-white/30">
-            <svg className="animate-spin w-4 h-4 text-green-400/50" viewBox="0 0 24 24" fill="none">
+            <svg className="animate-spin w-4 h-4 text-sky-400/50" viewBox="0 0 24 24" fill="none">
               <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
               <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
             </svg>
@@ -513,7 +513,7 @@ function BannedTab({ server }) {
             <div key={p.name}
             className={`flex items-start gap-3 px-3 py-3 rounded-xl transition-all ${selected.has(p.name) ? 'bg-red-500/8 border border-red-500/20' : 'bg-white/2 border border-white/6 hover:bg-white/4'}`}>
               <button onClick={() => toggleSelect(p.name)}
-              className={`w-4 h-4 rounded border-2 flex-shrink-0 flex items-center justify-center transition-all mt-0.5 ${selected.has(p.name) ? 'bg-green-500 border-green-500' : 'border-white/25'}`}>
+              className={`w-4 h-4 rounded border-2 flex-shrink-0 flex items-center justify-center transition-all mt-0.5 ${selected.has(p.name) ? 'bg-sky-500 border-sky-500' : 'border-white/25'}`}>
                 {selected.has(p.name) && <svg viewBox="0 0 24 24" fill="currentColor" className="w-2.5 h-2.5 text-white"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" /></svg>}
               </button>
               <PlayerHead username={p.name} uuid={p.uuid} size={36} />
@@ -536,7 +536,7 @@ function BannedTab({ server }) {
                 }
               </div>
               <button onClick={() => handleUnban([p.name])}
-              className="flex-shrink-0 px-2.5 py-1 rounded-lg bg-green-500/10 text-green-400 text-xs font-semibold hover:bg-green-500/20 transition-all">
+              className="flex-shrink-0 px-2.5 py-1 rounded-lg bg-sky-500/10 text-sky-400 text-xs font-semibold hover:bg-sky-500/20 transition-all">
                 {t('server.settings.unban')}
               </button>
             </div>);

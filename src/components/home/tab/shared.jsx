@@ -103,7 +103,7 @@ export const Icons = {
 export function LoadingState({ text = 'Đang tải...' }) {
   return (
     <div className="flex flex-col items-center justify-center py-16 gap-3">
-      <svg className="animate-spin w-6 h-6 text-green-400/40" viewBox="0 0 24 24" fill="none">
+      <svg className="animate-spin w-6 h-6 text-sky-400/40" viewBox="0 0 24 24" fill="none">
         <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
         <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
       </svg>
@@ -180,7 +180,7 @@ export function DropZoneWrapper({ children, onDrop, accept, color = 'green' }) {
   const dragCounter = useRef(0);
 
   const colorMap = {
-    green: { border: 'border-green-500/50', bg: 'bg-green-500/5', text: 'text-green-400', ring: 'ring-green-500/20' },
+    green: { border: 'border-sky-500/50', bg: 'bg-sky-500/5', text: 'text-sky-400', ring: 'ring-sky-500/20' },
     yellow: { border: 'border-yellow-500/50', bg: 'bg-yellow-500/5', text: 'text-yellow-400', ring: 'ring-yellow-500/20' },
     purple: { border: 'border-purple-500/50', bg: 'bg-purple-500/5', text: 'text-purple-400', ring: 'ring-purple-500/20' }
   };

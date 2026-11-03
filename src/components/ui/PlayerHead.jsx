@@ -84,7 +84,7 @@ export default function PlayerHead({ uuid, username, size = 32, customSkinUrl = 
         alignItems: 'center', justifyContent: 'center',
         fontSize: size * 0.42, fontWeight: 700,
         userSelect: 'none',
-        background: 'linear-gradient(135deg, #4ade80, #059669)',
+        background: 'linear-gradient(135deg, #38bdf8, #059669)',
         color: '#fff',
       }}
       className={className}

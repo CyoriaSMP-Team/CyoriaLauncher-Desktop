@@ -22,6 +22,9 @@ async function discover() {
     const target = new URL(metadata[field])
     if (target.protocol !== 'https:' || target.origin !== ISSUER) throw new Error('Untrusted OIDC endpoint: ' + field)
   }
+  if (Array.isArray(metadata.token_endpoint_auth_methods_supported) && !metadata.token_endpoint_auth_methods_supported.includes('none')) {
+    throw new Error('CyoriaSMP Auth must enable token_endpoint_auth_method=none for the registered public PKCE desktop client.')
+  }
   return metadata
 }
 
@@ -73,7 +76,7 @@ async function login() {
       if (!info.ok) throw new Error('Cyoria Auth profile lookup failed: '+info.status)
       const profile = await info.json()
       if (!profile.sub || typeof profile.sub !== 'string') throw new Error('Invalid Cyoria Auth subject')
-      currentIdentity = { sub: profile.sub, name: typeof profile.name === 'string' ? profile.name : null, preferred_username: typeof profile.preferred_username === 'string' ? profile.preferred_username : null }
+      currentIdentity = { sub: profile.sub, name: typeof profile.name === 'string' ? profile.name : null, preferred_username: typeof profile.preferred_username === 'string' ? profile.preferred_username : null, discord_user_id: typeof profile.discord_user_id === 'string' ? profile.discord_user_id : null }
       return status()
     } finally { callback.catch(()=>{}) }
   } finally { if (server) server.close(); loginInProgress = false }

@@ -46,7 +46,7 @@ function Toggle({ checked, onChange, id }) {
         relative inline-flex h-5 w-9 flex-shrink-0 cursor-pointer rounded-full
         border-2 border-transparent transition-colors duration-200
         focus:outline-none
-        ${checked ? 'bg-green-500' : 'bg-white/15'}
+        ${checked ? 'bg-sky-500' : 'bg-white/15'}
       `}>
       
       <span
@@ -152,14 +152,14 @@ function FontTab({ settings, onChange }) {
                 flex items-center justify-between px-3 py-2 rounded-lg text-left
                 transition-all duration-150 border
                 ${fontId === font.id ?
-            'bg-green-500/12 border-green-500/30 text-white' :
+            'bg-sky-500/12 border-sky-500/30 text-white' :
             'bg-white/3 border-white/5 text-white/50 hover:bg-white/6 hover:border-white/12 hover:text-white/80'}
               `
             }>
             
               <span className="text-xs font-medium truncate">{font.label}</span>
               {fontId === font.id &&
-            <svg viewBox="0 0 24 24" fill="currentColor" className="w-3 h-3 text-green-400 flex-shrink-0 ml-1">
+            <svg viewBox="0 0 24 24" fill="currentColor" className="w-3 h-3 text-sky-400 flex-shrink-0 ml-1">
                   <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />
                 </svg>
             }
@@ -217,7 +217,7 @@ function BorderTab({ settings, onChange }) {
       <div>
         <div className="flex items-center justify-between mb-2">
           <p className="text-xs text-white/40 uppercase tracking-widest">{t('settings.launcher.borderRadius')}</p>
-          <span className="text-xs font-mono text-green-400 bg-green-500/10 px-2 py-0.5 rounded-md">
+          <span className="text-xs font-mono text-sky-400 bg-sky-500/10 px-2 py-0.5 rounded-md">
             {radius}<LocalizedText id="auto.e0e8bc72cee6" />{RADIUS_LABEL_KEYS[radius] ? `· ${t(`settings.launcher.radiusLabels.${RADIUS_LABEL_KEYS[radius]}`)}` : ''}
           </span>
         </div>
@@ -227,14 +227,14 @@ function BorderTab({ settings, onChange }) {
           className="w-full h-1.5 rounded-full appearance-none cursor-pointer bg-white/10
             [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-4
             [&::-webkit-slider-thumb]:h-4 [&::-webkit-slider-thumb]:rounded-full
-            [&::-webkit-slider-thumb]:bg-green-400 [&::-webkit-slider-thumb]:cursor-pointer" />
+            [&::-webkit-slider-thumb]:bg-sky-400 [&::-webkit-slider-thumb]:cursor-pointer" />
 
 
 
         
         <div className="flex justify-between mt-1">
           {[0, 4, 8, 12, 16, 20, 24].map((v) =>
-          <span key={v} className={`text-[9px] ${v === radius ? 'text-green-400' : 'text-white/20'}`}>{v}</span>
+          <span key={v} className={`text-[9px] ${v === radius ? 'text-sky-400' : 'text-white/20'}`}>{v}</span>
           )}
         </div>
       </div>
@@ -250,7 +250,7 @@ function BorderTab({ settings, onChange }) {
             className={`
                 flex flex-col items-center gap-1.5 p-2 rounded-lg border transition-all duration-150
                 ${borderColor === p.value ?
-            'border-green-500/40 bg-green-500/8' :
+            'border-sky-500/40 bg-sky-500/8' :
             'border-white/5 bg-white/3 hover:bg-white/6 hover:border-white/12'}
               `
             }>
@@ -263,7 +263,7 @@ function BorderTab({ settings, onChange }) {
                 borderStyle: p.value === 'transparent' ? 'dashed' : 'solid'
               }} />
             
-              <span className={`text-[9px] font-medium ${borderColor === p.value ? 'text-green-400' : 'text-white/35'}`}>
+              <span className={`text-[9px] font-medium ${borderColor === p.value ? 'text-sky-400' : 'text-white/35'}`}>
                 {t(`settings.launcher.borderPresets.${p.labelKey}`)}
               </span>
             </button>
@@ -282,7 +282,7 @@ function BorderTab({ settings, onChange }) {
 
           </div>
           <button
-            className="px-4 py-2 bg-green-500/20 text-green-400 text-xs font-semibold"
+            className="px-4 py-2 bg-sky-500/20 text-sky-400 text-xs font-semibold"
             style={{ borderRadius: radius, border: `1px solid ${borderColor}` }}><LocalizedText id="auto.2c62bfef1b67" />
 
 
@@ -303,9 +303,9 @@ function BorderTab({ settings, onChange }) {
 
 function ColorTab({ settings, onChange }) {
   const { t } = useLang();
-  const accent = settings.colorAccent ?? '#4ade80';
-  const hover = settings.colorHover ?? '#86efac';
-  const active = settings.colorActive ?? '#22c55e';
+  const accent = settings.colorAccent ?? '#38bdf8';
+  const hover = settings.colorHover ?? '#7dd3fc';
+  const active = settings.colorActive ?? '#0284c7';
 
   const swatches = [
   { key: 'colorAccent', labelKey: 'colorAccent', value: accent },
@@ -372,7 +372,7 @@ function BgTab({ settings, onChange }) {
     <div className="py-4 space-y-4">
       {categories.map((cat) =>
       <div key={cat}>
-          <p className="text-[10px] uppercase tracking-widest text-white/25 mb-2">{cat}</p>
+          <p className="text-[10px] uppercase tracking-widest text-white/25 mb-2">{t('cyoria.bgCategory.' + cat)}</p>
           <div className="grid grid-cols-3 gap-2">
             {BG_OPTIONS.filter((o) => o.category === cat).map((opt) =>
           <button
@@ -382,7 +382,7 @@ function BgTab({ settings, onChange }) {
                   relative rounded-xl border overflow-hidden h-16 flex items-end p-2
                   transition-all duration-150 active:scale-95
                   ${selected === opt.id ?
-            'border-green-500/60 ring-1 ring-green-500/30' :
+            'border-sky-500/60 ring-1 ring-sky-500/30' :
             'border-white/8 hover:border-white/20'}
                 `
             }
@@ -394,13 +394,13 @@ function BgTab({ settings, onChange }) {
                   </span>
             }
                 {selected === opt.id &&
-            <div className="absolute top-1.5 right-1.5 w-4 h-4 rounded-full bg-green-500 flex items-center justify-center">
+            <div className="absolute top-1.5 right-1.5 w-4 h-4 rounded-full bg-sky-500 flex items-center justify-center">
                     <svg viewBox="0 0 24 24" fill="currentColor" className="w-2.5 h-2.5 text-white">
                       <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />
                     </svg>
                   </div>
             }
-                <span className={`text-[10px] font-semibold ${selected === opt.id ? 'text-green-300' : 'text-white/50'}`}>
+                <span className={`text-[10px] font-semibold ${selected === opt.id ? 'text-sky-300' : 'text-white/50'}`}>
                   {opt.label}
                 </span>
               </button>
@@ -544,7 +544,7 @@ function UpdateChecker() {
       <div className="flex items-center gap-3 flex-wrap">
           <button
           onClick={handleCheck}
-          className="flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold bg-green-500 hover:bg-green-400 text-white transition-all duration-150 active:scale-95">
+          className="flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold bg-sky-500 hover:bg-sky-400 text-white transition-all duration-150 active:scale-95">
           
             <svg viewBox="0 0 24 24" fill="currentColor" className="w-3.5 h-3.5">
               <path d="M17.65 6.35C16.2 4.9 14.21 4 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08c-.82 2.33-3.04 4-5.65 4-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z" />
@@ -554,7 +554,7 @@ function UpdateChecker() {
 
           {status === 'upToDate' &&
         <span className="text-xs text-white/40 flex items-center gap-1">
-              <svg viewBox="0 0 24 24" fill="currentColor" className="w-3.5 h-3.5 text-green-400">
+              <svg viewBox="0 0 24 24" fill="currentColor" className="w-3.5 h-3.5 text-sky-400">
                 <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />
               </svg>
               {t('settings.launcher.upToDate')}
@@ -572,7 +572,7 @@ function UpdateChecker() {
       {}
       {status === 'checking' &&
       <div className="flex items-center gap-2 text-xs text-white/40">
-          <svg className="animate-spin w-3.5 h-3.5 text-green-400" viewBox="0 0 24 24" fill="none">
+          <svg className="animate-spin w-3.5 h-3.5 text-sky-400" viewBox="0 0 24 24" fill="none">
             <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
             <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
           </svg>
@@ -582,12 +582,12 @@ function UpdateChecker() {
 
       {}
       {status === 'updateAvailable' && result &&
-      <div className="rounded-xl border border-green-500/20 bg-green-500/8 px-3 py-2.5 flex items-center gap-2">
-          <svg className="animate-spin w-3.5 h-3.5 text-green-400 flex-shrink-0" viewBox="0 0 24 24" fill="none">
+      <div className="rounded-xl border border-sky-500/20 bg-sky-500/8 px-3 py-2.5 flex items-center gap-2">
+          <svg className="animate-spin w-3.5 h-3.5 text-sky-400 flex-shrink-0" viewBox="0 0 24 24" fill="none">
             <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
             <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
           </svg>
-          <span className="text-xs text-green-400">
+          <span className="text-xs text-sky-400">
             {t('settings.launcher.updateAvailable', { version: result.latestVersion })}
           </span>
         </div>
@@ -595,9 +595,9 @@ function UpdateChecker() {
 
       {}
       {status === 'downloading' &&
-      <div className="rounded-xl border border-green-500/20 bg-green-500/8 px-3 py-3 space-y-2">
+      <div className="rounded-xl border border-sky-500/20 bg-sky-500/8 px-3 py-3 space-y-2">
           <div className="flex items-center justify-between text-xs">
-            <span className="text-green-400 font-semibold flex items-center gap-1.5">
+            <span className="text-sky-400 font-semibold flex items-center gap-1.5">
               <svg className="animate-spin w-3 h-3" viewBox="0 0 24 24" fill="none">
                 <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
                 <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
@@ -607,7 +607,7 @@ function UpdateChecker() {
             <span className="text-white/40 font-mono">{dlProgress?.percent ?? 0}%</span>
           </div>
           <div className="w-full h-1.5 bg-white/10 rounded-full overflow-hidden">
-            <div className="h-full bg-green-400 rounded-full transition-all duration-300"
+            <div className="h-full bg-sky-400 rounded-full transition-all duration-300"
           style={{ width: `${dlProgress?.percent ?? 0}%` }} />
           </div>
           <div className="flex items-center justify-between text-[10px] text-white/30">
@@ -622,12 +622,12 @@ function UpdateChecker() {
 
       {}
       {status === 'installing' &&
-      <div className="rounded-xl border border-green-500/20 bg-green-500/8 px-3 py-2.5 flex items-center gap-2">
-          <svg className="animate-spin w-3.5 h-3.5 text-green-400 flex-shrink-0" viewBox="0 0 24 24" fill="none">
+      <div className="rounded-xl border border-sky-500/20 bg-sky-500/8 px-3 py-2.5 flex items-center gap-2">
+          <svg className="animate-spin w-3.5 h-3.5 text-sky-400 flex-shrink-0" viewBox="0 0 24 24" fill="none">
             <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
             <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
           </svg>
-          <span className="text-xs text-green-400">{t('settings.launcher.installing')}</span>
+          <span className="text-xs text-sky-400">{t('settings.launcher.installing')}</span>
         </div>
       }
 
@@ -710,14 +710,14 @@ export default function LauncherTab({ settings, onChange }) {
               onClick={() => setLang(l.code)}
               className={`flex items-center gap-2.5 px-3 py-2.5 rounded-xl border transition-all ${
               lang === l.code ?
-              'border-green-500/40 bg-green-500/10 text-white' :
+              'border-sky-500/40 bg-sky-500/10 text-white' :
               'border-white/8 bg-white/3 text-white/50 hover:border-white/15 hover:text-white/70'}`
               }>
               
                 <span className="text-lg">{l.flag}</span>
                 <span className="text-xs font-medium">{l.name}</span>
                 {lang === l.code &&
-              <svg viewBox="0 0 24 24" fill="currentColor" className="w-3.5 h-3.5 text-green-400 ml-auto">
+              <svg viewBox="0 0 24 24" fill="currentColor" className="w-3.5 h-3.5 text-sky-400 ml-auto">
                     <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />
                   </svg>
               }
@@ -769,7 +769,7 @@ export default function LauncherTab({ settings, onChange }) {
         <div className="py-3">
           <div className="flex items-center justify-between mb-2">
             <p className="text-sm text-white/80">{t('settings.launcher.musicVolume')}</p>
-            <span className="text-xs font-mono text-green-400 bg-green-500/10 px-2 py-0.5 rounded-md">
+            <span className="text-xs font-mono text-sky-400 bg-sky-500/10 px-2 py-0.5 rounded-md">
               {settings.musicVolume ?? 35}%
             </span>
           </div>
@@ -793,7 +793,7 @@ export default function LauncherTab({ settings, onChange }) {
                 flex-1 h-1.5 rounded-full appearance-none cursor-pointer
                 [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-4
                 [&::-webkit-slider-thumb]:h-4 [&::-webkit-slider-thumb]:rounded-full
-                [&::-webkit-slider-thumb]:bg-green-400 [&::-webkit-slider-thumb]:cursor-pointer
+                [&::-webkit-slider-thumb]:bg-sky-400 [&::-webkit-slider-thumb]:cursor-pointer
                 ${settings.musicEnabled === false ? 'opacity-30 cursor-not-allowed' : 'bg-white/10'}
               `} />
             

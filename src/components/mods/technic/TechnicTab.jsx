@@ -91,7 +91,7 @@ export default function TechnicTab() {const { t } = useLang();
               value={searchInput}
               onChange={(e) => setSearchInput(e.target.value)}
               placeholder={t("auto.6e9c113845c3")}
-              className="w-full bg-white/5 border border-white/10 rounded-lg pl-9 pr-3 py-2.5 text-sm text-white placeholder-white/25 focus:outline-none focus:border-green-500/50 transition-colors" />
+              className="w-full bg-white/5 border border-white/10 rounded-lg pl-9 pr-3 py-2.5 text-sm text-white placeholder-white/25 focus:outline-none focus:border-sky-500/50 transition-colors" />
             
           </div>
           <ViewToggle view={view} onChange={setView} />
@@ -104,7 +104,7 @@ export default function TechnicTab() {const { t } = useLang();
               <div
               className="h-full rounded-full"
               style={{
-                background: 'linear-gradient(90deg, transparent 0%, #4ade80 40%, #22c55e 60%, transparent 100%)',
+                background: 'linear-gradient(90deg, transparent 0%, #38bdf8 40%, #0284c7 60%, transparent 100%)',
                 backgroundSize: '200% 100%',
                 animation: 'shimmer-bar 1.4s linear infinite',
                 width: '100%'

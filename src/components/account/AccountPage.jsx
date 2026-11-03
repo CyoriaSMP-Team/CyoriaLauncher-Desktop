@@ -87,13 +87,13 @@ function AccountRow({ account, isSelected, onSelect, onRemove, confirmId, onOpen
         group relative flex items-center gap-3 px-3 py-2.5 rounded-xl cursor-pointer
         transition-all duration-150
         ${isSelected ?
-      'bg-green-500/12 border border-green-500/25' :
+      'bg-sky-500/12 border border-sky-500/25' :
       'border border-transparent hover:bg-white/4 hover:border-white/8'}
       `
       }>
       
       {}
-      <div className={`rounded-lg overflow-hidden flex-shrink-0 ${isSelected ? 'ring-1 ring-green-500/50' : ''}`}>
+      <div className={`rounded-lg overflow-hidden flex-shrink-0 ${isSelected ? 'ring-1 ring-sky-500/50' : ''}`}>
         <PlayerHead uuid={account.uuid} username={account.username} size={36} />
       </div>
 
@@ -121,7 +121,7 @@ function AccountRow({ account, isSelected, onSelect, onRemove, confirmId, onOpen
 
       {}
       {isSelected &&
-      <svg viewBox="0 0 24 24" fill="currentColor" className="w-4 h-4 text-green-400 flex-shrink-0">
+      <svg viewBox="0 0 24 24" fill="currentColor" className="w-4 h-4 text-sky-400 flex-shrink-0">
           <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />
         </svg>
       }
@@ -134,7 +134,7 @@ function AccountRow({ account, isSelected, onSelect, onRemove, confirmId, onOpen
             absolute right-8 top-1/2 -translate-y-1/2
             w-6 h-6 flex items-center justify-center rounded-md
             opacity-0 group-hover:opacity-100
-            text-white/25 hover:text-green-400 hover:bg-green-500/10
+            text-white/25 hover:text-sky-400 hover:bg-sky-500/10
             transition-all duration-150
           "
 
@@ -227,11 +227,7 @@ export default function AccountPage() {
     load();
   }, [selected?.uuid]);
 
-  const prevSelectedId = useState(selectedId);
-  if (prevSelectedId[0] !== selectedId) {
-    prevSelectedId[0] = selectedId;
-    if (showUuid) setShowUuid(false);
-  }
+  useEffect(() => { setShowUuid(false) }, [selectedId])
 
   function handleCopyUuid() {
     if (!selected?.uuid) return;
@@ -341,8 +337,8 @@ export default function AccountPage() {
               onClick={() => setShowModal(true)}
               className="
                 flex items-center gap-1.5 px-3.5 py-2 rounded-xl
-                bg-green-500 hover:bg-green-400 text-white text-xs font-bold
-                transition-all duration-150 active:scale-95 shadow-lg shadow-green-500/20
+                bg-sky-500 hover:bg-sky-400 text-white text-xs font-bold
+                transition-all duration-150 active:scale-95 shadow-lg shadow-sky-500/20
               ">
 
 
@@ -364,7 +360,7 @@ export default function AccountPage() {
           <div className="flex-1 overflow-y-auto px-4 pb-3" style={{ scrollbarColor: 'rgba(255,255,255,0.1) transparent' }}>
             {loading ?
             <div className="flex items-center justify-center h-24">
-                <svg className="animate-spin w-5 h-5 text-green-400" viewBox="0 0 24 24" fill="none">
+                <svg className="animate-spin w-5 h-5 text-sky-400" viewBox="0 0 24 24" fill="none">
                   <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
                   <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
                 </svg>
@@ -382,7 +378,7 @@ export default function AccountPage() {
                 </div>
                 <button
                 onClick={() => setShowModal(true)}
-                className="px-4 py-2 rounded-xl bg-green-500/15 text-green-400 text-xs font-semibold border border-green-500/20 hover:bg-green-500/25 transition-all">
+                className="px-4 py-2 rounded-xl bg-sky-500/15 text-sky-400 text-xs font-semibold border border-sky-500/20 hover:bg-sky-500/25 transition-all">
                 
                   {t('account.page.addFirst')}
                 </button>
@@ -400,7 +396,7 @@ export default function AccountPage() {
                   onOpenSettings={setSettingsAccount} />
                 
                     {removeConfirm === account.id &&
-                <div className="absolute inset-0 rounded-xl bg-[#141414]/95 border border-red-500/25 flex items-center justify-center gap-2 z-10 px-3">
+                <div className="absolute inset-0 rounded-xl bg-[#0a0c0f]/95 border border-red-500/25 flex items-center justify-center gap-2 z-10 px-3">
                         <span className="text-xs text-white/60 flex-1">{t('account.page.deleteConfirm')}</span>
                         <button onClick={() => handleRemove(account.id)}
                   className="px-2.5 py-1 rounded-lg bg-red-500 hover:bg-red-400 text-white text-xs font-bold transition-all">{t('account.page.delete')}</button>
@@ -434,7 +430,7 @@ export default function AccountPage() {
               <button key={tab.id} onClick={() => setSkinSubTab(tab.id)}
               className={`px-3 py-2 text-xs font-semibold border-b-2 transition-all -mb-px ${
               skinSubTab === tab.id ?
-              'border-green-500 text-green-400' :
+              'border-sky-500 text-sky-400' :
               'border-transparent text-white/30 hover:text-white/60'}`
               }>
                   {tab.label}
@@ -488,7 +484,7 @@ export default function AccountPage() {
                         {t(noneKey)}
                       </p>
                       <button onClick={() => setShowSkinModal(true)}
-                    className="text-xs text-green-400/60 hover:text-green-400 transition-colors">
+                    className="text-xs text-sky-400/60 hover:text-sky-400 transition-colors">
                         {t(chooseKey)}
                       </button>
                     </div>);
@@ -506,7 +502,7 @@ export default function AccountPage() {
                   }}>
                     
                         {item.active &&
-                    <div className="absolute top-1.5 right-1.5 w-1.5 h-1.5 rounded-full bg-green-400" />
+                    <div className="absolute top-1.5 right-1.5 w-1.5 h-1.5 rounded-full bg-sky-400" />
                     }
                         <img src={item.url} alt={item.label}
                     className="w-10 h-10 rounded-lg object-contain"
@@ -514,12 +510,12 @@ export default function AccountPage() {
                     onError={(e) => {e.currentTarget.style.display = 'none';}} />
                         <span className="text-[9px] text-white/40 truncate w-full text-center">{item.label}</span>
                         {!item.active &&
-                    <span className="text-[9px] text-green-400/50 group-hover:text-green-400 transition-colors opacity-0 group-hover:opacity-100">
+                    <span className="text-[9px] text-sky-400/50 group-hover:text-sky-400 transition-colors opacity-0 group-hover:opacity-100">
                             {t('account.page.skinApply')}
                           </span>
                     }
                         {item.active &&
-                    <span className="text-[9px] text-green-400/60">{t('account.page.skinActive')}</span>
+                    <span className="text-[9px] text-sky-400/60">{t('account.page.skinActive')}</span>
                     }
                       </div>
                   )}
@@ -537,7 +533,7 @@ export default function AccountPage() {
         style={{ width: 240, minWidth: 200, maxWidth: 260 }}>
         
         {}
-        <div className="absolute inset-0 bg-gradient-to-br from-[#0d2b1a] via-[#0a1a0f] to-[#050d07]">
+        <div className="absolute inset-0 bg-gradient-to-br from-[#090d11] via-[#0b0f12] to-[#05080c]">
           {}
           <div
             className="absolute inset-0 opacity-10"
@@ -550,7 +546,7 @@ export default function AccountPage() {
             }} />
           
           {}
-          <div className="absolute bottom-1/3 left-1/2 -translate-x-1/2 w-40 h-40 bg-green-500/10 rounded-full blur-3xl pointer-events-none" />
+          <div className="absolute bottom-1/3 left-1/2 -translate-x-1/2 w-40 h-40 bg-sky-500/10 rounded-full blur-3xl pointer-events-none" />
         </div>
 
         {selected ?
@@ -600,7 +596,7 @@ export default function AccountPage() {
                 title={t('account.page.copyUuid')}>
                 
                   {copied ?
-                <svg viewBox="0 0 24 24" fill="currentColor" className="w-3 h-3 text-green-400">
+                <svg viewBox="0 0 24 24" fill="currentColor" className="w-3 h-3 text-sky-400">
                       <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />
                     </svg> :
 

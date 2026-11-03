@@ -183,7 +183,7 @@ async function getVersionGroups() {
 }
 
 const LOADERS = [
-{ id: 'vanilla', label: 'Vanilla', icon: vanillaIcon, color: '#4ade80', bg: 'bg-green-500', ring: 'ring-green-500/40', text: 'text-green-400', btnClass: 'bg-green-500 hover:bg-green-400 shadow-green-500/20' },
+{ id: 'vanilla', label: 'Vanilla', icon: vanillaIcon, color: '#38bdf8', bg: 'bg-sky-500', ring: 'ring-sky-500/40', text: 'text-sky-400', btnClass: 'bg-sky-500 hover:bg-sky-400 shadow-sky-500/20' },
 { id: 'fabric', label: 'Fabric', icon: fabricIcon, color: '#a855f7', bg: 'bg-purple-500', ring: 'ring-purple-500/40', text: 'text-purple-400', btnClass: 'bg-purple-500 hover:bg-purple-400 shadow-purple-500/20' },
 { id: 'forge', label: 'Forge', icon: forgeIcon, color: '#f97316', bg: 'bg-orange-500', ring: 'ring-orange-500/40', text: 'text-orange-400', btnClass: 'bg-orange-500 hover:bg-orange-400 shadow-orange-500/20' },
 { id: 'neoforge', label: 'NeoForge', icon: neoforgeIcon, color: '#f43f5e', bg: 'bg-rose-500', ring: 'ring-rose-500/40', text: 'text-rose-400', btnClass: 'bg-rose-500 hover:bg-rose-400 shadow-rose-500/20' }];
@@ -209,7 +209,7 @@ function GroupContent({ group, selectedVersion, onSelect }) {
   const currentTab = sections.find((s) => s.label === activeTab) ? activeTab : sections[0]?.label;
 
   const TAB_COLORS = {
-    'Release': 'bg-green-500/15 border-green-500/30 text-green-400',
+    'Release': 'bg-sky-500/15 border-sky-500/30 text-sky-400',
     'Pre-release / RC': 'bg-yellow-500/15 border-yellow-500/30 text-yellow-400',
     'Snapshot': 'bg-blue-500/15 border-blue-500/30 text-blue-400'
   };
@@ -255,7 +255,7 @@ function GroupContent({ group, selectedVersion, onSelect }) {
                   py-2 px-2 rounded-lg text-xs font-mono font-semibold
                   transition-all duration-150 active:scale-95 truncate
                   ${active ?
-                'bg-green-500/25 text-green-400 border border-green-500/40' :
+                'bg-sky-500/25 text-sky-400 border border-sky-500/40' :
                 'bg-white/5 text-white/50 border border-white/5 hover:bg-white/10 hover:text-white/90'}
                 `
                 }
@@ -408,7 +408,7 @@ function VersionAccordion({ selectedVersion, onSelect, groups }) {
                         py-2 px-3 rounded-lg text-sm font-mono font-semibold
                         transition-all duration-150 active:scale-95
                         ${active ?
-                      'bg-green-500/25 text-green-400 border border-green-500/40 shadow-sm shadow-green-500/20' :
+                      'bg-sky-500/25 text-sky-400 border border-sky-500/40 shadow-sm shadow-sky-500/20' :
                       'bg-white/5 text-white/55 border border-white/5 hover:bg-white/10 hover:text-white/90 hover:border-white/15'}
                       `
                       }>
@@ -524,7 +524,7 @@ function LoaderVersionList({ loader, gameVersion, selectedVersion, onSelect }) {
     const recommended = allStable[0]?.version ?? null;
 
     const TABS = [
-    { id: 'stable', label: 'Stable', count: stableLatest.length, activeBg: 'bg-green-500/15 border-green-500/30 text-green-400' },
+    { id: 'stable', label: 'Stable', count: stableLatest.length, activeBg: 'bg-sky-500/15 border-sky-500/30 text-sky-400' },
     { id: 'beta', label: 'Beta', count: allBeta.length, activeBg: 'bg-yellow-500/15 border-yellow-500/30 text-yellow-400' },
     { id: 'old', label: 'Old', count: oldVersions.length, activeBg: 'bg-white/8 border-white/15 text-white/70' }];
 
@@ -561,7 +561,7 @@ function LoaderVersionList({ loader, gameVersion, selectedVersion, onSelect }) {
                       ${active ? `bg-white/8 border ring-1 ${loaderCfg?.ring} border-white/10 ${loaderCfg?.text}` : 'border border-transparent text-white/55 hover:bg-white/5 hover:text-white/85'}`}>
                     <span>{v}</span>
                     <div className="flex items-center gap-2">
-                      {isRec && <span className={`text-[9px] font-bold uppercase tracking-wider px-1.5 py-0.5 rounded ${active ? 'bg-green-500/25 text-green-300' : 'bg-green-500/12 text-green-400/80'}`}><LocalizedText id="auto.e9a4bca7b765" /></span>}
+                      {isRec && <span className={`text-[9px] font-bold uppercase tracking-wider px-1.5 py-0.5 rounded ${active ? 'bg-sky-500/25 text-sky-300' : 'bg-sky-500/12 text-sky-400/80'}`}><LocalizedText id="auto.e9a4bca7b765" /></span>}
                       {active && <svg viewBox="0 0 24 24" fill="currentColor" className="w-3.5 h-3.5 flex-shrink-0"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" /></svg>}
                     </div>
                   </button>);
@@ -587,7 +587,7 @@ function LoaderVersionList({ loader, gameVersion, selectedVersion, onSelect }) {
     { id: 'all', label: 'All', count: allVersions.length, activeBg: 'bg-white/8 border-white/15 text-white/70' }] :
 
     [
-    { id: 'recommended', label: 'Recommended', count: recVersions.length, activeBg: 'bg-green-500/15 border-green-500/30 text-green-400' },
+    { id: 'recommended', label: 'Recommended', count: recVersions.length, activeBg: 'bg-sky-500/15 border-sky-500/30 text-sky-400' },
     { id: 'latest', label: 'Latest', count: latestVersions.length, activeBg: 'bg-orange-500/15 border-orange-500/30 text-orange-400' },
     { id: 'all', label: 'All', count: allVersions.length, activeBg: 'bg-white/8 border-white/15 text-white/70' }];
 
@@ -627,7 +627,7 @@ function LoaderVersionList({ loader, gameVersion, selectedVersion, onSelect }) {
                       ${active ? `bg-white/8 border ring-1 ${loaderCfg?.ring} border-white/10 ${loaderCfg?.text}` : 'border border-transparent text-white/55 hover:bg-white/5 hover:text-white/85'}`}>
                     <span>{v}</span>
                     <div className="flex items-center gap-2">
-                      {isRec && <span className={`text-[9px] font-bold uppercase tracking-wider px-1.5 py-0.5 rounded ${active ? 'bg-green-500/25 text-green-300' : 'bg-green-500/12 text-green-400/80'}`}><LocalizedText id="auto.e9a4bca7b765" /></span>}
+                      {isRec && <span className={`text-[9px] font-bold uppercase tracking-wider px-1.5 py-0.5 rounded ${active ? 'bg-sky-500/25 text-sky-300' : 'bg-sky-500/12 text-sky-400/80'}`}><LocalizedText id="auto.e9a4bca7b765" /></span>}
                       {isLat && !isRec && <span className={`text-[9px] font-bold uppercase tracking-wider px-1.5 py-0.5 rounded ${active ? 'bg-orange-500/25 text-orange-300' : 'bg-orange-500/12 text-orange-400/80'}`}><LocalizedText id="auto.c939c8a8d01c" /></span>}
                       {isNeo && v === allVersions[0] && <span className={`text-[9px] font-bold uppercase tracking-wider px-1.5 py-0.5 rounded ${active ? 'bg-rose-500/25 text-rose-300' : 'bg-rose-500/12 text-rose-400/80'}`}><LocalizedText id="auto.c939c8a8d01c" /></span>}
                       {active && <svg viewBox="0 0 24 24" fill="currentColor" className="w-3.5 h-3.5 flex-shrink-0"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" /></svg>}
@@ -708,7 +708,7 @@ export default function CreateProfileModal({ onClose, onCreate, groups = [] }) {
       
       {}
       <div
-        className="bg-[#141414] rounded-2xl border border-white/5 shadow-2xl flex overflow-hidden"
+        className="bg-[#0a0c0f] rounded-2xl border border-white/5 shadow-2xl flex overflow-hidden"
         style={{ width: 1100, maxHeight: '92vh' }}
         onClick={(e) => e.stopPropagation()}>
         

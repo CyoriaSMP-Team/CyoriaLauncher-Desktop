@@ -46,13 +46,13 @@ function SplashLogoInline({ size = 64, label }) {
       <div className="relative flex items-center justify-center" style={{ width: size, height: size }}>
         {}
         <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-          <div className="bg-green-500/15 rounded-full blur-2xl" style={{ width: size * 0.8, height: size * 0.8, animation: 'md-logo-glow 3s ease-in-out infinite' }} />
+          <div className="bg-sky-500/15 rounded-full blur-2xl" style={{ width: size * 0.8, height: size * 0.8, animation: 'md-logo-glow 3s ease-in-out infinite' }} />
         </div>
         {}
-        <div className="absolute rounded-lg" style={{ width: s, height: s, background: '#4ade80', boxShadow: '0 0 10px #4ade8099', animation: 'md-logo-tl 3s ease-in-out 0s infinite' }} />
-        <div className="absolute rounded-lg" style={{ width: s, height: s, background: '#22c55e', boxShadow: '0 0 10px #22c55e99', animation: 'md-logo-tr 3s ease-in-out 0.06s infinite' }} />
-        <div className="absolute rounded-lg" style={{ width: s, height: s, background: '#16a34a', boxShadow: '0 0 10px #16a34a99', animation: 'md-logo-bl 3s ease-in-out 0.12s infinite' }} />
-        <div className="absolute rounded-lg" style={{ width: s, height: s, background: '#4ade80', boxShadow: '0 0 10px #4ade8099', animation: 'md-logo-br 3s ease-in-out 0.18s infinite' }} />
+        <div className="absolute rounded-lg" style={{ width: s, height: s, background: '#38bdf8', boxShadow: '0 0 10px #38bdf899', animation: 'md-logo-tl 3s ease-in-out 0s infinite' }} />
+        <div className="absolute rounded-lg" style={{ width: s, height: s, background: '#0284c7', boxShadow: '0 0 10px #0284c799', animation: 'md-logo-tr 3s ease-in-out 0.06s infinite' }} />
+        <div className="absolute rounded-lg" style={{ width: s, height: s, background: '#0284c7', boxShadow: '0 0 10px #0284c799', animation: 'md-logo-bl 3s ease-in-out 0.12s infinite' }} />
+        <div className="absolute rounded-lg" style={{ width: s, height: s, background: '#38bdf8', boxShadow: '0 0 10px #38bdf899', animation: 'md-logo-br 3s ease-in-out 0.18s infinite' }} />
       </div>
       {label && <p className="text-[11px] text-white/30 font-medium">{label}</p>}
       <style>{`
@@ -162,11 +162,11 @@ const LOADER_COLORS = {
   forge: 'bg-orange-500/15 text-orange-300 border-orange-500/25',
   neoforge: 'bg-rose-500/15 text-rose-300 border-rose-500/25',
   quilt: 'bg-blue-500/15 text-blue-300 border-blue-500/25',
-  vanilla: 'bg-green-500/15 text-green-300 border-green-500/25'
+  vanilla: 'bg-sky-500/15 text-sky-300 border-sky-500/25'
 };
 
 const VERSION_TYPE_STYLE = {
-  release: 'bg-green-500/15 text-green-400 border-green-500/25',
+  release: 'bg-sky-500/15 text-sky-400 border-sky-500/25',
   beta: 'bg-yellow-500/15 text-yellow-400 border-yellow-500/25',
   alpha: 'bg-red-500/15 text-red-400 border-red-500/25'
 };
@@ -188,7 +188,7 @@ function FilterPill({ label, active, onClick, colorClass }) {
     <button
       onClick={onClick}
       className={`px-2.5 py-1 rounded-full text-xs font-semibold border transition-all capitalize ${active ?
-      colorClass || 'bg-green-500/15 text-green-400 border-green-500/30' :
+      colorClass || 'bg-sky-500/15 text-sky-400 border-sky-500/30' :
       'bg-white/5 text-white/40 border-white/10 hover:text-white/65 hover:bg-white/8'}`
       }>
       
@@ -299,7 +299,7 @@ export default function ModrinthDetail({ projectId, projectType, activeLoaders =
 
         {}
         <div className="flex items-center gap-4 mb-3 text-sm">
-          <span className="flex items-center gap-1.5 text-green-400/80">
+          <span className="flex items-center gap-1.5 text-sky-400/80">
             <DownloadSimple size={15} weight="duotone" />
             <span className="font-semibold">{formatNum(project.downloads)}</span>
             <span className="text-white/30 text-xs font-normal"><LocalizedText id="auto.a95805bb2d5c" /></span>
@@ -325,7 +325,7 @@ export default function ModrinthDetail({ projectId, projectType, activeLoaders =
               </span>
             )}
             {gameVersions.slice(0, 3).map((v) =>
-            <span key={v} className="text-[10px] px-2 py-0.5 rounded-full bg-green-500/8 text-green-400/60 border border-green-500/15">{v}</span>
+            <span key={v} className="text-[10px] px-2 py-0.5 rounded-full bg-sky-500/8 text-sky-400/60 border border-sky-500/15">{v}</span>
             )}
             {gameVersions.length > 3 &&
             <span className="text-[10px] px-2 py-0.5 rounded-full bg-white/5 text-white/25 border border-white/8">+{gameVersions.length - 3}<LocalizedText id="auto.68a4e3c624e6" /></span>
@@ -390,7 +390,7 @@ export default function ModrinthDetail({ projectId, projectType, activeLoaders =
           {DETAIL_TABS.map((tab) =>
           <button key={tab.id} onClick={() => setActiveTab(tab.id)}
           className={`px-4 py-2 text-xs font-semibold border-b-2 transition-all -mb-px ${activeTab === tab.id ?
-          'border-green-500 text-green-400' :
+          'border-sky-500 text-sky-400' :
           'border-transparent text-white/30 hover:text-white/60'}`
           }>
               {tab.label}
@@ -459,7 +459,7 @@ export default function ModrinthDetail({ projectId, projectType, activeLoaders =
                     <span>{formatDate(v.date_published)}</span>
                     <span>·</span>
                     <span className="flex items-center gap-0.5">
-                      <DownloadSimple size={10} weight="duotone" className="text-green-400/50" />
+                      <DownloadSimple size={10} weight="duotone" className="text-sky-400/50" />
                       {formatNum(v.downloads)}
                     </span>
                   </div>
@@ -472,7 +472,7 @@ export default function ModrinthDetail({ projectId, projectType, activeLoaders =
                 setShowInstall(true);
               }}
               className="flex-shrink-0 flex items-center gap-1.5 px-3.5 py-2 rounded-lg text-xs font-bold text-white transition-all hover:-translate-y-0.5"
-              style={{ background: 'linear-gradient(135deg,#22c55e,#16a34a)', boxShadow: '0 2px 12px rgba(74,222,128,0.2)' }}>
+              style={{ background: 'linear-gradient(135deg,#0284c7,#0284c7)', boxShadow: '0 2px 12px rgba(74,222,128,0.2)' }}>
               
                   <DownloadSimple size={13} weight="duotone" /><LocalizedText id="auto.ca1cb8b8c3d0" />
 

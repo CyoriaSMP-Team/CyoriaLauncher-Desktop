@@ -157,7 +157,7 @@ export function getLineColor(line) {
     case 'warn':     return '#facc15'
     case 'info':     return '#e5e7eb'
     case 'debug':    return '#93c5fd'
-    case 'done':     return '#4ade80'
+    case 'done':     return '#38bdf8'
     default:         return '#9ca3af'
   }
 }

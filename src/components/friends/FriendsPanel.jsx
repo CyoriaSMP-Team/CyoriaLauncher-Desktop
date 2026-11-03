@@ -51,8 +51,8 @@ async function apiPost(action, body) {
 
 // ── Shared components ─────────────────────────────────────────────────────────
 function OnlineDot({ online, playing }) {
-  if (playing) return <span className="w-2 h-2 rounded-full bg-green-400 shadow-[0_0_6px] shadow-green-400/50 flex-shrink-0" />;
-  if (online) return <span className="w-2 h-2 rounded-full bg-green-400/60 flex-shrink-0" />;
+  if (playing) return <span className="w-2 h-2 rounded-full bg-sky-400 shadow-[0_0_6px] shadow-sky-400/50 flex-shrink-0" />;
+  if (online) return <span className="w-2 h-2 rounded-full bg-sky-400/60 flex-shrink-0" />;
   return <span className="w-2 h-2 rounded-full bg-white/15 flex-shrink-0" />;
 }
 
@@ -125,7 +125,7 @@ function FriendsTab({ myUuid }) {
             <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z" />
           </svg>
           <input value={searchQuery} onChange={(e) => setSearch(e.target.value)} placeholder={t('friends.search')}
-          className="w-full bg-white/5 border border-white/8 rounded-lg pl-8 pr-8 py-2 text-xs text-white placeholder-white/20 focus:outline-none focus:border-green-500/40 transition-all" />
+          className="w-full bg-white/5 border border-white/8 rounded-lg pl-8 pr-8 py-2 text-xs text-white placeholder-white/20 focus:outline-none focus:border-sky-500/40 transition-all" />
           {searchQuery &&
           <button onClick={() => {setSearch('');setSearchResults(null);}} className="absolute right-2 top-1/2 -translate-y-1/2 text-white/25 hover:text-white/60">
               <svg viewBox="0 0 24 24" fill="currentColor" className="w-3.5 h-3.5"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" /></svg>
@@ -154,7 +154,7 @@ function FriendsTab({ myUuid }) {
                 {u.uuid === myUuid ?
             <span className="text-[9px] text-white/20">{t('friends.you')}</span> :
             friendUuids.has(u.uuid) ?
-            <span className="text-[9px] text-green-400/60">{t('friends.alreadyFriend')}</span> :
+            <span className="text-[9px] text-sky-400/60">{t('friends.alreadyFriend')}</span> :
 
             <SendRequestBtn uuid={u.uuid} myUuid={myUuid} onRequest={handleRequest} />
             }
@@ -163,7 +163,7 @@ function FriendsTab({ myUuid }) {
           </div> :
         loading ?
         <div className="flex items-center justify-center py-8">
-            <div className="w-5 h-5 border-2 border-green-500/30 border-t-green-400 rounded-full animate-spin" />
+            <div className="w-5 h-5 border-2 border-sky-500/30 border-t-sky-400 rounded-full animate-spin" />
           </div> :
         friends.length === 0 ?
         <EmptyState
@@ -175,7 +175,7 @@ function FriendsTab({ myUuid }) {
         <>
             {friends.filter((f) => f.isOnline).length > 0 &&
           <div className="mb-3">
-                <p className="text-[10px] text-green-400/60 uppercase tracking-wider font-semibold px-2 mb-1"><LocalizedText id="auto.429105dd4ddc" />{onlineCount}</p>
+                <p className="text-[10px] text-sky-400/60 uppercase tracking-wider font-semibold px-2 mb-1"><LocalizedText id="auto.429105dd4ddc" />{onlineCount}</p>
                 {friends.filter((f) => f.isOnline).map((f) =>
             <FriendRow key={f.uuid} friend={f} onRemove={handleRemove} />
             )}
@@ -203,7 +203,7 @@ function SendRequestBtn({ uuid, myUuid, onRequest }) {
   <span className="text-[9px] text-white/30">{t('friends.sent')}</span> :
 
   <button onClick={() => {onRequest(uuid);setSent(true);}}
-  className="text-[10px] px-2 py-1 rounded-lg bg-green-500/15 text-green-400 font-semibold hover:bg-green-500/25 border border-green-500/20 transition-all"><LocalizedText id="auto.582679894d9a" />
+  className="text-[10px] px-2 py-1 rounded-lg bg-sky-500/15 text-sky-400 font-semibold hover:bg-sky-500/25 border border-sky-500/20 transition-all"><LocalizedText id="auto.582679894d9a" />
 
   </button>;
 
@@ -269,7 +269,7 @@ function RequestsTab({ myUuid }) {
     <div className="flex-1 overflow-y-auto px-3 pb-3" style={{ scrollbarColor: 'rgba(255,255,255,0.08) transparent' }}>
       {loading ?
       <div className="flex items-center justify-center py-8">
-          <div className="w-5 h-5 border-2 border-green-500/30 border-t-green-400 rounded-full animate-spin" />
+          <div className="w-5 h-5 border-2 border-sky-500/30 border-t-sky-400 rounded-full animate-spin" />
         </div> :
       pending.length === 0 ?
       <EmptyState
@@ -289,7 +289,7 @@ function RequestsTab({ myUuid }) {
               </div>
               <div className="flex items-center gap-1 flex-shrink-0">
                 <button onClick={() => handleAccept(req.fromUuid)}
-            className="w-7 h-7 flex items-center justify-center rounded-lg bg-green-500/15 text-green-400 hover:bg-green-500/30 transition-all">
+            className="w-7 h-7 flex items-center justify-center rounded-lg bg-sky-500/15 text-sky-400 hover:bg-sky-500/30 transition-all">
                   <svg viewBox="0 0 24 24" fill="currentColor" className="w-4 h-4"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" /></svg>
                 </button>
                 <button onClick={() => handleReject(req.fromUuid)}

@@ -1351,5 +1351,61 @@
     "73c5685219c1": "Discord",
     "88d3b75b46b3": "Website",
     "all": "Tất cả"
+  },
+  "cyoria": {
+    "loginSubtitle": "Chọn cách đăng nhập",
+    "optionalTitle": "Tài khoản CyoriaSMP (tùy chọn)",
+    "optionalDescription": "Đăng nhập để kết nối tài khoản CyoriaSMP. Liên kết Discord được xử lý qua CyoriaSMP Auth, không dùng dịch vụ launcher khác.",
+    "minecraftIndependent": "Không bắt buộc đăng nhập để chơi Minecraft hoặc tham gia máy chủ khác.",
+    "legacyOtpDisabled": "Luồng xác minh email VoxelX cũ đã bị vô hiệu hóa.",
+    "back": "Quay lại tài khoản",
+    "profileSettings": "Tài khoản Minecraft",
+    "username": "Tên người chơi",
+    "accountType": "Loại tài khoản",
+    "discordViaAuth": "Liên kết Discord được xác minh qua CyoriaSMP Auth. Không bắt buộc để chơi Minecraft.",
+    "linkDiscord": "Liên kết Discord đã xác minh",
+    "unlinkDiscord": "Hủy liên kết Discord",
+    "discordNotVerified": "CyoriaSMP Auth chưa trả về Discord đã xác minh.",
+    "working": "Đang xử lý…",
+    "connect": "Đăng nhập qua CyoriaSMP Auth",
+    "disconnect": "Ngắt kết nối Cyoria",
+    "signingIn": "Đang mở trang đăng nhập bảo mật…",
+    "connectedAs": "Đã kết nối với",
+    "clientNotConfigured": "Ứng dụng OAuth desktop CyoriaSMP chưa được đăng ký/cấu hình. Microsoft và Offline vẫn hoạt động bình thường.",
+    "desktopOnly": "CyoriaSMP Auth chỉ khả dụng trên ứng dụng desktop.",
+    "statusError": "Không thể tải trạng thái CyoriaSMP Auth.",
+    "offlineTab": "Ngoại tuyến",
+    "microsoftTab": "Microsoft",
+    "cyoriaTab": "CyoriaSMP (tùy chọn)",
+    "bgCategory": {
+      "Tối giản": "Tối giản",
+      "Thiên nhiên": "Thiên nhiên",
+      "Màu sắc": "Màu sắc",
+      "Khác": "Khác"
+    },
+    "javaDescription": {
+      "adoptium": "OpenJDK ổn định, phổ biến và tương thích với hầu hết phiên bản Minecraft.",
+      "azul": "Java nhẹ, khởi động nhanh, tiết kiệm bộ nhớ.",
+      "graalvm": "Trình biên dịch JIT tối ưu, giảm giật khi chơi Minecraft modded."
+    },
+    "javaTags": {
+      "adoptium": [
+        "Ổn định",
+        "Phổ biến",
+        "OpenJDK"
+      ],
+      "azul": [
+        "Nhẹ",
+        "Khởi động nhanh",
+        "Tiết kiệm RAM"
+      ],
+      "graalvm": [
+        "Hiệu năng cao",
+        "Giảm lag",
+        "JIT tiên tiến"
+      ]
+    },
+    "chooseJava": "Chọn bản phân phối Java",
+    "chooseVersion": "Chọn phiên bản"
   }
 }

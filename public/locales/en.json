@@ -1351,5 +1351,61 @@
     "73c5685219c1": "Discord",
     "88d3b75b46b3": "Website",
     "all": "All"
+  },
+  "cyoria": {
+    "loginSubtitle": "Choose how you want to sign in",
+    "optionalTitle": "CyoriaSMP account (optional)",
+    "optionalDescription": "Sign in to connect your CyoriaSMP identity. Discord linking is handled by CyoriaSMP Auth, not an external launcher service.",
+    "minecraftIndependent": "This sign-in is not required to play Minecraft or use other servers.",
+    "legacyOtpDisabled": "The legacy VoxelX email verification flow is disabled.",
+    "back": "Back to accounts",
+    "profileSettings": "Minecraft account",
+    "username": "Username",
+    "accountType": "Account type",
+    "discordViaAuth": "Discord linking is verified through CyoriaSMP Auth. It is optional and does not replace Minecraft sign-in.",
+    "linkDiscord": "Link verified Discord",
+    "unlinkDiscord": "Unlink Discord",
+    "discordNotVerified": "No verified Discord identity was returned by CyoriaSMP Auth.",
+    "working": "Working…",
+    "connect": "Continue with CyoriaSMP Auth",
+    "disconnect": "Disconnect Cyoria account",
+    "signingIn": "Opening secure sign-in…",
+    "connectedAs": "Connected as",
+    "clientNotConfigured": "CyoriaSMP desktop OAuth client is not registered/configured yet. Microsoft and Offline login still work normally.",
+    "desktopOnly": "CyoriaSMP Auth is available in the desktop app.",
+    "statusError": "Unable to load CyoriaSMP Auth status.",
+    "offlineTab": "Offline",
+    "microsoftTab": "Microsoft",
+    "cyoriaTab": "CyoriaSMP (optional)",
+    "bgCategory": {
+      "Tối giản": "Minimal",
+      "Thiên nhiên": "Nature",
+      "Màu sắc": "Colors",
+      "Khác": "Other"
+    },
+    "javaDescription": {
+      "adoptium": "Stable OpenJDK, widely used and compatible with most Minecraft versions.",
+      "azul": "Lightweight Java runtime with quick startup and efficient memory use.",
+      "graalvm": "Optimized JIT compiler for modded Minecraft and reduced lag spikes."
+    },
+    "javaTags": {
+      "adoptium": [
+        "Stable",
+        "Popular",
+        "OpenJDK"
+      ],
+      "azul": [
+        "Lightweight",
+        "Fast startup",
+        "Low memory"
+      ],
+      "graalvm": [
+        "High performance",
+        "Less lag",
+        "Advanced JIT"
+      ]
+    },
+    "chooseJava": "Choose Java distribution",
+    "chooseVersion": "Choose version"
   }
 }

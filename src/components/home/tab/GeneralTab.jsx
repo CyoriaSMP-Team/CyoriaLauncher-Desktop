@@ -151,8 +151,8 @@ import LocalizedText from "../../../i18n/LocalizedText.jsx";function LoaderVersi
                 
                     <span>{v}</span>
                     <div className="flex items-center gap-1.5">
-                      {isFabricStable && <span className="text-[9px] px-1 py-0.5 rounded bg-green-500/15 text-green-400"><LocalizedText id="auto.9c7091c51bd1" /></span>}
-                      {isRec && <span className="text-[9px] px-1 py-0.5 rounded bg-green-500/15 text-green-400"><LocalizedText id="auto.064cb5d3122e" /></span>}
+                      {isFabricStable && <span className="text-[9px] px-1 py-0.5 rounded bg-sky-500/15 text-sky-400"><LocalizedText id="auto.9c7091c51bd1" /></span>}
+                      {isRec && <span className="text-[9px] px-1 py-0.5 rounded bg-sky-500/15 text-sky-400"><LocalizedText id="auto.064cb5d3122e" /></span>}
                       {isLatest && !isRec && <span className="text-[9px] px-1 py-0.5 rounded bg-orange-500/15 text-orange-400"><LocalizedText id="auto.13984ce56662" /></span>}
                       {isSelected &&
                   <svg viewBox="0 0 24 24" fill="currentColor" className="w-3 h-3 flex-shrink-0">
@@ -293,7 +293,7 @@ export default function GeneralTab({ profile, onProfileUpdated }) {
       <div className="flex flex-col gap-2">
         <div className="flex items-center justify-between">
           <label className="text-xs font-medium text-white/50">{t('profileSettings.general.ramLabel')}</label>
-          <span className="text-xs font-bold text-green-400">{ram}<LocalizedText id="auto.e484517c3ae6" /></span>
+          <span className="text-xs font-bold text-sky-400">{ram}<LocalizedText id="auto.e484517c3ae6" /></span>
         </div>
         <div className="relative flex items-center gap-0 h-6">
           {ramMarks.map((m, i) => {
@@ -309,9 +309,9 @@ export default function GeneralTab({ profile, onProfileUpdated }) {
                 
                 <div className={`w-full h-1.5 transition-all ${
                 isLast ? 'rounded-r-full' : i === 0 ? 'rounded-l-full' : ''} ${
-                isActive ? 'bg-green-500' : 'bg-white/10 group-hover:bg-white/20'}`} />
+                isActive ? 'bg-sky-500' : 'bg-white/10 group-hover:bg-white/20'}`} />
                 {isCurrent &&
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-3.5 h-3.5 rounded-full bg-green-400 shadow-lg shadow-green-500/40 ring-2 ring-green-400/30 z-10" />
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-3.5 h-3.5 rounded-full bg-sky-400 shadow-lg shadow-sky-500/40 ring-2 ring-sky-400/30 z-10" />
                 }
               </button>);
 
@@ -323,7 +323,7 @@ export default function GeneralTab({ profile, onProfileUpdated }) {
             key={m}
             onClick={() => setRam(m)}
             className={`flex-1 text-center text-[9px] py-0.5 rounded transition-all ${
-            m === ram ? 'text-green-400 font-bold' : 'text-white/20 hover:text-white/50'}`
+            m === ram ? 'text-sky-400 font-bold' : 'text-white/20 hover:text-white/50'}`
             }>
             
               {m}G
@@ -357,7 +357,7 @@ export default function GeneralTab({ profile, onProfileUpdated }) {
           <button
             key={label}
             onClick={() => {setWinWidth(w);setWinHeight(h);}}
-            className={`text-[10px] px-2 py-1 rounded-lg border transition-all ${winWidth === w && winHeight === h ? 'border-green-500/40 bg-green-500/10 text-green-400' : 'border-white/8 bg-white/3 text-white/30 hover:text-white/60 hover:border-white/15'}`}>
+            className={`text-[10px] px-2 py-1 rounded-lg border transition-all ${winWidth === w && winHeight === h ? 'border-sky-500/40 bg-sky-500/10 text-sky-400' : 'border-white/8 bg-white/3 text-white/30 hover:text-white/60 hover:border-white/15'}`}>
             
               {label}
             </button>
@@ -407,11 +407,11 @@ export default function GeneralTab({ profile, onProfileUpdated }) {
           <button
             key={i}
             onClick={() => setJavaRuntime(j.path)}
-            className={`flex items-center gap-2 px-3 py-2 rounded-lg text-left transition-all ${javaRuntime === j.path ? 'bg-green-500/10 border border-green-500/20 text-green-400' : 'bg-white/3 border border-white/5 text-white/50 hover:bg-white/6 hover:text-white/70'}`}>
+            className={`flex items-center gap-2 px-3 py-2 rounded-lg text-left transition-all ${javaRuntime === j.path ? 'bg-sky-500/10 border border-sky-500/20 text-sky-400' : 'bg-white/3 border border-white/5 text-white/50 hover:bg-white/6 hover:text-white/70'}`}>
             
                 <span className="text-[10px] font-mono truncate flex-1">{j.path}</span>
                 {j.version && <span className="text-[9px] text-white/25 flex-shrink-0"><LocalizedText id="auto.04a73ebd92fe" />{j.version}</span>}
-                {javaRuntime === j.path && <span className="flex-shrink-0 text-green-400">{Icons.check}</span>}
+                {javaRuntime === j.path && <span className="flex-shrink-0 text-sky-400">{Icons.check}</span>}
               </button>
           )}
           </div>
@@ -427,7 +427,7 @@ export default function GeneralTab({ profile, onProfileUpdated }) {
           </div>
           <button
           onClick={() => setAutoPerformanceMods((v) => !v)}
-          className={`relative flex-shrink-0 w-9 h-5 rounded-full transition-all mt-0.5 ${autoPerformanceMods ? 'bg-green-500' : 'bg-white/10'}`}
+          className={`relative flex-shrink-0 w-9 h-5 rounded-full transition-all mt-0.5 ${autoPerformanceMods ? 'bg-sky-500' : 'bg-white/10'}`}
           title={autoPerformanceMods ? t('profileSettings.general.autoPerformanceModsOn') : t('profileSettings.general.autoPerformanceModsOff')}>
           
             <span className={`absolute top-0.5 w-4 h-4 rounded-full bg-white shadow transition-all ${autoPerformanceMods ? 'left-[18px]' : 'left-0.5'}`} />
@@ -439,7 +439,7 @@ export default function GeneralTab({ profile, onProfileUpdated }) {
       <button
         onClick={handleSave}
         disabled={saving}
-        className={`w-full py-2.5 rounded-xl text-sm font-bold transition-all flex items-center justify-center gap-2 ${saved ? 'bg-green-500/20 border border-green-500/30 text-green-400' : 'bg-white/8 border border-white/10 text-white/70 hover:bg-white/12 hover:text-white/90'} disabled:opacity-50`}>
+        className={`w-full py-2.5 rounded-xl text-sm font-bold transition-all flex items-center justify-center gap-2 ${saved ? 'bg-sky-500/20 border border-sky-500/30 text-sky-400' : 'bg-white/8 border border-white/10 text-white/70 hover:bg-white/12 hover:text-white/90'} disabled:opacity-50`}>
         
         {saving ? Icons.spin : saved ? Icons.check : null}
         {saving ? t('profileSettings.general.saving') : saved ? t('profileSettings.general.saved') : t('profileSettings.general.save')}

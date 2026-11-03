@@ -54,7 +54,7 @@ export default function VersionSelect({ versions, value, onChange, loading, plac
   }, [open, selected]);
 
   function getTypeColor(type) {
-    if (type === 'release') return 'bg-green-500/15 text-green-400';
+    if (type === 'release') return 'bg-sky-500/15 text-sky-400';
     if (type === 'beta') return 'bg-yellow-500/15 text-yellow-400';
     return 'bg-white/8 text-white/40';
   }
@@ -126,7 +126,7 @@ export default function VersionSelect({ versions, value, onChange, loading, plac
                 className="w-full flex items-center gap-2.5 px-3 py-2 text-left transition-all duration-100"
                 style={{
                   background: isSelected ? 'rgba(74,222,128,0.1)' : 'transparent',
-                  color: isSelected ? '#4ade80' : 'rgba(255,255,255,0.65)'
+                  color: isSelected ? '#38bdf8' : 'rgba(255,255,255,0.65)'
                 }}
                 onMouseEnter={(e) => {if (!isSelected) e.currentTarget.style.background = 'rgba(255,255,255,0.05)';}}
                 onMouseLeave={(e) => {if (!isSelected) e.currentTarget.style.background = 'transparent';}}>
@@ -148,7 +148,7 @@ export default function VersionSelect({ versions, value, onChange, loading, plac
 
                   {}
                   {isSelected &&
-                <svg className="w-3 h-3 text-green-400 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24">
+                <svg className="w-3 h-3 text-sky-400 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24">
                       <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />
                     </svg>
                 }

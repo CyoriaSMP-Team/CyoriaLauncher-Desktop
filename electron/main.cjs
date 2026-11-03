@@ -34,7 +34,7 @@ const path = require('path')
 const fs   = require('fs')
 const rpc  = require('./discordRPC.cjs')
 const { getHwid, getHwidFormatted } = require('./hwid.cjs')
-const { startDiscordLink } = require('./discordAuth.cjs')
+// Discord identity is verified only through CyoriaSMP OIDC (no VoxelX backend).
 const cyoriaIdentity = require('./cyoriaIdentity.cjs')
 const { registerProfileHandlers, registerGroupHandlers, registerProfileContentHandlers, registerJavaDistroHandlers } = require('./profileManager.cjs')
 const { registerServerHandlers } = require('./serverManager.cjs')
@@ -271,9 +271,9 @@ const DEFAULT_SETTINGS = {
   discordRPC:           false,
   boostMode:            false,
   fontId:               'system',
-  colorAccent:          '#4ade80',
-  colorHover:           '#86efac',
-  colorActive:          '#22c55e',
+  colorAccent:          '#38bdf8',
+  colorHover:           '#7dd3fc',
+  colorActive:          '#0284c7',
   background:           'dark',
   borderRadius:         12,
   borderColor:          'rgba(255,255,255,0.08)',
@@ -293,6 +293,11 @@ function sanitizeSettings(input = {}) {
     if (key in input) safe[key] = input[key]
   }
 
+  // Migrate only exact upstream default green values; preserve user-customized palettes.
+  const previousDefaults = { colorAccent: '#4ade80', colorHover: '#86efac', colorActive: '#22c55e' }
+  for (const [key, previous] of Object.entries(previousDefaults)) {
+    if (safe[key] === previous) safe[key] = DEFAULT_SETTINGS[key]
+  }
   return safe
 }
 
@@ -1940,14 +1945,21 @@ ipcMain.handle('system:boostMode', async (e, enable) => {
   }
 })
 
-ipcMain.handle('discord:startLink', async (e) => {
-  if (!getTrustedWindow(e)) return { error: 'Unauthorized' }
+ipcMain.handle('discord:startLink', async (event) => {
+  if (!getTrustedWindow(event)) return { error: 'Unauthorized' }
   try {
-    const profile = normalizeDiscordProfile(await startDiscordLink())
-    if (!profile) return { error: 'Du lieu tai khoan Discord khong hop le' }
-    return { ok: true, profile }
-  } catch (err) {
-    return { error: err.message }
-  }
+    const result = await cyoriaIdentity.login()
+    const id = result.identity
+    if (!id?.discord_user_id || !/^\d{17,20}$/.test(id.discord_user_id)) {
+      return { error: 'Cyoria account has no verified Discord connection. Link Discord in CyoriaSMP Auth first.' }
+    }
+    return { ok: true, profile: {
+      discordId: id.discord_user_id,
+      discordUsername: id.preferred_username || id.name || 'Cyoria user',
+      discordGlobalName: id.name || id.preferred_username || null,
+      discordDiscriminator: null,
+      discordAvatarUrl: null
+    } }
+  } catch (err) { return { error: err.message } }
 })
 

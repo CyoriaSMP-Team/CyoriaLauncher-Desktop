@@ -118,7 +118,7 @@ export default function ModsTab({ profile, accountId }) {
     <DropZoneWrapper onDrop={handleDropFiles} accept={['.jar']} color="green">
       <div className="flex flex-col h-full">
         {installing.length > 0 &&
-        <div className="flex items-center gap-2 px-3 py-2 bg-green-500/10 border-b border-green-500/20 text-xs text-green-400">
+        <div className="flex items-center gap-2 px-3 py-2 bg-sky-500/10 border-b border-sky-500/20 text-xs text-sky-400">
             {Icons.spin}
             <span>{t('profileSettings.mods.installing', { count: installing.length })}</span>
           </div>
@@ -166,7 +166,7 @@ export default function ModsTab({ profile, accountId }) {
                           <button
                         onClick={() => handleToggle(mod)}
                         disabled={toggling === mod.fileName}
-                        className={`relative w-9 h-5 rounded-full transition-all flex-shrink-0 ${mod.enabled ? 'bg-green-500' : 'bg-white/10'} disabled:opacity-50`}
+                        className={`relative w-9 h-5 rounded-full transition-all flex-shrink-0 ${mod.enabled ? 'bg-sky-500' : 'bg-white/10'} disabled:opacity-50`}
                         title={mod.enabled ? t('profileSettings.mods.disableMod') : t('profileSettings.mods.enableMod')}>
                         
                             <span className={`absolute top-0.5 w-4 h-4 rounded-full bg-white shadow transition-all ${mod.enabled ? 'left-[18px]' : 'left-0.5'}`} />
@@ -198,7 +198,7 @@ export default function ModsTab({ profile, accountId }) {
                       <button
                       onClick={() => handleToggle(mod)}
                       disabled={toggling === mod.fileName}
-                      className={`absolute top-1.5 right-1.5 w-6 h-3.5 rounded-full transition-all ${mod.enabled ? 'bg-green-500' : 'bg-white/15'} disabled:opacity-50`}
+                      className={`absolute top-1.5 right-1.5 w-6 h-3.5 rounded-full transition-all ${mod.enabled ? 'bg-sky-500' : 'bg-white/15'} disabled:opacity-50`}
                       title={mod.enabled ? t('profileSettings.mods.disable') : t('profileSettings.mods.enable')}>
                       
                         <span className={`absolute top-0.5 w-2.5 h-2.5 rounded-full bg-white shadow transition-all ${mod.enabled ? 'left-[10px]' : 'left-0.5'}`} />

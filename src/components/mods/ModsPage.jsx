@@ -62,7 +62,7 @@ export default function ModsPage() {
                 flex items-center gap-2.5 px-5 py-3 text-sm font-semibold
                 border-b-2 transition-all duration-150 -mb-px
                 ${platform === tab.id
-                  ? 'border-green-500 text-green-400'
+                  ? 'border-sky-500 text-sky-400'
                   : 'border-transparent text-white/35 hover:text-white/60 hover:border-white/15'
                 }
               `}

@@ -43,7 +43,7 @@ const LOADER_COLORS = {
   fabric: 'text-purple-400',
   forge: 'text-orange-400',
   neoforge: 'text-rose-400',
-  vanilla: 'text-green-400'
+  vanilla: 'text-sky-400'
 };
 
 function ProfileSelect({ profiles, value, onChange }) {
@@ -103,7 +103,7 @@ function ProfileSelect({ profiles, value, onChange }) {
               <button key={p.id} type="button"
               onClick={() => {onChange(p);setOpen(false);}}
               className="w-full flex items-center gap-2.5 px-3 py-2 text-left transition-all duration-100"
-              style={{ background: isSelected ? 'rgba(74,222,128,0.1)' : 'transparent', color: isSelected ? '#4ade80' : 'rgba(255,255,255,0.65)' }}
+              style={{ background: isSelected ? 'rgba(74,222,128,0.1)' : 'transparent', color: isSelected ? '#38bdf8' : 'rgba(255,255,255,0.65)' }}
               onMouseEnter={(e) => {if (!isSelected) e.currentTarget.style.background = 'rgba(255,255,255,0.05)';}}
               onMouseLeave={(e) => {if (!isSelected) e.currentTarget.style.background = 'transparent';}}>
                 
@@ -111,7 +111,7 @@ function ProfileSelect({ profiles, value, onChange }) {
                   <span className="text-[10px] text-white/25 flex-shrink-0">{p.gameVersion}</span>
                   <span className={`text-[9px] capitalize flex-shrink-0 ${LOADER_COLORS[p.loader] || 'text-white/40'}`}>{p.loader}</span>
                   {isSelected &&
-                <svg className="w-3 h-3 text-green-400 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24">
+                <svg className="w-3 h-3 text-sky-400 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24">
                       <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />
                     </svg>
                 }
@@ -255,7 +255,7 @@ export default function InstallModal({ project, versions, projectType, source = 
                   </p>
                 </div>
                 <span className={`text-[10px] px-2 py-0.5 rounded-full font-semibold border flex-shrink-0 ${
-              selectedVersion.version_type === 'release' ? 'bg-green-500/15 text-green-400 border-green-500/25' :
+              selectedVersion.version_type === 'release' ? 'bg-sky-500/15 text-sky-400 border-sky-500/25' :
               selectedVersion.version_type === 'beta' ? 'bg-yellow-500/15 text-yellow-400 border-yellow-500/25' :
               'bg-red-500/15 text-red-400 border-red-500/25'}`
               }>
@@ -283,7 +283,7 @@ export default function InstallModal({ project, versions, projectType, source = 
               <p className="text-xs text-white/50 mb-1.5">{progress.log}</p>
               {progress.total > 0 &&
             <div className="w-full h-1 bg-white/10 rounded-full overflow-hidden">
-                  <div className="h-full bg-green-400 rounded-full transition-all duration-300"
+                  <div className="h-full bg-sky-400 rounded-full transition-all duration-300"
               style={{ width: `${progress.percent}%` }} />
                 </div>
             }
@@ -299,11 +299,11 @@ export default function InstallModal({ project, versions, projectType, source = 
 
           {}
           {done &&
-          <div className="rounded-xl p-3 bg-green-500/10 border border-green-500/20 flex items-center gap-2">
-              <svg className="w-4 h-4 text-green-400 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24">
+          <div className="rounded-xl p-3 bg-sky-500/10 border border-sky-500/20 flex items-center gap-2">
+              <svg className="w-4 h-4 text-sky-400 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24">
                 <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />
               </svg>
-              <p className="text-xs text-green-400 font-semibold"><LocalizedText id="auto.2491383f3df3" /></p>
+              <p className="text-xs text-sky-400 font-semibold"><LocalizedText id="auto.2491383f3df3" /></p>
             </div>
           }
 
@@ -317,7 +317,7 @@ export default function InstallModal({ project, versions, projectType, source = 
             <button onClick={handleInstall}
             disabled={installing || !selectedVersion || !selectedProfile}
             className="flex-1 py-2.5 rounded-xl text-sm font-bold text-white transition-all disabled:opacity-40"
-            style={{ background: 'linear-gradient(135deg,#22c55e,#16a34a)' }}>
+            style={{ background: 'linear-gradient(135deg,#0284c7,#0284c7)' }}>
                 {installing ? 'Installing...' : 'Install'}
               </button>
             }

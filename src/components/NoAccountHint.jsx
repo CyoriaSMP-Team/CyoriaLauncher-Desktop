@@ -109,19 +109,19 @@ export default function NoAccountHint({ onGoToAccount }) {
           
 
           {}
-          <div className="relative bg-[#161616] border border-green-500/20 rounded-xl shadow-2xl shadow-black/70 w-60 overflow-hidden">
-            <div className="h-[2px] bg-gradient-to-r from-green-500 to-emerald-400 w-full" />
+          <div className="relative bg-[#161616] border border-sky-500/20 rounded-xl shadow-2xl shadow-black/70 w-60 overflow-hidden">
+            <div className="h-[2px] bg-gradient-to-r from-sky-500 to-cyan-400 w-full" />
 
             {}
             <span className="absolute top-3 right-3 flex h-2 w-2">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75" />
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500" />
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-sky-400 opacity-75" />
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-sky-500" />
             </span>
 
             <div className="p-4">
               <div className="flex items-center gap-2.5 mb-2.5">
-                <div className="w-8 h-8 rounded-lg bg-green-500/15 border border-green-500/20 flex items-center justify-center flex-shrink-0">
-                  <svg viewBox="0 0 24 24" fill="currentColor" className="w-4 h-4 text-green-400">
+                <div className="w-8 h-8 rounded-lg bg-sky-500/15 border border-sky-500/20 flex items-center justify-center flex-shrink-0">
+                  <svg viewBox="0 0 24 24" fill="currentColor" className="w-4 h-4 text-sky-400">
                     <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
                   </svg>
                 </div>
@@ -141,7 +141,7 @@ export default function NoAccountHint({ onGoToAccount }) {
                 onClick={goToAccount}
                 className="
                   w-full py-2 rounded-lg text-xs font-bold
-                  bg-green-500 hover:bg-green-400 text-white
+                  bg-sky-500 hover:bg-sky-400 text-white
                   transition-all duration-150 active:scale-95
                   flex items-center justify-center gap-1.5
                 ">

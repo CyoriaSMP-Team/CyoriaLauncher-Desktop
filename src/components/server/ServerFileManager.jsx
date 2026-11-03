@@ -197,7 +197,7 @@ export default function ServerFileManager({ server }) {
     <div className="flex h-full overflow-hidden">
       {}
       <div
-        className={`flex flex-col overflow-hidden border-r border-white/5 transition-all ${openedFile ? 'w-[42%] min-w-[220px]' : 'flex-1'} ${dragOver ? 'ring-2 ring-inset ring-green-500/40' : ''}`}
+        className={`flex flex-col overflow-hidden border-r border-white/5 transition-all ${openedFile ? 'w-[42%] min-w-[220px]' : 'flex-1'} ${dragOver ? 'ring-2 ring-inset ring-sky-500/40' : ''}`}
         onDragOver={onDragOver} onDragLeave={onDragLeave} onDrop={onDrop}>
         
         {}
@@ -230,7 +230,7 @@ export default function ServerFileManager({ server }) {
           <button
             onClick={() => fileInputRef.current?.click()}
             disabled={uploading || busy}
-            className="flex items-center gap-1 px-2 py-1 rounded text-[10px] font-semibold bg-green-500/10 text-green-400/80 hover:bg-green-500/20 hover:text-green-400 border border-green-500/15 transition-all disabled:opacity-30"
+            className="flex items-center gap-1 px-2 py-1 rounded text-[10px] font-semibold bg-sky-500/10 text-sky-400/80 hover:bg-sky-500/20 hover:text-sky-400 border border-sky-500/15 transition-all disabled:opacity-30"
             title={t('server.files.upload')}>
             {uploading ?
             <svg viewBox="0 0 24 24" fill="currentColor" className="w-3 h-3 animate-spin">
@@ -263,7 +263,7 @@ export default function ServerFileManager({ server }) {
             placeholder="archive.zip"
             className="w-24 px-1.5 py-0.5 rounded text-[10px] bg-white/5 border border-white/10 text-white/70 focus:outline-none focus:border-white/20" />
               <button onClick={() => compressSelected(zipName || 'archive.zip')}
-            className="px-1.5 py-0.5 rounded text-[10px] bg-green-500/15 text-green-400 hover:bg-green-500/25 transition-all"><LocalizedText id="auto.21d10d091035" /></button>
+            className="px-1.5 py-0.5 rounded text-[10px] bg-sky-500/15 text-sky-400 hover:bg-sky-500/25 transition-all"><LocalizedText id="auto.21d10d091035" /></button>
               <button onClick={() => {setShowZipInput(false);setZipName('');}}
             className="px-1.5 py-0.5 rounded text-[10px] text-white/30 hover:text-white/60 hover:bg-white/5 transition-all">✕</button>
             </div> :
@@ -289,7 +289,7 @@ export default function ServerFileManager({ server }) {
 
         {}
         {dragOver &&
-        <div className="flex-shrink-0 flex items-center justify-center gap-2 py-2 bg-green-500/10 border-b border-green-500/20 text-xs text-green-400">
+        <div className="flex-shrink-0 flex items-center justify-center gap-2 py-2 bg-sky-500/10 border-b border-sky-500/20 text-xs text-sky-400">
             <svg viewBox="0 0 24 24" fill="currentColor" className="w-4 h-4">
               <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z" />
             </svg>
@@ -311,7 +311,7 @@ export default function ServerFileManager({ server }) {
               {entries.length > 0 &&
             <div className="flex items-center gap-2 px-2 py-1 mb-1">
                   <input type="checkbox" checked={selectedFiles.size === entries.length && entries.length > 0}
-              onChange={toggleAll} className="w-3.5 h-3.5 rounded accent-green-400 cursor-pointer flex-shrink-0" />
+              onChange={toggleAll} className="w-3.5 h-3.5 rounded accent-sky-400 cursor-pointer flex-shrink-0" />
                   <span className="text-[10px] text-white/25 select-none">
                     {selectedFiles.size > 0 ? t('server.files.selected', { count: selectedFiles.size }) : t('server.files.selectAll')}
                   </span>
@@ -347,9 +347,9 @@ export default function ServerFileManager({ server }) {
                 onDoubleClick={() => !entry.isDir && canEdit && openFile(entry)}
                 className={`flex items-center gap-2 px-2 py-2 rounded-lg transition-all group select-none ${
                 entry.isDir ? 'cursor-pointer' : 'cursor-default'} ${
-                isSelected ? 'bg-green-500/10 border border-green-500/15' : 'hover:bg-white/5 border border-transparent'}`}>
+                isSelected ? 'bg-sky-500/10 border border-sky-500/15' : 'hover:bg-white/5 border border-transparent'}`}>
                     <input type="checkbox" checked={isSelected} onChange={() => toggleSelect(entry.path)}
-                  onClick={(e) => e.stopPropagation()} className="w-3.5 h-3.5 rounded accent-green-400 cursor-pointer flex-shrink-0" />
+                  onClick={(e) => e.stopPropagation()} className="w-3.5 h-3.5 rounded accent-sky-400 cursor-pointer flex-shrink-0" />
                     <FileIcon name={entry.name} isDir={entry.isDir} />
                     <span className={`text-xs flex-1 truncate ${entry.isDir ? 'text-white/70' : canEdit ? 'text-white/65 group-hover:text-white/85' : 'text-white/45'}`}
                   title={entry.isDir ? t('server.files.titleOpenDir') : canEdit ? t('server.files.titleEditFile') : entry.name}>

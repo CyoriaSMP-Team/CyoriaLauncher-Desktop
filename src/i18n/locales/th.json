@@ -1351,5 +1351,61 @@
     "73c5685219c1": "Discord",
     "88d3b75b46b3": "Website",
     "all": "ทั้งหมด"
+  },
+  "cyoria": {
+    "loginSubtitle": "เลือกวิธีเข้าสู่ระบบ",
+    "optionalTitle": "บัญชี CyoriaSMP (ทางเลือก)",
+    "optionalDescription": "เข้าสู่ระบบเพื่อเชื่อมบัญชี CyoriaSMP การเชื่อม Discord ดำเนินการผ่าน CyoriaSMP Auth ไม่ใช้บริการลันเชอร์ภายนอก",
+    "minecraftIndependent": "ไม่จำเป็นต้องเข้าสู่ระบบนี้เพื่อเล่น Minecraft หรือเข้าเซิร์ฟเวอร์อื่น",
+    "legacyOtpDisabled": "ปิดระบบยืนยันอีเมลของ VoxelX เดิมแล้ว",
+    "back": "กลับไปหน้าบัญชี",
+    "profileSettings": "บัญชี Minecraft",
+    "username": "ชื่อผู้เล่น",
+    "accountType": "ประเภทบัญชี",
+    "discordViaAuth": "การเชื่อม Discord ยืนยันผ่าน CyoriaSMP Auth เท่านั้น และไม่บังคับใช้เพื่อเข้า Minecraft",
+    "linkDiscord": "เชื่อม Discord ที่ยืนยันแล้ว",
+    "unlinkDiscord": "ยกเลิกการเชื่อม Discord",
+    "discordNotVerified": "CyoriaSMP Auth ไม่ส่งบัญชี Discord ที่ยืนยันแล้วกลับมา",
+    "working": "กำลังดำเนินการ…",
+    "connect": "เข้าสู่ระบบด้วย CyoriaSMP Auth",
+    "disconnect": "ยกเลิกการเชื่อมบัญชี Cyoria",
+    "signingIn": "กำลังเปิดหน้าล็อกอินที่ปลอดภัย…",
+    "connectedAs": "เชื่อมต่อเป็น",
+    "clientNotConfigured": "ยังไม่ได้ลงทะเบียนหรือตั้งค่า Desktop OAuth Client ของ CyoriaSMP บัญชี Microsoft และ Offline ยังใช้ได้ปกติ",
+    "desktopOnly": "CyoriaSMP Auth ใช้งานได้ในแอปเดสก์ท็อป",
+    "statusError": "ไม่สามารถโหลดสถานะ CyoriaSMP Auth ได้",
+    "offlineTab": "ออฟไลน์",
+    "microsoftTab": "Microsoft",
+    "cyoriaTab": "CyoriaSMP (ทางเลือก)",
+    "bgCategory": {
+      "Tối giản": "เรียบง่าย",
+      "Thiên nhiên": "ธรรมชาติ",
+      "Màu sắc": "สีสัน",
+      "Khác": "อื่น ๆ"
+    },
+    "javaDescription": {
+      "adoptium": "OpenJDK เสถียรและได้รับความนิยม รองรับ Minecraft หลากหลายเวอร์ชัน",
+      "azul": "Java ขนาดเบา เปิดเร็ว ใช้หน่วยความจำคุ้มค่า",
+      "graalvm": "คอมไพเลอร์ JIT ประสิทธิภาพสูง เหมาะกับ Minecraft ที่ติดตั้งม็อด"
+    },
+    "javaTags": {
+      "adoptium": [
+        "เสถียร",
+        "ยอดนิยม",
+        "OpenJDK"
+      ],
+      "azul": [
+        "เบา",
+        "เปิดเร็ว",
+        "ใช้ RAM น้อย"
+      ],
+      "graalvm": [
+        "ประสิทธิภาพสูง",
+        "กระตุกน้อย",
+        "JIT ขั้นสูง"
+      ]
+    },
+    "chooseJava": "เลือกผู้ให้บริการ Java",
+    "chooseVersion": "เลือกเวอร์ชัน"
   }
 }

@@ -29,3 +29,10 @@
 ## Status
 
 Implementation on feature branch: OIDC discovery, PKCE flow, loopback response, userinfo and optional Account UI are **code-complete for review only**. Live login is BLOCKED until client registration and security/end-to-end verification. Nothing is deployed to Minecraft production.
+
+## Audit on 2026-11-03
+
+- Production discovery was reachable at `https://auth.cyoriasmp.com/.well-known/openid-configuration`.
+- Advertised token endpoint authentication methods: `client_secret_basic` and `client_secret_post`; **public client `none` not advertised**. Electron cannot safely ship a client secret. Enable/register a real PKCE public desktop client and test end to end before calling the optional sign-in live.
+- Former VoxelX Discord-link IPC now invokes Cyoria identity OIDC; an unverified/missing `discord_user_id` is rejected. Existing Microsoft and offline Minecraft accounts remain independent.
+- The old VoxelX account password/email screen and network lookup were retired in favor of local account details. Previous account data directories are untouched.

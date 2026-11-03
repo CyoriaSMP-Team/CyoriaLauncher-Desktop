@@ -181,10 +181,10 @@ export default function UpdateWindow() {
         <div className="flex items-center gap-2 no-drag">
           <div className="w-4 h-4">
             <svg viewBox="0 0 24 24" fill="none" className="w-full h-full">
-              <rect x="2" y="2" width="9" height="9" fill="#4ade80" rx="1" />
-              <rect x="13" y="2" width="9" height="9" fill="#22c55e" rx="1" />
-              <rect x="2" y="13" width="9" height="9" fill="#16a34a" rx="1" />
-              <rect x="13" y="13" width="9" height="9" fill="#4ade80" rx="1" />
+              <rect x="2" y="2" width="9" height="9" fill="#38bdf8" rx="1" />
+              <rect x="13" y="2" width="9" height="9" fill="#0284c7" rx="1" />
+              <rect x="2" y="13" width="9" height="9" fill="#0284c7" rx="1" />
+              <rect x="13" y="13" width="9" height="9" fill="#38bdf8" rx="1" />
             </svg>
           </div>
           <span className="text-xs font-semibold text-white/50 tracking-widest uppercase">
@@ -202,12 +202,12 @@ export default function UpdateWindow() {
       {}
       <div className="flex-1 flex flex-col items-center justify-center px-8 gap-6 overflow-y-auto py-8">
         {}
-        <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-green-400/20 to-emerald-600/20 border border-green-500/20 flex items-center justify-center flex-shrink-0">
+        <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-sky-400/20 to-cyan-600/20 border border-sky-500/20 flex items-center justify-center flex-shrink-0">
           <svg viewBox="0 0 24 24" fill="none" className="w-9 h-9">
-            <rect x="2" y="2" width="9" height="9" fill="#4ade80" rx="1.5" />
-            <rect x="13" y="2" width="9" height="9" fill="#22c55e" rx="1.5" />
-            <rect x="2" y="13" width="9" height="9" fill="#16a34a" rx="1.5" />
-            <rect x="13" y="13" width="9" height="9" fill="#4ade80" rx="1.5" />
+            <rect x="2" y="2" width="9" height="9" fill="#38bdf8" rx="1.5" />
+            <rect x="13" y="2" width="9" height="9" fill="#0284c7" rx="1.5" />
+            <rect x="2" y="13" width="9" height="9" fill="#0284c7" rx="1.5" />
+            <rect x="13" y="13" width="9" height="9" fill="#38bdf8" rx="1.5" />
           </svg>
         </div>
 
@@ -224,7 +224,7 @@ export default function UpdateWindow() {
           {}
           {status === 'checking' &&
           <div className="flex flex-col items-center gap-3 py-4">
-              <svg className="animate-spin w-7 h-7 text-green-400" viewBox="0 0 24 24" fill="none">
+              <svg className="animate-spin w-7 h-7 text-sky-400" viewBox="0 0 24 24" fill="none">
                 <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
                 <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
               </svg>
@@ -235,8 +235,8 @@ export default function UpdateWindow() {
           {}
           {status === 'upToDate' &&
           <div className="rounded-xl border border-white/10 bg-white/5 p-5 text-center">
-              <div className="w-10 h-10 rounded-full bg-green-500/15 border border-green-500/25 flex items-center justify-center mx-auto mb-3">
-                <svg viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5 text-green-400">
+              <div className="w-10 h-10 rounded-full bg-sky-500/15 border border-sky-500/25 flex items-center justify-center mx-auto mb-3">
+                <svg viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5 text-sky-400">
                   <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />
                 </svg>
               </div>
@@ -255,25 +255,25 @@ export default function UpdateWindow() {
 
           {}
           {status === 'updateAvailable' && result &&
-          <div className="rounded-xl border border-green-500/20 bg-green-500/8 p-5">
+          <div className="rounded-xl border border-sky-500/20 bg-sky-500/8 p-5">
               <div className="flex items-center gap-3 mb-4">
-                <div className="w-10 h-10 rounded-full bg-green-500/15 border border-green-500/25 flex items-center justify-center flex-shrink-0">
-                  <svg viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5 text-green-400">
+                <div className="w-10 h-10 rounded-full bg-sky-500/15 border border-sky-500/25 flex items-center justify-center flex-shrink-0">
+                  <svg viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5 text-sky-400">
                     <path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z" />
                   </svg>
                 </div>
                 <div>
-                  <p className="text-sm font-bold text-green-400">{t('update.hasUpdate')}</p>
+                  <p className="text-sm font-bold text-sky-400">{t('update.hasUpdate')}</p>
                   <p className="text-xs text-white/40 mt-0.5">
                     <span className="font-mono">{result.currentVersion}</span>
                     <span className="mx-1.5 text-white/20">→</span>
-                    <span className="text-green-400 font-mono font-bold">{result.latestVersion}</span>
+                    <span className="text-sky-400 font-mono font-bold">{result.latestVersion}</span>
                   </p>
                 </div>
               </div>
               {result.installerAsset ?
             <button onClick={() => handleDownload(result)}
-            className="w-full py-2.5 rounded-xl text-sm font-bold bg-green-500 hover:bg-green-400 text-white transition-all active:scale-95 flex items-center justify-center gap-2">
+            className="w-full py-2.5 rounded-xl text-sm font-bold bg-sky-500 hover:bg-sky-400 text-white transition-all active:scale-95 flex items-center justify-center gap-2">
                   <svg viewBox="0 0 24 24" fill="currentColor" className="w-4 h-4">
                     <path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z" />
                   </svg>
@@ -293,16 +293,16 @@ export default function UpdateWindow() {
 
           {}
           {status === 'downloading' &&
-          <div className="rounded-xl border border-green-500/20 bg-green-500/8 p-5">
+          <div className="rounded-xl border border-sky-500/20 bg-sky-500/8 p-5">
               <div className="flex items-center gap-2 mb-4">
-                <svg className="animate-spin w-4 h-4 text-green-400 flex-shrink-0" viewBox="0 0 24 24" fill="none">
+                <svg className="animate-spin w-4 h-4 text-sky-400 flex-shrink-0" viewBox="0 0 24 24" fill="none">
                   <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
                   <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
                 </svg>
                 <p className="text-sm font-semibold text-white/80">{t('update.downloading')}</p>
               </div>
               <div className="w-full h-2 bg-white/10 rounded-full overflow-hidden mb-2">
-                <div className="h-full bg-green-400 rounded-full transition-all duration-300"
+                <div className="h-full bg-sky-400 rounded-full transition-all duration-300"
               style={{ width: `${dlProgress?.percent ?? 0}%` }} />
               </div>
               <div className="flex items-center justify-between text-xs text-white/30">
@@ -325,12 +325,12 @@ export default function UpdateWindow() {
 
           {}
           {status === 'installing' &&
-          <div className="rounded-xl border border-green-500/20 bg-green-500/8 p-5 text-center">
-              <svg className="animate-spin w-7 h-7 text-green-400 mx-auto mb-3" viewBox="0 0 24 24" fill="none">
+          <div className="rounded-xl border border-sky-500/20 bg-sky-500/8 p-5 text-center">
+              <svg className="animate-spin w-7 h-7 text-sky-400 mx-auto mb-3" viewBox="0 0 24 24" fill="none">
                 <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
                 <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
               </svg>
-              <p className="text-sm font-bold text-green-400">{t('update.installing')}</p>
+              <p className="text-sm font-bold text-sky-400">{t('update.installing')}</p>
             </div>
           }
 
@@ -352,7 +352,7 @@ export default function UpdateWindow() {
         {}
         {['idle', 'upToDate', 'noRelease', 'error'].includes(status) &&
         <button onClick={handleCheck}
-        className="px-8 py-2.5 rounded-xl text-sm font-bold bg-green-500 hover:bg-green-400 text-white transition-all duration-200 active:scale-95 flex-shrink-0">
+        className="px-8 py-2.5 rounded-xl text-sm font-bold bg-sky-500 hover:bg-sky-400 text-white transition-all duration-200 active:scale-95 flex-shrink-0">
             {t('update.checkBtn')}
           </button>
         }

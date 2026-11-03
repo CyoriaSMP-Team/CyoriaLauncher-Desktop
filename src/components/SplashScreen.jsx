@@ -174,7 +174,7 @@ export default function SplashScreen({ onDone }) {
 
       {}
       <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-        <div className="w-96 h-96 bg-green-500/5 rounded-full blur-3xl" />
+        <div className="w-96 h-96 bg-sky-500/5 rounded-full blur-3xl" />
       </div>
 
       {}
@@ -183,12 +183,12 @@ export default function SplashScreen({ onDone }) {
         {}
         <div className="relative flex items-center justify-center" style={{ width: 160, height: 160 }}>
           <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-            <div className="w-32 h-32 bg-green-500/20 rounded-full blur-3xl" style={{ animation: 'splash-glow 4s ease-in-out infinite' }} />
+            <div className="w-32 h-32 bg-sky-500/20 rounded-full blur-3xl" style={{ animation: 'splash-glow 4s ease-in-out infinite' }} />
           </div>
-          <div className="absolute rounded-xl" style={{ width: 36, height: 36, background: '#4ade80', boxShadow: '0 0 18px #4ade8099', animation: 'splash-tl 4s ease-in-out 0s infinite' }} />
-          <div className="absolute rounded-xl" style={{ width: 36, height: 36, background: '#22c55e', boxShadow: '0 0 18px #22c55e99', animation: 'splash-tr 4s ease-in-out 0.06s infinite' }} />
-          <div className="absolute rounded-xl" style={{ width: 36, height: 36, background: '#16a34a', boxShadow: '0 0 18px #16a34a99', animation: 'splash-bl 4s ease-in-out 0.12s infinite' }} />
-          <div className="absolute rounded-xl" style={{ width: 36, height: 36, background: '#4ade80', boxShadow: '0 0 18px #4ade8099', animation: 'splash-br 4s ease-in-out 0.18s infinite' }} />
+          <div className="absolute rounded-xl" style={{ width: 36, height: 36, background: '#38bdf8', boxShadow: '0 0 18px #38bdf899', animation: 'splash-tl 4s ease-in-out 0s infinite' }} />
+          <div className="absolute rounded-xl" style={{ width: 36, height: 36, background: '#0284c7', boxShadow: '0 0 18px #0284c799', animation: 'splash-tr 4s ease-in-out 0.06s infinite' }} />
+          <div className="absolute rounded-xl" style={{ width: 36, height: 36, background: '#0284c7', boxShadow: '0 0 18px #0284c799', animation: 'splash-bl 4s ease-in-out 0.12s infinite' }} />
+          <div className="absolute rounded-xl" style={{ width: 36, height: 36, background: '#38bdf8', boxShadow: '0 0 18px #38bdf899', animation: 'splash-br 4s ease-in-out 0.18s infinite' }} />
         </div>
 
         <style>{`
@@ -232,7 +232,7 @@ export default function SplashScreen({ onDone }) {
         {}
         <div className="text-center">
           <h1 className="text-3xl font-black text-white tracking-tight"><LocalizedText id="auto.8649a2b37fbb" />
-            <span className="text-green-400"><LocalizedText id="auto.79f73a1cb6f8" /></span>
+            <span className="text-sky-400"><LocalizedText id="auto.79f73a1cb6f8" /></span>
           </h1>
           <p className="text-xs text-white/25 mt-1 font-mono tracking-widest">{version ? `v${version}` : ''}</p>
         </div>
@@ -249,13 +249,13 @@ export default function SplashScreen({ onDone }) {
                 className="h-full rounded-full"
                 style={{
                   width: `${pct}%`,
-                  background: 'linear-gradient(90deg,#16a34a,#4ade80)',
+                  background: 'linear-gradient(90deg,#0284c7,#38bdf8)',
                   boxShadow: '0 0 8px rgba(74,222,128,0.6)',
                   transition: 'width 300ms ease-out'
                 }} />
               
             </div>
-            <span className="text-[11px] text-green-400 font-mono font-bold w-8 text-right flex-shrink-0">{pct}%</span>
+            <span className="text-[11px] text-sky-400 font-mono font-bold w-8 text-right flex-shrink-0">{pct}%</span>
           </div>
         </div>
       </div>

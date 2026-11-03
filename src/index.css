@@ -44,7 +44,7 @@
   border-radius: 99px !important;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #4ade80 !important;
+  background: #38bdf8 !important;
 }
 ::-webkit-scrollbar-corner {
   background: transparent !important;
@@ -72,7 +72,7 @@
   body {
     font-family: var(--app-font);
     font-size: var(--app-font-size);
-    background: #0a0a0a;
+    background: #07090c;
     color: #ffffff;
     overflow: hidden;
     user-select: none;
@@ -170,15 +170,15 @@
 .md-p  { font-size: 0.8125rem; color: rgba(255,255,255,0.6); line-height: 1.65; margin: 0.35rem 0; }
 .md-strong { color: rgba(255,255,255,0.85); font-weight: 600; }
 .md-em     { color: rgba(255,255,255,0.7); font-style: italic; }
-.md-link   { color: #4ade80; text-decoration: underline; text-underline-offset: 2px; }
-.md-link:hover { color: #86efac; }
+.md-link   { color: #38bdf8; text-decoration: underline; text-underline-offset: 2px; }
+.md-link:hover { color: #7dd3fc; }
 .md-ul     { list-style: disc; padding-left: 1.25rem; margin: 0.4rem 0; }
 .md-li     { font-size: 0.8125rem; color: rgba(255,255,255,0.6); line-height: 1.6; margin: 0.15rem 0; }
 .md-blockquote { border-left: 3px solid rgba(74,222,128,0.4); padding-left: 0.75rem; color: rgba(255,255,255,0.45); font-style: italic; margin: 0.5rem 0; }
 .md-hr     { border: none; border-top: 1px solid rgba(255,255,255,0.08); margin: 0.75rem 0; }
 .md-pre    { background: rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.08); border-radius: 8px; padding: 0.75rem 1rem; margin: 0.5rem 0; overflow-x: auto; }
-.md-code   { font-family: 'Consolas', 'Monaco', monospace; font-size: 0.75rem; color: #86efac; white-space: pre; }
-.md-inline-code { font-family: 'Consolas', 'Monaco', monospace; font-size: 0.75rem; color: #86efac; background: rgba(74,222,128,0.1); border: 1px solid rgba(74,222,128,0.2); border-radius: 4px; padding: 0.1rem 0.35rem; }
+.md-code   { font-family: 'Consolas', 'Monaco', monospace; font-size: 0.75rem; color: #7dd3fc; white-space: pre; }
+.md-inline-code { font-family: 'Consolas', 'Monaco', monospace; font-size: 0.75rem; color: #7dd3fc; background: rgba(74,222,128,0.1); border: 1px solid rgba(74,222,128,0.2); border-radius: 4px; padding: 0.1rem 0.35rem; }
 .md-img    { max-width: 100%; border-radius: 8px; margin: 0.5rem 0; }
 
 
@@ -190,8 +190,8 @@
 .md-content p { margin: 0.4rem 0; color: rgba(255,255,255,0.6); }
 .md-content strong, .md-content b { color: rgba(255,255,255,0.85); font-weight: 600; }
 .md-content em, .md-content i { color: rgba(255,255,255,0.65); font-style: italic; }
-.md-content a { color: #4ade80; text-decoration: underline; text-underline-offset: 2px; }
-.md-content a:hover { color: #86efac; }
+.md-content a { color: #38bdf8; text-decoration: underline; text-underline-offset: 2px; }
+.md-content a:hover { color: #7dd3fc; }
 .md-content ul, .md-content ol { padding-left: 1.25rem; margin: 0.4rem 0; }
 .md-content ul { list-style: disc; }
 .md-content ol { list-style: decimal; }
@@ -199,7 +199,7 @@
 .md-content blockquote { border-left: 3px solid rgba(74,222,128,0.4); padding-left: 0.75rem; color: rgba(255,255,255,0.45); font-style: italic; margin: 0.5rem 0; }
 .md-content hr { border: none; border-top: 1px solid rgba(255,255,255,0.08); margin: 0.75rem 0; }
 .md-content pre { background: rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.08); border-radius: 8px; padding: 0.75rem 1rem; margin: 0.5rem 0; overflow-x: auto; }
-.md-content code { font-family: 'Consolas','Monaco',monospace; font-size: 0.75rem; color: #86efac; }
+.md-content code { font-family: 'Consolas','Monaco',monospace; font-size: 0.75rem; color: #7dd3fc; }
 .md-content pre code { background: none; border: none; padding: 0; white-space: pre; }
 .md-content :not(pre) > code { background: rgba(74,222,128,0.1); border: 1px solid rgba(74,222,128,0.2); border-radius: 4px; padding: 0.1rem 0.35rem; }
 .md-content img { max-width: 100%; border-radius: 8px; margin: 0.5rem 0; display: block; }

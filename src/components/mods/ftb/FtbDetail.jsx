@@ -74,7 +74,7 @@ function formatDate(iso) {
 }
 
 const VERSION_TYPE_STYLE = {
-  release: 'bg-green-500/15 text-green-400 border-green-500/25',
+  release: 'bg-sky-500/15 text-sky-400 border-sky-500/25',
   beta: 'bg-yellow-500/15 text-yellow-400 border-yellow-500/25',
   alpha: 'bg-red-500/15 text-red-400 border-red-500/25'
 };
@@ -83,7 +83,7 @@ const TAG_COLORS = {
   Tech: 'bg-blue-500/15 text-blue-300 border-blue-500/25',
   Magic: 'bg-purple-500/15 text-purple-300 border-purple-500/25',
   Adventure: 'bg-yellow-500/15 text-yellow-300 border-yellow-500/25',
-  Exploration: 'bg-green-500/15 text-green-300 border-green-500/25',
+  Exploration: 'bg-sky-500/15 text-sky-300 border-sky-500/25',
   Questing: 'bg-orange-500/15 text-orange-300 border-orange-500/25',
   Skyblock: 'bg-cyan-500/15 text-cyan-300 border-cyan-500/25'
 };
@@ -160,7 +160,7 @@ export default function FtbDetail({ projectId, onBack }) {const { t } = useLang(
 
         {}
         <div className="flex items-center gap-4 mb-3 text-sm">
-          <span className="flex items-center gap-1.5 text-green-400/80">
+          <span className="flex items-center gap-1.5 text-sky-400/80">
             <DownloadSimple size={15} weight="duotone" />
             <span className="font-semibold">{formatNum(project.downloads)}</span>
             <span className="text-white/30 text-xs font-normal"><LocalizedText id="auto.d363377c75cd" /></span>
@@ -248,7 +248,7 @@ export default function FtbDetail({ projectId, onBack }) {const { t } = useLang(
               <div className="px-3 py-2.5 rounded-xl flex flex-col gap-0.5"
             style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.07)' }}>
                 <span className="text-white/30 uppercase tracking-widest text-[9px]"><LocalizedText id="auto.e66872b0e26a" /></span>
-                <span className="text-green-400 font-semibold">{formatNum(project.downloads)}</span>
+                <span className="text-sky-400 font-semibold">{formatNum(project.downloads)}</span>
               </div>
               <div className="px-3 py-2.5 rounded-xl flex flex-col gap-0.5"
             style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.07)' }}>

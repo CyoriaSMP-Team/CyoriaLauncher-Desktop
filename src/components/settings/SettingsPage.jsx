@@ -118,12 +118,12 @@ export default function SettingsPage() {
                 flex items-center gap-2 px-4 py-2.5 text-xs font-semibold
                 border-b-2 transition-all duration-150 -mb-px
                 ${activeTab === tab.id
-                  ? 'border-green-500 text-green-400'
+                  ? 'border-sky-500 text-sky-400'
                   : 'border-transparent text-white/35 hover:text-white/60 hover:border-white/15'
                 }
               `}
             >
-              <span className={activeTab === tab.id ? 'text-green-400' : 'text-white/25'}>
+              <span className={activeTab === tab.id ? 'text-sky-400' : 'text-white/25'}>
                 {tab.icon}
               </span>
               {tab.label}

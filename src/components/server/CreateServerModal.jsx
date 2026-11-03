@@ -149,7 +149,7 @@ function JavaDropdown({ value, onChange }) {
               {step === 'distro' ? t('server.create.javaSelectDistro') : t('server.create.javaSelectVersion', { name: JAVA_DISTROS[selDistro]?.name })}
             </span>
             {loading &&
-          <svg className="animate-spin w-3 h-3 text-green-400/50 ml-auto" viewBox="0 0 24 24" fill="none">
+          <svg className="animate-spin w-3 h-3 text-sky-400/50 ml-auto" viewBox="0 0 24 24" fill="none">
                 <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
                 <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
               </svg>
@@ -189,16 +189,16 @@ function JavaDropdown({ value, onChange }) {
           return (
             <button key={`${pkg.distro}-${pkg.javaVersion}`} type="button"
             onClick={() => {onChange(pkg);setOpen(false);setStep('distro');setSelDistro(null);}}
-            className="w-full flex items-center gap-3 px-3 py-2.5 text-left hover:bg-green-500/8 transition-all group">
+            className="w-full flex items-center gap-3 px-3 py-2.5 text-left hover:bg-sky-500/8 transition-all group">
                       <div className="w-7 h-7 rounded-lg flex items-center justify-center font-black text-sm flex-shrink-0"
               style={{ background: `${d?.color || '#888'}20`, color: d?.color || '#888' }}>
                         {pkg.javaVersion}
                       </div>
                       <div className="flex-1 min-w-0">
                         <p className="text-sm font-semibold text-white/80"><LocalizedText id="auto.3d0169de3f89" />{pkg.javaVersion}</p>
-                        {mcNote && <p className="text-[10px] text-green-400/70">{mcNote}</p>}
+                        {mcNote && <p className="text-[10px] text-sky-400/70">{mcNote}</p>}
                       </div>
-                      <span className="text-[10px] text-white/20 group-hover:text-green-400/60 transition-colors">{t('server.create.javaSelect')}</span>
+                      <span className="text-[10px] text-white/20 group-hover:text-sky-400/60 transition-colors">{t('server.create.javaSelect')}</span>
                     </button>);
 
         })
@@ -218,7 +218,7 @@ const JVM_PRESET_IDS = [
 {
   id: 'aikar',
   badge: 'Recommended',
-  badgeColor: 'bg-green-500/20 text-green-400',
+  badgeColor: 'bg-sky-500/20 text-sky-400',
   args: (ram) =>
   `-Xmx${ram}G -Xms${ram}G -XX:+UseG1GC -XX:+ParallelRefProcEnabled -XX:MaxGCPauseMillis=200 ` +
   `-XX:+UnlockExperimentalVMOptions -XX:+DisableExplicitGC -XX:+AlwaysPreTouch ` +
@@ -337,11 +337,11 @@ function JvmPresetDropdown({ value, onChange, ramGb }) {
             {JVM_PRESETS.map((p) =>
           <button key={p.id} type="button" onClick={() => selectPreset(p)}
           className={`w-full flex items-start gap-3 px-3 py-2.5 text-left transition-all ${
-          selectedId === p.id ? 'bg-green-500/10' : 'hover:bg-white/5'}`
+          selectedId === p.id ? 'bg-sky-500/10' : 'hover:bg-white/5'}`
           }>
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2 flex-wrap">
-                    <span className={`text-sm font-semibold ${selectedId === p.id ? 'text-green-400' : 'text-white/80'}`}>
+                    <span className={`text-sm font-semibold ${selectedId === p.id ? 'text-sky-400' : 'text-white/80'}`}>
                       {p.label}
                     </span>
                     {p.badge &&
@@ -351,7 +351,7 @@ function JvmPresetDropdown({ value, onChange, ramGb }) {
                   <p className="text-[10px] text-white/35 mt-0.5">{p.desc}</p>
                 </div>
                 {selectedId === p.id &&
-            <svg viewBox="0 0 24 24" fill="currentColor" className="w-3.5 h-3.5 text-green-400 flex-shrink-0 mt-1">
+            <svg viewBox="0 0 24 24" fill="currentColor" className="w-3.5 h-3.5 text-sky-400 flex-shrink-0 mt-1">
                     <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />
                   </svg>
             }
@@ -500,7 +500,7 @@ export default function CreateServerModal({ onClose, onCreate }) {
     }
   }
 
-  const inputCls = 'w-full bg-white/5 border border-white/10 rounded-lg px-3 py-2 text-sm text-white/80 focus:outline-none focus:border-green-500/50 transition-all placeholder-white/20';
+  const inputCls = 'w-full bg-white/5 border border-white/10 rounded-lg px-3 py-2 text-sm text-white/80 focus:outline-none focus:border-sky-500/50 transition-all placeholder-white/20';
   const labelCls = 'text-[10px] font-semibold text-white/40 uppercase tracking-wider mb-1.5 block';
 
   return (
@@ -622,7 +622,7 @@ export default function CreateServerModal({ onClose, onCreate }) {
                 style={{ background: 'rgba(18,18,18,0.98)', boxShadow: '0 8px 32px rgba(0,0,0,0.6)', maxHeight: 220, overflowY: 'auto', scrollbarColor: 'rgba(255,255,255,0.1) transparent' }}>
                       {versionsLoading ?
                   <div className="flex items-center justify-center gap-2 px-3 py-4">
-                          <svg className="animate-spin w-3.5 h-3.5 text-green-400/50" viewBox="0 0 24 24" fill="none">
+                          <svg className="animate-spin w-3.5 h-3.5 text-sky-400/50" viewBox="0 0 24 24" fill="none">
                             <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
                             <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
                           </svg>
@@ -641,7 +641,7 @@ export default function CreateServerModal({ onClose, onCreate }) {
                         onClick={() => {set('gameVersion', v);setVersionOpen(false);}}
                         className={`w-full text-left px-3 py-2 text-sm transition-all flex items-center justify-between gap-3 ${
                         isSelected ?
-                        'bg-green-500/15 text-green-400 font-semibold' :
+                        'bg-sky-500/15 text-sky-400 font-semibold' :
                         'text-white/70 hover:bg-white/6 hover:text-white'}`
                         }>
                         
@@ -663,17 +663,17 @@ export default function CreateServerModal({ onClose, onCreate }) {
               {}
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className={labelCls}>{t('server.create.ramLabel')}: <span className="text-green-400 normal-case font-bold">{form.ramGb}<LocalizedText id="auto.daff8d2475d8" /></span></label>
+                  <label className={labelCls}>{t('server.create.ramLabel')}: <span className="text-sky-400 normal-case font-bold">{form.ramGb}<LocalizedText id="auto.daff8d2475d8" /></span></label>
                   <input type="range" min="1" max="32" step="1" value={form.ramGb}
                 onChange={(e) => set('ramGb', Number(e.target.value))}
-                className="w-full accent-green-500 cursor-pointer" />
+                className="w-full accent-sky-500 cursor-pointer" />
                   <div className="flex justify-between text-[10px] text-white/20 mt-1"><span><LocalizedText id="auto.d8e93ac77e42" /></span><span><LocalizedText id="auto.e6cd89e70b77" /></span></div>
                 </div>
                 <div>
-                  <label className={labelCls}>{t('server.create.coresLabel')}: <span className="text-green-400 normal-case font-bold">{form.cores}</span></label>
+                  <label className={labelCls}>{t('server.create.coresLabel')}: <span className="text-sky-400 normal-case font-bold">{form.cores}</span></label>
                   <input type="range" min="1" max="16" step="1" value={form.cores}
                 onChange={(e) => set('cores', Number(e.target.value))}
-                className="w-full accent-green-500 cursor-pointer" />
+                className="w-full accent-sky-500 cursor-pointer" />
                   <div className="flex justify-between text-[10px] text-white/20 mt-1"><span>1</span><span>16</span></div>
                 </div>
               </div>
@@ -687,19 +687,19 @@ export default function CreateServerModal({ onClose, onCreate }) {
                 onClick={() => set('onlineMode', !form.onlineMode)}
                 className={`flex items-center justify-between px-3 py-2.5 rounded-xl border transition-all ${
                 form.onlineMode ?
-                'border-green-500/30 bg-green-500/8' :
+                'border-sky-500/30 bg-sky-500/8' :
                 'border-white/10 bg-white/3'}`
                 }>
                     <div className="flex items-center gap-2">
-                      <svg viewBox="0 0 24 24" fill="currentColor" className={`w-4 h-4 ${form.onlineMode ? 'text-green-400' : 'text-white/25'}`}>
+                      <svg viewBox="0 0 24 24" fill="currentColor" className={`w-4 h-4 ${form.onlineMode ? 'text-sky-400' : 'text-white/25'}`}>
                         <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 4l5 2.18V11c0 3.5-2.33 6.79-5 7.93-2.67-1.14-5-4.43-5-7.93V7.18L12 5z" />
                       </svg>
-                      <span className={`text-xs font-semibold ${form.onlineMode ? 'text-green-400' : 'text-white/40'}`}>
+                      <span className={`text-xs font-semibold ${form.onlineMode ? 'text-sky-400' : 'text-white/40'}`}>
                         {form.onlineMode ? t('server.create.toggleOn') : t('server.create.toggleOff')}
                       </span>
                     </div>
                     {}
-                    <div className={`w-9 h-5 rounded-full transition-all relative flex-shrink-0 ${form.onlineMode ? 'bg-green-500' : 'bg-white/15'}`}>
+                    <div className={`w-9 h-5 rounded-full transition-all relative flex-shrink-0 ${form.onlineMode ? 'bg-sky-500' : 'bg-white/15'}`}>
                       <div className={`absolute top-0.5 w-4 h-4 rounded-full bg-white shadow transition-all ${form.onlineMode ? 'left-4' : 'left-0.5'}`} />
                     </div>
                   </button>
@@ -761,7 +761,7 @@ export default function CreateServerModal({ onClose, onCreate }) {
               <div className="flex items-start gap-3 p-3 rounded-xl border border-white/8 bg-white/3">
                 <button onClick={() => set('acceptEula', !form.acceptEula)}
               className={`w-5 h-5 rounded flex items-center justify-center flex-shrink-0 mt-0.5 transition-all ${
-              form.acceptEula ? 'bg-green-500 border-green-500' : 'bg-white/5 border border-white/20'}`
+              form.acceptEula ? 'bg-sky-500 border-sky-500' : 'bg-white/5 border border-white/20'}`
               }>
                   {form.acceptEula &&
                 <svg viewBox="0 0 24 24" fill="currentColor" className="w-3 h-3 text-white">
@@ -773,7 +773,7 @@ export default function CreateServerModal({ onClose, onCreate }) {
                   <p className="text-xs font-semibold text-white/70">{t('server.create.eulaLabel')}</p>
                   <p className="text-[10px] text-white/30 mt-0.5">
                     {t('server.create.eulaDesc')}{' '}
-                    <span className="text-green-400/70">{t('server.create.eulaFullName')}</span>.
+                    <span className="text-sky-400/70">{t('server.create.eulaFullName')}</span>.
                   </p>
                 </div>
               </div>
@@ -794,7 +794,7 @@ export default function CreateServerModal({ onClose, onCreate }) {
             </button>
             <button onClick={handleCreate} disabled={creating || !form.acceptEula}
           className="flex-1 py-2.5 rounded-xl text-sm font-bold text-white transition-all disabled:opacity-40 flex items-center justify-center gap-2"
-          style={{ background: 'linear-gradient(135deg,#22c55e,#16a34a)', boxShadow: '0 4px 16px rgba(34,197,94,0.25)' }}
+          style={{ background: 'linear-gradient(135deg,#0284c7,#0284c7)', boxShadow: '0 4px 16px rgba(34,197,94,0.25)' }}
           title={!form.acceptEula ? t('server.create.errorEula') : ''}>
               {creating ?
             <>

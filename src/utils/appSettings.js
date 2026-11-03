@@ -41,9 +41,9 @@ export const DEFAULT_SETTINGS = {
   discordRPC:           false,
   boostMode:            false,
   fontId:               'system',
-  colorAccent:          '#4ade80',
-  colorHover:           '#86efac',
-  colorActive:          '#22c55e',
+  colorAccent:          '#38bdf8',
+  colorHover:           '#7dd3fc',
+  colorActive:          '#0284c7',
   background:           'dark',
   borderRadius:         12,
   borderColor:          'rgba(255,255,255,0.08)',
@@ -82,6 +82,11 @@ export function sanitizeSettings(input = {}) {
     if (key in input) safe[key] = input[key]
   }
 
+  // Migrate only exact upstream default green values; preserve user-customized palettes.
+  const previousDefaults = { colorAccent: '#4ade80', colorHover: '#86efac', colorActive: '#22c55e' }
+  for (const [key, previous] of Object.entries(previousDefaults)) {
+    if (safe[key] === previous) safe[key] = DEFAULT_SETTINGS[key]
+  }
   return safe
 }
 

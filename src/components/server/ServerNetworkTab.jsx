@@ -40,7 +40,7 @@ function CopyBtn({ text }) {
   return (
     <button
       onClick={() => {navigator.clipboard.writeText(text).then(() => {setCopied(true);setTimeout(() => setCopied(false), 1500);});}}
-      className={`flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-semibold transition-all ${copied ? 'bg-green-500/20 text-green-400' : 'bg-white/5 text-white/40 hover:text-white/70 hover:bg-white/10'}`}>
+      className={`flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-semibold transition-all ${copied ? 'bg-sky-500/20 text-sky-400' : 'bg-white/5 text-white/40 hover:text-white/70 hover:bg-white/10'}`}>
       {copied ?
       <svg viewBox="0 0 24 24" fill="currentColor" className="w-3 h-3"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" /></svg> :
       <svg viewBox="0 0 24 24" fill="currentColor" className="w-3 h-3"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z" /></svg>
@@ -60,11 +60,11 @@ function InfoCard({ label, value, sub, accent = false }) {
   value || '—';
 
   return (
-    <div className={`rounded-xl p-3 border ${accent ? 'border-green-500/20 bg-green-500/5' : 'border-white/8 bg-white/3'}`}>
+    <div className={`rounded-xl p-3 border ${accent ? 'border-sky-500/20 bg-sky-500/5' : 'border-white/8 bg-white/3'}`}>
       <p className="text-xs text-white/45 uppercase tracking-wider mb-1">{label}</p>
       <div className="flex items-center justify-between gap-2">
         <p className={`text-base font-bold font-mono truncate transition-all select-none ${
-        isIp && !visible ? 'blur-[3px] text-white/50' : accent ? 'text-green-400' : 'text-white/80'}`
+        isIp && !visible ? 'blur-[3px] text-white/50' : accent ? 'text-sky-400' : 'text-white/80'}`
         }>
           {displayValue}
         </p>
@@ -187,7 +187,7 @@ function BoreTunnelTab({ server, tunnelStatus, setTunnelStatus, tunnelAddr, setT
               <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z" />
             </svg>
             <p className="text-xs text-white/45 leading-relaxed"
-            dangerouslySetInnerHTML={{ __html: t('server.network.portForwardHint').replace('<green>', '<span class="text-green-400">').replace('</green>', '</span>') }} />
+            dangerouslySetInnerHTML={{ __html: t('server.network.portForwardHint').replace('<green>', '<span class="text-sky-400">').replace('</green>', '</span>') }} />
           </div>
         </div>
       </div>
@@ -200,7 +200,7 @@ function BoreTunnelTab({ server, tunnelStatus, setTunnelStatus, tunnelAddr, setT
             <p className="text-xs text-white/35 mt-0.5">{t('server.network.tunnelFree')}</p>
           </div>
           <a href="https://github.com/ekzhang/bore" target="_blank" rel="noopener noreferrer"
-          className="text-[10px] text-green-400/60 hover:text-green-400 transition-colors"><LocalizedText id="auto.4d78ef8436c3" /></a>
+          className="text-[10px] text-sky-400/60 hover:text-sky-400 transition-colors"><LocalizedText id="auto.4d78ef8436c3" /></a>
         </div>
 
         {tunnelAddr &&
@@ -214,7 +214,7 @@ function BoreTunnelTab({ server, tunnelStatus, setTunnelStatus, tunnelAddr, setT
           <div className="flex items-center justify-between mb-3">
             <div className="flex items-center gap-2">
               <div className={`w-2 h-2 rounded-full flex-shrink-0 ${
-              isRunning ? 'bg-green-400 animate-pulse' :
+              isRunning ? 'bg-sky-400 animate-pulse' :
               isDownloading ? 'bg-yellow-400 animate-pulse' :
               tunnelStatus === 'error' ? 'bg-red-400' : 'bg-white/20'}`
               } />
@@ -228,7 +228,7 @@ function BoreTunnelTab({ server, tunnelStatus, setTunnelStatus, tunnelAddr, setT
             <div className="flex gap-2">
               {!isRunning && !isDownloading &&
               <button onClick={startTunnel} disabled={tunnelBusy}
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold bg-green-500 hover:bg-green-400 text-white transition-all disabled:opacity-50">
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold bg-sky-500 hover:bg-sky-400 text-white transition-all disabled:opacity-50">
                   <svg viewBox="0 0 24 24" fill="currentColor" className="w-3 h-3"><path d="M8 5v14l11-7z" /></svg>
                   {t('server.network.tunnelStart')}
                 </button>
@@ -260,7 +260,7 @@ function BoreTunnelTab({ server, tunnelStatus, setTunnelStatus, tunnelAddr, setT
                 replace(/\r/g, '').trim();
                 if (!clean) return null;
                 const isAddr = clean.toLowerCase().includes('bore.pub');
-                return <div key={i} className={isAddr ? 'text-green-400/80' : ''}>{clean}</div>;
+                return <div key={i} className={isAddr ? 'text-sky-400/80' : ''}>{clean}</div>;
               })}
                 <div ref={logEndRef} />
               </div>
@@ -304,9 +304,9 @@ function VoxelXTunnelTab() {
     <div className="h-full overflow-y-auto p-4 space-y-4" style={{ scrollbarColor: 'rgba(255,255,255,0.1) transparent' }}>
 
       {}
-      <div className="rounded-2xl border border-green-500/20 bg-gradient-to-br from-green-500/8 to-transparent p-5 text-center">
-        <div className="w-12 h-12 rounded-2xl bg-green-500/15 border border-green-500/25 flex items-center justify-center mx-auto mb-3">
-          <svg viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6 text-green-400">
+      <div className="rounded-2xl border border-sky-500/20 bg-gradient-to-br from-sky-500/8 to-transparent p-5 text-center">
+        <div className="w-12 h-12 rounded-2xl bg-sky-500/15 border border-sky-500/25 flex items-center justify-center mx-auto mb-3">
+          <svg viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6 text-sky-400">
             <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z" />
           </svg>
         </div>
@@ -321,19 +321,19 @@ function VoxelXTunnelTab() {
       </div>
 
       {}
-      <div className="rounded-2xl border border-green-500/30 bg-gradient-to-br from-green-500/10 via-green-500/5 to-transparent p-5 relative overflow-hidden">
+      <div className="rounded-2xl border border-sky-500/30 bg-gradient-to-br from-sky-500/10 via-sky-500/5 to-transparent p-5 relative overflow-hidden">
         {}
-        <div className="absolute top-0 right-0 w-32 h-32 bg-green-400/10 rounded-full blur-2xl pointer-events-none" />
+        <div className="absolute top-0 right-0 w-32 h-32 bg-sky-400/10 rounded-full blur-2xl pointer-events-none" />
 
         <div className="relative">
           <div className="flex items-start justify-between mb-4">
             <div>
-              <p className="text-xs text-green-400/70 uppercase tracking-widest font-bold mb-1">{t('server.network.vxTunnelPlan')}</p>
+              <p className="text-xs text-sky-400/70 uppercase tracking-widest font-bold mb-1">{t('server.network.vxTunnelPlan')}</p>
               <h4 className="text-lg font-black text-white"><LocalizedText id="auto.0ba83f3e8392" /></h4>
             </div>
             <div className="text-right">
               <div className="flex items-end gap-1">
-                <span className="text-3xl font-black text-green-400">{t('server.network.vxTunnelPrice')}</span>
+                <span className="text-3xl font-black text-sky-400">{t('server.network.vxTunnelPrice')}</span>
                 <span className="text-sm text-white/50 mb-1">{t('server.network.vxTunnelPriceUnit')}</span>
               </div>
               <p className="text-[10px] text-white/35">{t('server.network.vxTunnelPriceDay')}</p>
@@ -399,7 +399,7 @@ function VoxelXTunnelTab() {
           <div key={i} className="flex items-center gap-2 text-xs">
               <span className="w-20 text-white/35 flex-shrink-0">{row.label}</span>
               <span className="flex-1 text-white/30">{row.bore}</span>
-              <span className={`flex-1 font-semibold ${row.better ? 'text-green-400' : 'text-white/50'}`}>
+              <span className={`flex-1 font-semibold ${row.better ? 'text-sky-400' : 'text-white/50'}`}>
                 {row.better && '✓ '}{row.vx}
               </span>
             </div>
@@ -446,11 +446,11 @@ export default function ServerNetworkTab({ server, tunnelStatus, setTunnelStatus
           onClick={() => setActiveTab(tab.id)}
           className={`flex items-center justify-center gap-2 py-3 px-4 text-xs font-semibold transition-all border-b-2 ${
           activeTab === tab.id ?
-          'border-green-500 text-white bg-green-500/5' :
+          'border-sky-500 text-white bg-sky-500/5' :
           'border-transparent text-white/35 hover:text-white/60 hover:bg-white/3'}`
           }>
           
-            <span className={activeTab === tab.id ? 'text-green-400' : 'text-white/30'}>{tab.icon}</span>
+            <span className={activeTab === tab.id ? 'text-sky-400' : 'text-white/30'}>{tab.icon}</span>
             {tab.label}
             {tab.badge &&
           <span className="px-1.5 py-0.5 rounded-full text-[9px] font-bold bg-yellow-500/20 text-yellow-400 border border-yellow-500/25">

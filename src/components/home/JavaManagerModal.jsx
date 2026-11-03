@@ -240,7 +240,7 @@ export default function JavaManagerModal({ profile, onClose, onJavaSelected, ser
             }
             <div>
               <h3 className="text-white font-bold text-sm">
-                {step === 'distro' ? 'Chọn Java Distribution' : `${DISTROS[selectedDistro]?.name} — Chọn phiên bản`}
+                {step === 'distro' ? t('cyoria.chooseJava') : `${DISTROS[selectedDistro]?.name} — ${t('cyoria.chooseVersion')}`}
               </h3>
               <p className="text-white/30 text-xs mt-0.5">
                 {step === 'distro' ?
@@ -260,12 +260,12 @@ export default function JavaManagerModal({ profile, onClose, onJavaSelected, ser
 
         {/* Success message banner */}
         {successMsg &&
-        <div className="flex-shrink-0 flex items-center gap-2 px-5 py-2.5 bg-green-500/10 border-b border-green-500/20">
-            <svg viewBox="0 0 24 24" fill="currentColor" className="w-4 h-4 text-green-400 flex-shrink-0">
+        <div className="flex-shrink-0 flex items-center gap-2 px-5 py-2.5 bg-sky-500/10 border-b border-sky-500/20">
+            <svg viewBox="0 0 24 24" fill="currentColor" className="w-4 h-4 text-sky-400 flex-shrink-0">
               <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />
             </svg>
-            <p className="text-xs text-green-400">{successMsg}</p>
-            <button onClick={() => setSuccessMsg(null)} className="ml-auto text-green-400/50 hover:text-green-400 transition-colors">
+            <p className="text-xs text-sky-400">{successMsg}</p>
+            <button onClick={() => setSuccessMsg(null)} className="ml-auto text-sky-400/50 hover:text-sky-400 transition-colors">
               <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
               </svg>
@@ -277,7 +277,7 @@ export default function JavaManagerModal({ profile, onClose, onJavaSelected, ser
         <div className="flex-1 overflow-y-auto" style={{ scrollbarColor: 'rgba(255,255,255,0.1) transparent' }}>
           {loading ?
           <div className="flex flex-col items-center justify-center py-16 gap-3">
-              <svg className="animate-spin w-6 h-6 text-green-400/50" viewBox="0 0 24 24" fill="none">
+              <svg className="animate-spin w-6 h-6 text-sky-400/50" viewBox="0 0 24 24" fill="none">
                 <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
                 <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
               </svg>
@@ -318,15 +318,15 @@ export default function JavaManagerModal({ profile, onClose, onJavaSelected, ser
                         <span className="text-sm font-bold text-white/90">{d.name}</span>
                         <span className={`text-[9px] font-bold px-2 py-0.5 rounded-full ${d.badgeColor}`}>{d.badge}</span>
                         {installedCount > 0 &&
-                      <span className="text-[9px] font-bold px-2 py-0.5 rounded-full bg-green-500/15 text-green-400">
+                      <span className="text-[9px] font-bold px-2 py-0.5 rounded-full bg-sky-500/15 text-sky-400">
                             {installedCount}<LocalizedText id="auto.60eba654cdb2" />
                       </span>
                       }
                       </div>
-                      <p className="text-xs text-white/40 leading-relaxed mb-2">{d.desc}</p>
+                      <p className="text-xs text-white/40 leading-relaxed mb-2">{t('cyoria.javaDescription.' + d.id)}</p>
                       <div className="flex gap-1.5 flex-wrap">
-                        {d.tags.map((tag) =>
-                      <span key={tag} className="text-[9px] px-2 py-0.5 rounded-full bg-white/5 border border-white/8 text-white/35">{tag}</span>
+                        {d.tags.map((tag, index) =>
+                      <span key={tag} className="text-[9px] px-2 py-0.5 rounded-full bg-white/5 border border-white/8 text-white/35">{t('cyoria.javaTags.' + d.id + '.' + index)}</span>
                       )}
                       </div>
                     </div>
@@ -385,14 +385,14 @@ export default function JavaManagerModal({ profile, onClose, onJavaSelected, ser
                             </div>
                             <div className="flex flex-col items-end gap-1 flex-shrink-0 mt-0.5">
                               {alreadyInstalled &&
-                          <div className="w-5 h-5 rounded-full bg-green-500/20 border border-green-500/30 flex items-center justify-center">
-                                  <svg viewBox="0 0 24 24" fill="currentColor" className="w-3 h-3 text-green-400">
+                          <div className="w-5 h-5 rounded-full bg-sky-500/20 border border-sky-500/30 flex items-center justify-center">
+                                  <svg viewBox="0 0 24 24" fill="currentColor" className="w-3 h-3 text-sky-400">
                                     <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />
                                   </svg>
                                 </div>
                           }
                               {isCurrentlyUsed &&
-                          <span className="text-[9px] font-bold px-1.5 py-0.5 rounded-full bg-green-500/20 text-green-400 border border-green-500/30 whitespace-nowrap"><LocalizedText id="auto.66ec95d4ea47" />
+                          <span className="text-[9px] font-bold px-1.5 py-0.5 rounded-full bg-sky-500/20 text-sky-400 border border-sky-500/30 whitespace-nowrap"><LocalizedText id="auto.66ec95d4ea47" />
 
                           </span>
                           }
@@ -402,10 +402,10 @@ export default function JavaManagerModal({ profile, onClose, onJavaSelected, ser
                           {/* MC note */}
                           {mcNote &&
                       <div className="flex items-center gap-1.5 mb-3">
-                              <svg viewBox="0 0 24 24" fill="currentColor" className="w-3 h-3 text-green-400/60 flex-shrink-0">
+                              <svg viewBox="0 0 24 24" fill="currentColor" className="w-3 h-3 text-sky-400/60 flex-shrink-0">
                                 <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" />
                               </svg>
-                              <span className="text-[10px] text-green-400/70">{mcNote}</span>
+                              <span className="text-[10px] text-sky-400/70">{mcNote}</span>
                             </div>
                       }
 
@@ -430,7 +430,7 @@ export default function JavaManagerModal({ profile, onClose, onJavaSelected, ser
                             className="h-full rounded-full transition-all duration-300"
                             style={{
                               width: `${installProgress.percent ?? 0}%`,
-                              background: installProgress.phase === 'done' ? '#22c55e' : d.color
+                              background: installProgress.phase === 'done' ? '#0284c7' : d.color
                             }} />
                           
                               </div>
@@ -473,7 +473,7 @@ export default function JavaManagerModal({ profile, onClose, onJavaSelected, ser
                               <button
                           onClick={() => handleSelect(pkg.distro, pkg.javaVersion)}
                           className="flex-1 py-2 rounded-xl text-xs font-bold transition-all text-white flex items-center justify-center gap-1.5"
-                          style={{ background: '#22c55e', boxShadow: '0 4px 12px rgba(34,197,94,0.25)' }}>
+                          style={{ background: '#0284c7', boxShadow: '0 4px 12px rgba(34,197,94,0.25)' }}>
                                 <svg viewBox="0 0 24 24" fill="currentColor" className="w-3 h-3">
                                   <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />
                                 </svg><LocalizedText id="auto.a6aedd10c40f" />

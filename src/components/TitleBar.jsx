@@ -49,11 +49,11 @@ function InstanceModal({ instances, onKill, onClose }) {const { t } = useLang();
       <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" onClick={onClose} />
 
       {}
-      <div className="relative z-10 w-[420px] bg-[#141414] border border-white/10 rounded-2xl shadow-2xl overflow-hidden">
+      <div className="relative z-10 w-[420px] bg-[#0a0c0f] border border-white/10 rounded-2xl shadow-2xl overflow-hidden">
         {}
         <div className="flex items-center justify-between px-5 py-3.5 border-b border-white/5">
           <div className="flex items-center gap-2">
-            <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
+            <span className="w-2 h-2 rounded-full bg-sky-400 animate-pulse" />
             <h3 className="text-sm font-bold text-white"><LocalizedText id="auto.d2bf46c83416" /></h3>
             <span className="text-xs text-white/30 bg-white/8 px-1.5 py-0.5 rounded-md font-mono">
               {runningInstances.length}
@@ -83,7 +83,7 @@ function InstanceModal({ instances, onKill, onClose }) {const { t } = useLang();
               className="flex items-center gap-3 px-3 py-2.5 rounded-xl bg-white/4 border border-white/5">
                   {}
                   <div className="flex-shrink-0">
-                    {isRunning && <span className="w-2.5 h-2.5 rounded-full bg-green-400 animate-pulse block" />}
+                    {isRunning && <span className="w-2.5 h-2.5 rounded-full bg-sky-400 animate-pulse block" />}
                     {isLoading &&
                   <svg className="animate-spin w-2.5 h-2.5 text-yellow-400" viewBox="0 0 24 24" fill="none">
                         <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
@@ -101,7 +101,7 @@ function InstanceModal({ instances, onKill, onClose }) {const { t } = useLang();
                       <span className="text-[10px] text-white/35">@{inst.accountName}</span>
                       <span className="text-[10px] text-white/20">·</span>
                       <span className={`text-[10px] font-semibold ${
-                    isRunning ? 'text-green-400' :
+                    isRunning ? 'text-sky-400' :
                     isLoading ? 'text-yellow-400' :
                     isStopped ? 'text-white/30' : 'text-red-400'}`
                     }>
@@ -201,14 +201,14 @@ export default function TitleBar({ instances = [], onKillInstance }) {const { t 
         <div className="flex items-center gap-2 no-drag">
           <div className="w-5 h-5">
             <svg viewBox="0 0 24 24" fill="none" className="w-full h-full">
-              <rect x="2" y="2" width="9" height="9" fill="#4ade80" rx="1" />
-              <rect x="13" y="2" width="9" height="9" fill="#22c55e" rx="1" />
-              <rect x="2" y="13" width="9" height="9" fill="#16a34a" rx="1" />
-              <rect x="13" y="13" width="9" height="9" fill="#4ade80" rx="1" />
+              <rect x="2" y="2" width="9" height="9" fill="#38bdf8" rx="1" />
+              <rect x="13" y="2" width="9" height="9" fill="#0284c7" rx="1" />
+              <rect x="2" y="13" width="9" height="9" fill="#0284c7" rx="1" />
+              <rect x="13" y="13" width="9" height="9" fill="#38bdf8" rx="1" />
             </svg>
           </div>
           <span className="text-ms font-black text-white tracking-tight"><LocalizedText id="auto.cc9158295047" />
-            <span className="text-green-400"><LocalizedText id="auto.af9ff7c85ae4" /></span>
+            <span className="text-sky-400"><LocalizedText id="auto.af9ff7c85ae4" /></span>
           </span>
         </div>
 
@@ -217,11 +217,11 @@ export default function TitleBar({ instances = [], onKillInstance }) {const { t 
           {runningCount > 0 ?
           <button
             onClick={() => setShowModal((v) => !v)}
-            className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-green-500/15 border border-green-500/25 text-green-400 text-xs font-semibold hover:bg-green-500/22 transition-all active:scale-95">
+            className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-sky-500/15 border border-sky-500/25 text-sky-400 text-xs font-semibold hover:bg-sky-500/22 transition-all active:scale-95">
             
-              <span className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse" />
+              <span className="w-1.5 h-1.5 rounded-full bg-sky-400 animate-pulse" />
               {runningCount}<LocalizedText id="auto.80cd0d64902f" />{runningCount > 1 ? 's' : ''}<LocalizedText id="auto.6eea89b31b78" />
-            <svg viewBox="0 0 24 24" fill="currentColor" className="w-3 h-3 text-green-400/60">
+            <svg viewBox="0 0 24 24" fill="currentColor" className="w-3 h-3 text-sky-400/60">
                 <path d="M7 10l5 5 5-5z" />
               </svg>
             </button> :
@@ -264,7 +264,7 @@ export default function TitleBar({ instances = [], onKillInstance }) {const { t 
 
             {/* Dropdown notifications */}
             {notifOpen &&
-            <div className="absolute right-0 top-full mt-1 w-72 bg-[#141414] border border-white/10 rounded-xl shadow-2xl z-[999] overflow-hidden">
+            <div className="absolute right-0 top-full mt-1 w-72 bg-[#0a0c0f] border border-white/10 rounded-xl shadow-2xl z-[999] overflow-hidden">
                 <div className="px-3 py-2.5 border-b border-white/5 flex items-center justify-between">
                   <p className="text-xs font-bold text-white/60"><LocalizedText id="auto.06ab1e9005ba" /></p>
                   {pending.length > 0 &&
@@ -289,7 +289,7 @@ export default function TitleBar({ instances = [], onKillInstance }) {const { t 
                         </div>
                         <div className="flex items-center gap-1 flex-shrink-0">
                           <button onClick={() => handleAccept(req.fromUuid)}
-                    className="w-6 h-6 flex items-center justify-center rounded-lg bg-green-500/15 text-green-400 hover:bg-green-500/30 transition-all" title={t("auto.b07ec843a128")}>
+                    className="w-6 h-6 flex items-center justify-center rounded-lg bg-sky-500/15 text-sky-400 hover:bg-sky-500/30 transition-all" title={t("auto.b07ec843a128")}>
                             <svg viewBox="0 0 24 24" fill="currentColor" className="w-3.5 h-3.5"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" /></svg>
                           </button>
                           <button onClick={() => handleReject(req.fromUuid)}

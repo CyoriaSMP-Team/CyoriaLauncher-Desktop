@@ -109,7 +109,7 @@ export default function ProfileSettingsPanel({ profile, onClose, onProfileUpdate
                 : 'text-white/35 hover:text-white/65 hover:bg-white/5'
             }`}
           >
-            <span className={activeTab === tab.id ? 'text-green-400' : 'text-white/30'}>
+            <span className={activeTab === tab.id ? 'text-sky-400' : 'text-white/30'}>
               {tab.icon}
             </span>
             {t(tab.labelKey)}

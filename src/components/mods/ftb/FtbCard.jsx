@@ -41,7 +41,7 @@ const TAG_COLORS = {
   Tech: 'bg-blue-500/20 text-blue-300',
   Magic: 'bg-purple-500/20 text-purple-300',
   Adventure: 'bg-yellow-500/20 text-yellow-300',
-  Exploration: 'bg-green-500/20 text-green-300',
+  Exploration: 'bg-sky-500/20 text-sky-300',
   Questing: 'bg-orange-500/20 text-orange-300',
   Skyblock: 'bg-cyan-500/20 text-cyan-300'
 };
@@ -108,7 +108,7 @@ function GridCard({ project, onClick }) {
             </div>
             <div className="flex items-center gap-2 text-[10px] flex-shrink-0">
               {project.downloads > 0 &&
-              <span className="flex items-center gap-1 text-green-400/70">
+              <span className="flex items-center gap-1 text-sky-400/70">
                   <DownloadSimple size={12} weight="duotone" />
                   {formatNumber(project.downloads)}
                 </span>
@@ -172,7 +172,7 @@ function ListCard({ project, onClick }) {
       {(project.downloads > 0 || project.follows > 0) &&
       <div className="flex flex-col items-end gap-1.5 flex-shrink-0 w-16">
           {project.downloads > 0 &&
-        <span className="flex items-center gap-1 text-xs text-green-400/80">
+        <span className="flex items-center gap-1 text-xs text-sky-400/80">
               <DownloadSimple size={14} weight="duotone" />
               {formatNumber(project.downloads)}
             </span>

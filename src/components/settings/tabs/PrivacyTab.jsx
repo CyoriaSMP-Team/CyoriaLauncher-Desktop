@@ -127,7 +127,7 @@ function PolicySection({ title, badge, badgeColor, content, agreedKey, agreed, o
               w-4 h-4 rounded flex-shrink-0 border flex items-center justify-center
               transition-all duration-150
               ${agreed
-                ? 'bg-green-500 border-green-500'
+                ? 'bg-sky-500 border-sky-500'
                 : 'bg-transparent border-white/20 hover:border-white/40'
               }
             `}
@@ -192,16 +192,16 @@ export default function PrivacyTab({ settings, onChange }) {
       <div className={`
         rounded-xl border p-3 flex items-center gap-3 transition-all duration-300
         ${bothAgreed
-          ? 'bg-green-500/8 border-green-500/20'
+          ? 'bg-sky-500/8 border-sky-500/20'
           : 'bg-white/3 border-white/5'
         }
       `}>
         <div className={`
           w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0
-          ${bothAgreed ? 'bg-green-500/20' : 'bg-white/5'}
+          ${bothAgreed ? 'bg-sky-500/20' : 'bg-white/5'}
         `}>
           {bothAgreed ? (
-            <svg viewBox="0 0 24 24" fill="currentColor" className="w-4 h-4 text-green-400">
+            <svg viewBox="0 0 24 24" fill="currentColor" className="w-4 h-4 text-sky-400">
               <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
             </svg>
           ) : (
@@ -211,7 +211,7 @@ export default function PrivacyTab({ settings, onChange }) {
           )}
         </div>
         <div>
-          <p className={`text-xs font-semibold ${bothAgreed ? 'text-green-400' : 'text-white/30'}`}>
+          <p className={`text-xs font-semibold ${bothAgreed ? 'text-sky-400' : 'text-white/30'}`}>
             {bothAgreed ? t('settings.privacy.agreedAll') : t('settings.privacy.notAgreedAll')}
           </p>
           <p className="text-[10px] text-white/25 mt-0.5">

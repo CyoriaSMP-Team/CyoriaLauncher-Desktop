@@ -182,7 +182,7 @@ function VersionModal({ project, server, projectType, source, onClose }) {
                 {['all', ...availableTypes].map((typeValue) => {
                 const isActive = typeFilter === typeValue;
                 const cfg = typeValue === 'all' ? { bg: 'rgba(255,255,255,0.12)', text: '#fff', border: 'rgba(255,255,255,0.2)' } :
-                typeValue === 'release' ? { bg: 'rgba(34,197,94,0.15)', text: '#4ade80', border: 'rgba(34,197,94,0.3)' } :
+                typeValue === 'release' ? { bg: 'rgba(34,197,94,0.15)', text: '#38bdf8', border: 'rgba(34,197,94,0.3)' } :
                 typeValue === 'beta' ? { bg: 'rgba(234,179,8,0.15)', text: '#facc15', border: 'rgba(234,179,8,0.3)' } :
                 { bg: 'rgba(255,255,255,0.08)', text: 'rgba(255,255,255,0.45)', border: 'rgba(255,255,255,0.15)' };
                 return (
@@ -217,12 +217,12 @@ function VersionModal({ project, server, projectType, source, onClose }) {
               <div className="w-full rounded-xl p-3 text-left"
             style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.07)' }}>
                 <p className="text-xs text-white/40 mb-1">{t('server.plugins.versionModal.spigotTarget')}</p>
-                <p className="text-xs text-green-400/70 font-mono"><LocalizedText id="auto.bf48ccdc54d9" />{t('server.plugins.versionModal.spigotFolder')}{title}<LocalizedText id="auto.dfccf6c47aa2" /></p>
+                <p className="text-xs text-sky-400/70 font-mono"><LocalizedText id="auto.bf48ccdc54d9" />{t('server.plugins.versionModal.spigotFolder')}{title}<LocalizedText id="auto.dfccf6c47aa2" /></p>
               </div>
             </div> :
           loading ?
           <div className="flex items-center justify-center py-10 gap-2 text-white/30">
-              <svg className="animate-spin w-4 h-4 text-green-400/50" viewBox="0 0 24 24" fill="none">
+              <svg className="animate-spin w-4 h-4 text-sky-400/50" viewBox="0 0 24 24" fill="none">
                 <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
                 <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
               </svg>
@@ -241,20 +241,20 @@ function VersionModal({ project, server, projectType, source, onClose }) {
               return (
                 <button key={v.id} onClick={() => setSelected(v)}
                 className={`w-full flex items-start gap-3 px-3 py-3 rounded-xl text-left transition-all ${
-                isSel ? 'bg-green-500/12 border border-green-500/25' : 'bg-white/3 border border-white/6 hover:bg-white/6 hover:border-white/12'}`
+                isSel ? 'bg-sky-500/12 border border-sky-500/25' : 'bg-white/3 border border-white/6 hover:bg-white/6 hover:border-white/12'}`
                 }>
                     <div className={`w-4 h-4 rounded-full border-2 flex-shrink-0 flex items-center justify-center transition-all mt-0.5 ${
-                  isSel ? 'border-green-400 bg-green-400' : 'border-white/20'}`
+                  isSel ? 'border-sky-400 bg-sky-400' : 'border-white/20'}`
                   }>
                       {isSel && <div className="w-1.5 h-1.5 rounded-full bg-white" />}
                     </div>
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center gap-2 flex-wrap">
-                        <span className={`text-sm font-semibold ${isSel ? 'text-green-400' : 'text-white/85'}`}>
+                        <span className={`text-sm font-semibold ${isSel ? 'text-sky-400' : 'text-white/85'}`}>
                           {v.name || v.version_number}
                         </span>
                         <span className={`text-[10px] px-1.5 py-0.5 rounded-full font-bold ${
-                      v.version_type === 'release' ? 'bg-green-500/15 text-green-400' :
+                      v.version_type === 'release' ? 'bg-sky-500/15 text-sky-400' :
                       v.version_type === 'beta' ? 'bg-yellow-500/15 text-yellow-400' :
                       'bg-white/8 text-white/30'}`
                       }>{v.version_type}</span>
@@ -273,7 +273,7 @@ function VersionModal({ project, server, projectType, source, onClose }) {
                       </div>
                     </div>
                     {isSel &&
-                  <svg viewBox="0 0 24 24" fill="currentColor" className="w-4 h-4 text-green-400 flex-shrink-0 mt-0.5">
+                  <svg viewBox="0 0 24 24" fill="currentColor" className="w-4 h-4 text-sky-400 flex-shrink-0 mt-0.5">
                         <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />
                       </svg>
                   }
@@ -312,7 +312,7 @@ function VersionModal({ project, server, projectType, source, onClose }) {
 
             <button onClick={handleInstall} disabled={!selected || installing || done || versions.length === 0}
             className="flex-1 py-2.5 rounded-xl text-sm font-bold text-white transition-all disabled:opacity-40 flex items-center justify-center gap-2"
-            style={{ background: done ? 'rgba(34,197,94,0.3)' : 'linear-gradient(135deg,#22c55e,#16a34a)', boxShadow: '0 4px 16px rgba(34,197,94,0.2)' }}>
+            style={{ background: done ? 'rgba(34,197,94,0.3)' : 'linear-gradient(135deg,#0284c7,#0284c7)', boxShadow: '0 4px 16px rgba(34,197,94,0.2)' }}>
                 {done ?
               <><svg viewBox="0 0 24 24" fill="currentColor" className="w-4 h-4"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" /></svg>{t('server.plugins.versionModal.installed')}</> :
               installing ?
@@ -462,7 +462,7 @@ export default function ServerPluginModTab({ server, projectType }) {
         <button key={s.id} onClick={() => setSource(s.id)}
         className={`flex items-center gap-2 px-3 py-2 rounded-t-lg text-sm font-semibold transition-all border-b-2 ${
         source === s.id ?
-        'text-white border-green-400 bg-white/5' :
+        'text-white border-sky-400 bg-white/5' :
         'text-white/40 border-transparent hover:text-white/70 hover:bg-white/3'}`
         }>
               <img src={s.icon} alt={s.label} className="w-4 h-4 rounded object-contain" />
@@ -481,7 +481,7 @@ export default function ServerPluginModTab({ server, projectType }) {
           </svg>
           <input ref={searchRef} value={query} onChange={(e) => setQuery(e.target.value)}
           placeholder={placeholder}
-          className="w-full bg-white/5 border border-white/8 rounded-xl pl-9 pr-9 py-2 text-sm text-white/80 placeholder-white/25 focus:outline-none focus:border-green-500/40 transition-all" />
+          className="w-full bg-white/5 border border-white/8 rounded-xl pl-9 pr-9 py-2 text-sm text-white/80 placeholder-white/25 focus:outline-none focus:border-sky-500/40 transition-all" />
           {query &&
           <button onClick={() => setQuery('')}
           className="absolute right-3 top-1/2 -translate-y-1/2 text-white/25 hover:text-white/60 transition-colors">
@@ -492,7 +492,7 @@ export default function ServerPluginModTab({ server, projectType }) {
           }
         </div>
         <p className="text-xs text-white/30 mt-1.5">
-          {label}<LocalizedText id="auto.2db535237f02" /><span className="text-green-400/80 font-semibold">{server.gameVersion}</span>
+          {label}<LocalizedText id="auto.2db535237f02" /><span className="text-sky-400/80 font-semibold">{server.gameVersion}</span>
           {' · '}
           <span className="text-white/40">{t('server.plugins.sourceLabel', { source: source === 'spigot' ? 'SpigotMC' : 'Modrinth' })}</span>
         </p>
@@ -521,7 +521,7 @@ export default function ServerPluginModTab({ server, projectType }) {
         <button onClick={loadMore} disabled={loading}
         className="w-full py-2.5 rounded-xl text-sm text-white/40 hover:text-white/70 border border-white/6 hover:border-white/12 bg-white/2 hover:bg-white/5 transition-all disabled:opacity-40 flex items-center justify-center gap-2">
             {loading ?
-          <><svg className="animate-spin w-3.5 h-3.5 text-green-400/50" viewBox="0 0 24 24" fill="none">
+          <><svg className="animate-spin w-3.5 h-3.5 text-sky-400/50" viewBox="0 0 24 24" fill="none">
                   <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
                   <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
                 </svg>{t('server.plugins.loadingType', { type: label.toLowerCase() })}</> :
@@ -532,7 +532,7 @@ export default function ServerPluginModTab({ server, projectType }) {
 
         {loading && results.length === 0 &&
         <div className="flex items-center justify-center py-10 gap-2 text-white/30">
-            <svg className="animate-spin w-4 h-4 text-green-400/50" viewBox="0 0 24 24" fill="none">
+            <svg className="animate-spin w-4 h-4 text-sky-400/50" viewBox="0 0 24 24" fill="none">
               <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
               <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
             </svg>

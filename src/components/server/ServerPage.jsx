@@ -60,7 +60,7 @@ function getGridCols(count) {
 
 function pingColor(ms) {
   if (ms === null) return 'text-white/20';
-  if (ms < 50) return 'text-green-400';
+  if (ms < 50) return 'text-sky-400';
   if (ms < 120) return 'text-yellow-400';
   return 'text-red-400';
 }
@@ -68,7 +68,7 @@ function pingColor(ms) {
 function PingBars({ ms }) {
   const bars = [1, 2, 3, 4];
   const active = ms === null ? 0 : ms < 50 ? 4 : ms < 100 ? 3 : ms < 200 ? 2 : 1;
-  const col = ms === null ? 'bg-white/15' : ms < 50 ? 'bg-green-400' : ms < 120 ? 'bg-yellow-400' : 'bg-red-400';
+  const col = ms === null ? 'bg-white/15' : ms < 50 ? 'bg-sky-400' : ms < 120 ? 'bg-yellow-400' : 'bg-red-400';
   return (
     <div className="flex items-end gap-[2px]">
       {bars.map((b, i) =>
@@ -81,7 +81,7 @@ function PingBars({ ms }) {
 
 function StatusBadge({ status }) {
   const cfg = {
-    online: { dot: 'bg-green-400 animate-pulse', text: 'text-green-400', label: 'Online' },
+    online: { dot: 'bg-sky-400 animate-pulse', text: 'text-sky-400', label: 'Online' },
     starting: { dot: 'bg-yellow-400 animate-pulse', text: 'text-yellow-400', label: 'Starting' },
     offline: { dot: 'bg-white/20', text: 'text-white/30', label: 'Offline' }
   }[status] || { dot: 'bg-white/20', text: 'text-white/30', label: 'Offline' };
@@ -211,8 +211,8 @@ function StatChip({ icon, label, value, highlight }) {
   return (
     <div className="flex flex-col items-center gap-0.5 rounded-xl py-2 px-1"
     style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.06)' }}>
-      <div className={`${highlight ? 'text-green-400' : 'text-white/30'}`}>{icon}</div>
-      <span className={`text-[11px] font-bold font-mono ${highlight ? 'text-green-400' : 'text-white/70'}`}>{value}</span>
+      <div className={`${highlight ? 'text-sky-400' : 'text-white/30'}`}>{icon}</div>
+      <span className={`text-[11px] font-bold font-mono ${highlight ? 'text-sky-400' : 'text-white/70'}`}>{value}</span>
       <span className="text-[9px] text-white/25 uppercase tracking-wider">{label}</span>
     </div>);
 
@@ -415,7 +415,7 @@ export default function ServerPage({ serverJavaProgress = {}, onServerJavaProgre
             </button>
           </div>
           <button onClick={() => setShowCreate(true)}
-          className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-green-500 hover:bg-green-400 text-white text-xs font-bold transition-all active:scale-95 shadow-lg shadow-green-500/20">
+          className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-sky-500 hover:bg-sky-400 text-white text-xs font-bold transition-all active:scale-95 shadow-lg shadow-sky-500/20">
             <svg viewBox="0 0 24 24" fill="currentColor" className="w-3.5 h-3.5">
               <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z" />
             </svg>
@@ -428,7 +428,7 @@ export default function ServerPage({ serverJavaProgress = {}, onServerJavaProgre
       <div className="flex-1 overflow-y-auto px-6 pb-6" style={{ scrollbarColor: 'rgba(255,255,255,0.1) transparent' }}>
         {loading ?
         <div className="flex items-center justify-center h-32 gap-2 text-white/30">
-            <svg className="animate-spin w-5 h-5 text-green-400/50" viewBox="0 0 24 24" fill="none">
+            <svg className="animate-spin w-5 h-5 text-sky-400/50" viewBox="0 0 24 24" fill="none">
               <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
               <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
             </svg>
@@ -446,7 +446,7 @@ export default function ServerPage({ serverJavaProgress = {}, onServerJavaProgre
               <p className="text-xs text-white/20 mt-1">{t('server.page.emptyHint')}</p>
             </div>
             <button onClick={() => setShowCreate(true)}
-          className="px-4 py-2 rounded-xl bg-green-500/15 text-green-400 text-xs font-semibold border border-green-500/20 hover:bg-green-500/25 transition-all">
+          className="px-4 py-2 rounded-xl bg-sky-500/15 text-sky-400 text-xs font-semibold border border-sky-500/20 hover:bg-sky-500/25 transition-all">
               {t('server.page.createFirst')}
             </button>
           </div> :
