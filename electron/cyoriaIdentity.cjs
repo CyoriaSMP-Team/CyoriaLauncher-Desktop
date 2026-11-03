@@ -106,7 +106,8 @@ async function login() {
       name: typeof profile.name === 'string' ? profile.name : null,
       preferred_username: typeof profile.preferred_username === 'string' ? profile.preferred_username : null,
       discord_user_id: typeof profile.discord_user_id === 'string' && /^\d{17,20}$/.test(profile.discord_user_id)
-        ? profile.discord_user_id : null
+        ? profile.discord_user_id : null,
+      discord_username: typeof profile.discord_username === 'string' && profile.discord_username.length <= 100 ? profile.discord_username : null
     }
     return status()
   } finally {

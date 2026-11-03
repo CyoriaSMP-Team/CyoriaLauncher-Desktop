@@ -82,10 +82,10 @@ export function AccountsProvider({ children }) {
       : crypto.randomUUID()
 
     const newAccount = {
+      ...account,
       id: finalUuid,
       uuid: finalUuid,
       createdAt: new Date().toISOString(),
-      ...account,
     }
 
     let result

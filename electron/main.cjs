@@ -36,10 +36,12 @@ const rpc  = require('./discordRPC.cjs')
 const { getHwid, getHwidFormatted } = require('./hwid.cjs')
 // Discord identity is verified only through CyoriaSMP OIDC (no VoxelX backend).
 const cyoriaIdentity = require('./cyoriaIdentity.cjs')
+const { sanitizeDiscordLink, verifiedDiscordPatch } = require('./accountLinking.cjs')
+const { validateNewOfflineAccount } = require('./offlineAccountPolicy.cjs')
 const { registerProfileHandlers, registerGroupHandlers, registerProfileContentHandlers, registerJavaDistroHandlers } = require('./profileManager.cjs')
 const { registerServerHandlers } = require('./serverManager.cjs')
 const { registerLauncherHandlers } = require('./launcher.cjs')
-const { loginWithWindow, refreshMinecraftToken } = require('./msAuth.cjs')
+const { loginWithWindow, refreshMinecraftToken, cancelLogin } = require('./msAuth.cjs')
 const { registerLanHandlers, setLanWindowRef } = require('./lanScanner.cjs')
 const { openLanWindow, registerLanWindowHandlers, injectSetLanWindowRef } = require('./lanWindow.cjs')
 const { registerVxLanHandlers } = require('./wireguard.cjs')
@@ -122,7 +124,7 @@ function isTrustedOrigin(url) {
 const USERNAME_RE = /^[a-zA-Z0-9_]{3,16}$/
 
 function legacyValidateAccount(account) {
-  if (!account || typeof account !== 'object') return 'Dữ liệu không hợp lệ'
+  if (!account || typeof account !== 'object') return 'Invalid data'
   if (!['offline', 'microsoft'].includes(account.type)) return 'Loại tài khoản không hợp lệ'
   if (typeof account.username !== 'string') return 'Username không hợp lệ'
   if (!USERNAME_RE.test(account.username)) return 'Username chỉ được chứa chữ, số và _ (3-16 ký tự)'
@@ -150,18 +152,6 @@ function legacyValidateId(id) {
   return typeof id === 'string' && /^[0-9a-f-]{36}$/.test(id)
 }
 
-function validateAccount(account) {
-  if (!account || typeof account !== 'object') return 'Du lieu khong hop le'
-  if (!['offline', 'microsoft', 'discord'].includes(account.type)) return 'Loai tai khoan khong hop le'
-  if (typeof account.username !== 'string') return 'Username khong hop le'
-  if (!USERNAME_RE.test(account.username)) return 'Username chi duoc chua chu, so va _ (3-16 ky tu)'
-  if (typeof account.uuid !== 'string' || !/^[0-9a-f-]{36}$/.test(account.uuid)) return 'UUID khong hop le'
-  if (account.type === 'discord') {
-    if (typeof account.discordId !== 'string' || !/^\d{10,25}$/.test(account.discordId)) return 'Discord ID khong hop le'
-    if (typeof account.discordUsername !== 'string' || !account.discordUsername.trim()) return 'Discord username khong hop le'
-  }
-  return null
-}
 
 function sanitizeAccount(account) {
   const base = {
@@ -176,14 +166,7 @@ function sanitizeAccount(account) {
     base.mcToken        = account.mcToken        || null
     base.mcTokenExpiry  = account.mcTokenExpiry  || 0
   }
-  if (account.type === 'discord') {
-    base.discordId            = account.discordId || null
-    base.discordUsername      = account.discordUsername || null
-    base.discordGlobalName    = account.discordGlobalName || null
-    base.discordDiscriminator = account.discordDiscriminator || null
-    base.discordAvatarUrl     = account.discordAvatarUrl || null
-    base.linkedAt             = account.linkedAt || account.createdAt || new Date().toISOString()
-  }
+  Object.assign(base, sanitizeDiscordLink(account))
   return base
 }
 
@@ -1064,8 +1047,9 @@ ipcMain.handle('accounts:get', (e) => {
 ipcMain.handle('accounts:add', (e, account) => {
   if (!getTrustedWindow(e)) return { error: 'Unauthorized' }
 
-  const err = validateAccount(account)
-  if (err) return { error: err }
+  const checked = validateNewOfflineAccount(account)
+  if (checked.error) return { error: checked.error }
+  account = checked.account
 
   const data = readAccounts()
   const exists = data.accounts.find(a => {
@@ -1108,7 +1092,7 @@ ipcMain.handle('accounts:select', (e, id) => {
   if (!validateId(id)) return { error: 'Invalid account ID' }
 
   const data = readAccounts()
-  if (!data.accounts.find(a => a.id === id)) return { error: 'Tài khoản không tồn tại' }
+  if (!data.accounts.find(a => a.id === id)) return { error: 'Account not found' }
   data.selectedId = id
   writeAccounts(data)
   return { ok: true, data }
@@ -1117,31 +1101,17 @@ ipcMain.handle('accounts:select', (e, id) => {
 ipcMain.handle('accounts:update', (e, { id, patch }) => {
   if (!getTrustedWindow(e)) return { error: 'Unauthorized' }
   if (!validateId(id)) return { error: 'Invalid account ID' }
-  if (!patch || typeof patch !== 'object') return { error: 'Dữ liệu không hợp lệ' }
-
-  const ALLOWED_PATCH_KEYS = [
-    'discordId', 'discordUsername', 'discordGlobalName',
-    'discordDiscriminator', 'discordAvatarUrl', 'linkedAt',
-  ]
+  if (!patch || typeof patch !== 'object') return { error: 'Invalid data' }
 
   const data = readAccounts()
   const idx = data.accounts.findIndex(a => a.id === id)
-  if (idx === -1) return { error: 'Tài khoản không tồn tại' }
-
-  const safePatch = {}
-  for (const key of ALLOWED_PATCH_KEYS) {
-    if (key in patch) safePatch[key] = patch[key]
-  }
-
+  if (idx === -1) return { error: 'Account not found' }
+  const result = verifiedDiscordPatch(patch, cyoriaIdentity.status().identity)
+  if (result.error) return { error: result.error }
+  const safePatch = result.patch
   if (safePatch.discordId) {
-    const alreadyLinked = data.accounts.find(
-      a => a.id !== id && a.discordId === safePatch.discordId
-    )
-    if (alreadyLinked) {
-      return {
-        error: `This Discord account is already linked to account "${alreadyLinked.username}". Please use another Discord account.`,
-      }
-    }
+    const alreadyLinked = data.accounts.find(a => a.id !== id && a.discordId === safePatch.discordId)
+    if (alreadyLinked) return {error:`This Discord account is already linked to account "${alreadyLinked.username}"`}
   }
 
   data.accounts[idx] = { ...data.accounts[idx], ...safePatch }
@@ -1149,12 +1119,15 @@ ipcMain.handle('accounts:update', (e, { id, patch }) => {
   return { ok: true, data }
 })
 
+let msLoginGeneration = 0
 ipcMain.handle('ms:startLogin', async (e) => {
   const win = getTrustedWindow(e)
   if (!win) return { error: 'Unauthorized' }
 
+  const currentGeneration = ++msLoginGeneration
   try {
     const result = await loginWithWindow(win)
+    if (currentGeneration !== msLoginGeneration) return { error: 'Microsoft sign-in was cancelled' }
     const data = readAccounts()
     const exists = data.accounts.find(a => a.uuid === result.uuid)
     if (exists) {
@@ -1194,7 +1167,8 @@ ipcMain.handle('ms:startLogin', async (e) => {
 
 ipcMain.handle('ms:cancelLogin', (e) => {
   if (!getTrustedWindow(e)) return { error: 'Unauthorized' }
-  return { ok: true }
+  msLoginGeneration++
+  return { ok: true, cancelled: cancelLogin() }
 })
 
 ipcMain.handle('ms:refreshToken', async (e, id) => {
@@ -1203,9 +1177,9 @@ ipcMain.handle('ms:refreshToken', async (e, id) => {
 
   const data = readAccounts()
   const account = data.accounts.find(a => a.id === id)
-  if (!account) return { error: 'Tài khoản không tồn tại' }
-  if (account.type !== 'microsoft') return { error: 'Không phải tài khoản Microsoft' }
-  if (!account.msRefreshToken) return { error: 'Không có refresh token' }
+  if (!account) return { error: 'Account not found' }
+  if (account.type !== 'microsoft') return { error: 'Selected account is not a Microsoft account' }
+  if (!account.msRefreshToken) return { error: 'Microsoft refresh token is missing' }
   const fiveMin = 5 * 60 * 1000
   if (account.mcTokenExpiry && account.mcTokenExpiry - Date.now() > fiveMin) {
     return { ok: true, skipped: true, mcToken: account.mcToken }
@@ -1854,7 +1828,7 @@ ipcMain.handle('settings:get', (e) => {
 
 ipcMain.handle('settings:save', (e, patch) => {
   if (!getTrustedWindow(e)) return { error: 'Unauthorized' }
-  if (!patch || typeof patch !== 'object') return { error: 'Dữ liệu không hợp lệ' }
+  if (!patch || typeof patch !== 'object') return { error: 'Invalid data' }
 
   const safe = {}
   for (const key of SETTING_KEYS) {
@@ -1954,7 +1928,7 @@ ipcMain.handle('discord:startLink', async (event) => {
     }
     return { ok: true, profile: {
       discordId: id.discord_user_id,
-      discordUsername: id.preferred_username || id.name || 'Cyoria user',
+      discordUsername: id.discord_username || id.discord_user_id,
       discordGlobalName: id.name || id.preferred_username || null,
       discordDiscriminator: null,
       discordAvatarUrl: null

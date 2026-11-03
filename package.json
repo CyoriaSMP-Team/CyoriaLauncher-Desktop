@@ -1,7 +1,7 @@
 {
   "name": "cyoria-launcher",
   "private": true,
-  "version": "1.4.0",
+  "version": "1.4.1",
   "description": "Cyoria Launcher — independent Minecraft Java Edition launcher for any server",
   "author": {
     "name": "CyoriaSMP Team"

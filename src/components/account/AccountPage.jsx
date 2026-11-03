@@ -316,7 +316,7 @@ export default function AccountPage() {
       <div className="relative flex-1 min-w-0 border-r border-white/5">
           <div className="absolute inset-0 flex flex-col overflow-hidden">
             <AccountSettingsPanel
-            account={settingsAccount}
+            account={accounts.find(a => a.id === settingsAccount.id) || settingsAccount}
             onBack={() => setSettingsAccount(null)} />
           
           </div>

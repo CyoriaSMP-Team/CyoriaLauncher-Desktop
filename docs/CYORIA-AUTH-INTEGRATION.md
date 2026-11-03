@@ -36,3 +36,12 @@ Implementation on feature branch: OIDC discovery, PKCE flow, loopback response, 
 - Advertised token endpoint authentication methods: `client_secret_basic` and `client_secret_post`; **public client `none` not advertised**. Electron cannot safely ship a client secret. Enable/register a real PKCE public desktop client and test end to end before calling the optional sign-in live.
 - Former VoxelX Discord-link IPC now invokes Cyoria identity OIDC; an unverified/missing `discord_user_id` is rejected. Existing Microsoft and offline Minecraft accounts remain independent.
 - The old VoxelX account password/email screen and network lookup were retired in favor of local account details. Previous account data directories are untouched.
+
+## Desktop integration verification (3 November 2026)
+
+- The Cloudflare custom domain `auth.cyoriasmp.com` currently maps to Worker `cyoria-discord-oidc` (production).
+- OIDC discovery currently advertises `client_secret_basic`, `client_secret_post` but **not** `none`. Do not ship a shared client secret in an Electron executable. Production worker was not modified during this Launcher update.
+- To enable desktop sign-in, register an explicit public `Cyoria Launcher` client, enforce Authorization Code + PKCE S256, loopback redirect policy, and return verified `discord_user_id` through userinfo when Discord is linked.
+- Before production rollout, check signed ID-token claims, issuer, nonce, audience and subject correlation, as well as expiry, cancellation and reload behavior. Launcher login remains optional and must never grant Microsoft Minecraft ownership.
+- Cyoria account metadata and Discord-link IPC updates now require an authenticated issuer identity; a renderer-supplied Discord ID alone cannot authorize linkage.
+- The upstream Microsoft OAuth window now supports cancellation and checks exact redirect origin/path plus state. A real Microsoft sign-in test is still required before claiming end-to-end login compatibility.

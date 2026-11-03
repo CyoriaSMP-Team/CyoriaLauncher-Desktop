@@ -130,16 +130,21 @@ export default function AddAccountModal({ onClose, onAdd }) {
 
 
 
+  function cancelPendingMicrosoft() {
+    if (msState === 'waiting') void window.electronAPI?.msCancelLogin?.().catch(() => {})
+  }
+
+  function closeModal() {
+    cancelPendingMicrosoft()
+    onClose()
+  }
+
   function resetTab(nextTab) {
-    setTab(nextTab);
-    setError('');
-    setLoading(false);
-    setMsState('idle');
-
-
-
-
-
+    if (nextTab !== tab) cancelPendingMicrosoft()
+    setTab(nextTab)
+    setError('')
+    setLoading(false)
+    setMsState('idle')
   }
 
   // Offline accounts are local Minecraft profiles. Never send usernames to the VoxelX API.
@@ -303,13 +308,13 @@ export default function AddAccountModal({ onClose, onAdd }) {
   return (
     <div
       className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm"
-      onClick={(e) => e.target === e.currentTarget && onClose()}>
+      onClick={(e) => e.target === e.currentTarget && closeModal()}>
       
       <div className="w-[min(94vw,560px)] max-h-[90vh] overflow-y-auto bg-[#0a0c0f] border border-sky-500/20 rounded-3xl shadow-[0_22px_90px_rgba(0,0,0,.65)]">
         <div className="flex items-center justify-between px-6 py-4 border-b border-white/5">
           <div><p className="text-[10px] font-bold uppercase tracking-[0.23em] text-sky-400">CYORIA LAUNCHER</p><h2 className="text-xl font-bold text-white mt-1">{t('account.addModal.title')}</h2><p className="text-xs text-white/40 mt-1">{t('cyoria.loginSubtitle')}</p></div>
           <button
-            onClick={onClose}
+            onClick={closeModal}
             className="w-7 h-7 flex items-center justify-center rounded-lg text-white/40 hover:text-white hover:bg-white/10 transition-all">
             
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-4 h-4">
@@ -409,7 +414,7 @@ export default function AddAccountModal({ onClose, onAdd }) {
               {error && <ErrorBanner message={error} />}
 
               <div className="flex gap-2 pt-1">
-                <SecondaryButton type="button" onClick={onClose}>{t('account.addModal.cancel')}</SecondaryButton>
+                <SecondaryButton type="button" onClick={closeModal}>{t('account.addModal.cancel')}</SecondaryButton>
                 <PrimaryButton type="submit" disabled={loading}>
                   {loading ? t('account.addModal.processing') : t('account.addModal.addBtn')}
                 </PrimaryButton>
@@ -443,7 +448,7 @@ export default function AddAccountModal({ onClose, onAdd }) {
                   {error && <ErrorBanner message={error} />}
 
                   <div className="flex gap-2">
-                    <SecondaryButton onClick={onClose}>{t('account.addModal.cancel')}</SecondaryButton>
+                    <SecondaryButton onClick={closeModal}>{t('account.addModal.cancel')}</SecondaryButton>
                     <button
                   onClick={startMsLogin}
                   disabled={!isElectron}
@@ -474,7 +479,7 @@ export default function AddAccountModal({ onClose, onAdd }) {
               title={msAccount.username}
               description={t('account.addModal.msSuccess')}
               actionLabel={t('account.addModal.msDone')}
-              onAction={onClose} />
+              onAction={closeModal} />
 
             }
             </div>
