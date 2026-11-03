@@ -29,15 +29,17 @@ async function discover() {
 }
 
 function status() {
-  return { issuer: ISSUER, configured: Boolean(process.env.CYORIA_OIDC_CLIENT_ID), connected: Boolean(currentIdentity), identity: currentIdentity }
+  return { issuer: ISSUER, configured: Boolean((process.env.CYORIA_OIDC_CLIENT_ID || '').trim()), connected: Boolean(currentIdentity), identity: currentIdentity }
 }
 
 async function login() {
   if (loginInProgress) throw new Error('Cyoria Auth login already running')
-  const clientId = process.env.CYORIA_OIDC_CLIENT_ID
-  if (!clientId) throw new Error('CYORIA_OIDC_CLIENT_ID is missing; register an OIDC public desktop client first')
+  if (currentIdentity) return status()
+  const clientId = (process.env.CYORIA_OIDC_CLIENT_ID || '').trim()
+  if (!clientId) throw new Error('CyoriaSMP desktop OAuth client is not configured')
   loginInProgress = true
   let server
+  let timeout
   try {
     const metadata = await discover()
     const verifier = b64url(crypto.randomBytes(32))
@@ -49,37 +51,70 @@ async function login() {
       server.once('error', reject)
       server.listen(0, '127.0.0.1', resolve)
     })
-    const redirectUri = 'http://127.0.0.1:' + server.address().port + '/callback'
+    const redirectUri = `http://127.0.0.1:${server.address().port}/callback`
     const auth = new URL(metadata.authorization_endpoint)
-    for (const [k,v] of Object.entries({response_type:'code',client_id:clientId,redirect_uri:redirectUri,scope:'openid profile',state,nonce,code_challenge:challenge,code_challenge_method:'S256'})) auth.searchParams.set(k,v)
+    const params = { response_type:'code', client_id:clientId, redirect_uri:redirectUri,
+      scope:'openid profile', state, nonce, code_challenge:challenge, code_challenge_method:'S256' }
+    for (const [key,value] of Object.entries(params)) auth.searchParams.set(key,value)
 
-    const callback = new Promise((resolve,reject) => {
-      const timer = setTimeout(() => reject(new Error('Cyoria Auth sign-in timed out')), 120000)
+    const callback = new Promise((resolve, reject) => {
+      timeout = setTimeout(() => reject(new Error('Cyoria Auth sign-in timed out')), 120000)
       server.on('request', (req,res) => {
-        const u = new URL(req.url || '/',redirectUri)
-        if (req.method !== 'GET' || u.pathname !== '/callback') { res.writeHead(404); res.end(); return }
-        if (u.searchParams.get('state') !== state) { res.writeHead(400); res.end('Invalid state'); return }
-        const error = u.searchParams.get('error')
-        const code = u.searchParams.get('code')
-        res.writeHead(error || !code ? 400 : 200,{'Content-Type':'text/plain; charset=utf-8','Cache-Control':'no-store'})
-        res.end(error ? 'Cyoria Auth rejected sign-in' : code ? 'Cyoria Auth complete. Return to Cyoria Launcher.' : 'Missing authorization code')
-        clearTimeout(timer)
-        if (error || !code) reject(new Error('Cyoria Auth sign-in failed')); else resolve(code)
+        const url = new URL(req.url || '/', redirectUri)
+        res.setHeader('Cache-Control', 'no-store')
+        res.setHeader('Content-Type', 'text/plain; charset=utf-8')
+        if (req.method !== 'GET' || url.pathname !== '/callback') {
+          res.writeHead(404); res.end('Not found'); return
+        }
+        if (url.searchParams.get('state') !== state) {
+          res.writeHead(400); res.end('Invalid OAuth state'); return
+        }
+        const error = url.searchParams.get('error')
+        const code = url.searchParams.get('code')
+        if (error || !code) {
+          res.writeHead(400); res.end('Sign-in cancelled or rejected')
+          reject(new Error(error ? `Cyoria Auth denied sign-in: ${error}` : 'Authorization code missing'))
+          return
+        }
+        res.writeHead(200); res.end('Authorization received. Return to Cyoria Launcher to finish signing in.')
+        resolve(code)
       })
     })
-    try { await shell.openExternal(auth.toString()); const code = await callback
-      const tokenResponse = await fetch(metadata.token_endpoint, {method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:new URLSearchParams({grant_type:'authorization_code',client_id:clientId,code,redirect_uri:redirectUri,code_verifier:verifier}),signal:AbortSignal.timeout(10000)})
-      if (!tokenResponse.ok) throw new Error('Cyoria Auth token exchange failed: '+tokenResponse.status)
-      const tokens = await tokenResponse.json()
-      if (!tokens.access_token || tokens.token_type?.toLowerCase() !== 'bearer') throw new Error('Invalid Cyoria Auth token response')
-      const info = await fetch(metadata.userinfo_endpoint,{headers:{Authorization:'Bearer '+tokens.access_token},signal:AbortSignal.timeout(10000)})
-      if (!info.ok) throw new Error('Cyoria Auth profile lookup failed: '+info.status)
-      const profile = await info.json()
-      if (!profile.sub || typeof profile.sub !== 'string') throw new Error('Invalid Cyoria Auth subject')
-      currentIdentity = { sub: profile.sub, name: typeof profile.name === 'string' ? profile.name : null, preferred_username: typeof profile.preferred_username === 'string' ? profile.preferred_username : null, discord_user_id: typeof profile.discord_user_id === 'string' ? profile.discord_user_id : null }
-      return status()
-    } finally { callback.catch(()=>{}) }
-  } finally { if (server) server.close(); loginInProgress = false }
+    // Attach a rejection handler before openExternal can reject to prevent unhandled promise rejection.
+    callback.catch(() => {})
+    await shell.openExternal(auth.toString())
+    const code = await callback
+    const response = await fetch(metadata.token_endpoint, {
+      method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: new URLSearchParams({grant_type:'authorization_code',client_id:clientId,code,redirect_uri:redirectUri,code_verifier:verifier}),
+      signal: AbortSignal.timeout(12000)
+    })
+    if (!response.ok) throw new Error(`Cyoria Auth token exchange failed (${response.status})`)
+    const tokens = await response.json()
+    if (typeof tokens.access_token !== 'string' || tokens.token_type?.toLowerCase() !== 'bearer') {
+      throw new Error('Invalid Cyoria Auth token response')
+    }
+    const info = await fetch(metadata.userinfo_endpoint, {
+      headers: { Authorization: `Bearer ${tokens.access_token}` }, signal: AbortSignal.timeout(12000)
+    })
+    if (!info.ok) throw new Error(`Cyoria Auth userinfo lookup failed (${info.status})`)
+    const profile = await info.json()
+    if (typeof profile.sub !== 'string' || !profile.sub) throw new Error('Cyoria Auth subject is missing')
+    // The verified identity comes from the issuer userinfo endpoint, not a Discord client response.
+    currentIdentity = {
+      sub: profile.sub,
+      name: typeof profile.name === 'string' ? profile.name : null,
+      preferred_username: typeof profile.preferred_username === 'string' ? profile.preferred_username : null,
+      discord_user_id: typeof profile.discord_user_id === 'string' && /^\d{17,20}$/.test(profile.discord_user_id)
+        ? profile.discord_user_id : null
+    }
+    return status()
+  } finally {
+    if (timeout) clearTimeout(timeout)
+    if (server) await new Promise(resolve => server.close(() => resolve()))
+    loginInProgress = false
+  }
 }
+
 function logout(){ currentIdentity = null; return status() }
 module.exports = {status,login,logout,discover}

@@ -5,7 +5,7 @@ import CyoriaIdentityPanel from './CyoriaIdentityPanel'
 
 /** Local Minecraft account information; Cyoria identity remains independent. */
 export default function AccountSettingsPanel({ account, onBack }) {
-  const { t, lang } = useLang()
+  const { t } = useLang()
   const { updateAccount } = useAccounts()
   const [busy, setBusy] = useState(false)
   const [error, setError] = useState('')

@@ -10,7 +10,7 @@ export default function CyoriaIdentityPanel() {
   const api = typeof window !== 'undefined' ? window.electronAPI : null
   useEffect(() => {
     let mounted = true
-    api?.cyoriaIdentityStatus?.().then(value => {if (mounted) setStatus(value)}).catch(err => {if (mounted) setError(err?.message || t('cyoria.statusError'))})
+    api?.cyoriaIdentityStatus?.().then(value => {if (mounted) setStatus(value)}).catch(err => {if (mounted) setError(err?.message || 'Unable to load CyoriaSMP Auth status')})
     return () => {mounted = false}
   }, [api])
   async function action() {

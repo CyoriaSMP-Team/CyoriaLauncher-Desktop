@@ -33,7 +33,7 @@ import { useState } from 'react';
 import PlayerHead from '../ui/PlayerHead';
 import { offlineUUID } from '../../utils/offlineUUID';
 import { useLang } from '../../i18n/LangProvider';
-import CyoriaIdentityPanel from './CyoriaIdentityPanel';import LocalizedText from "../../i18n/LocalizedText.jsx";
+import CyoriaIdentityPanel from './CyoriaIdentityPanel';
 
 const isElectron = typeof window !== 'undefined' && window.electronAPI;
 
@@ -51,61 +51,61 @@ function validatePlayerName(name) {
   return null;
 }
 
-function normalizeDiscordProfile(profile) {
-  if (!profile || typeof profile !== 'object') return null;
 
-  const discordId = String(
-    profile.discordId ??
-    profile.id ??
-    profile.userId ??
-    ''
-  ).trim();
 
-  const discordUsername = String(
-    profile.discordUsername ??
-    profile.username ??
-    profile.login ??
-    ''
-  ).trim();
 
-  const discordGlobalName = String(
-    profile.discordGlobalName ??
-    profile.globalName ??
-    profile.global_name ??
-    profile.displayName ??
-    ''
-  ).trim();
 
-  const discriminatorValue =
-  profile.discordDiscriminator ??
-  profile.discriminator ??
-  profile.tagSuffix ??
-  null;
 
-  const discordDiscriminator = discriminatorValue == null ?
-  null :
-  String(discriminatorValue).trim() || null;
 
-  const discordAvatarUrl = String(
-    profile.discordAvatarUrl ??
-    profile.avatarUrl ??
-    profile.avatar_url ??
-    profile.avatar ??
-    ''
-  ).trim() || null;
 
-  if (!discordId || !discordUsername) return null;
 
-  return {
-    discordId,
-    discordUsername,
-    discordGlobalName: discordGlobalName || null,
-    discordDiscriminator,
-    discordAvatarUrl
-  };
-}
 
-export default function AddAccountModal({ onClose, onAdd, onLinkDiscord, existingAccounts = [] }) {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+export default function AddAccountModal({ onClose, onAdd }) {
   const { t } = useLang();
   const [tab, setTab] = useState('offline');
   const [username, setUsername] = useState('');
@@ -116,30 +116,30 @@ export default function AddAccountModal({ onClose, onAdd, onLinkDiscord, existin
   const [msAccount, setMsAccount] = useState(null);
 
   // OTP flow
-  const [otpState, setOtpState] = useState('idle'); // 'idle' | 'sending' | 'waiting' | 'verifying'
-  const [otpCode, setOtpCode] = useState('');
-  const [otpPendingName, setOtpPendingName] = useState('');
-  const [otpError, setOtpError] = useState('');
+  // 'idle' | 'sending' | 'waiting' | 'verifying'
+
+
+
 
   // Cyoria identity is optional and managed independently of game accounts.
 
-  const [discordState, setDiscordState] = useState('idle');
-  const [discordProfile, setDiscordProfile] = useState(null);
-  const [discordPlayerName, setDiscordPlayerName] = useState('');
+
+
+
   // 'new' = tạo tài khoản mới, 'link' = liên kết với account đã có
-  const [discordMode, setDiscordMode] = useState('new');
-  const [linkTargetId, setLinkTargetId] = useState('');
+
+
 
   function resetTab(nextTab) {
     setTab(nextTab);
     setError('');
     setLoading(false);
     setMsState('idle');
-    setDiscordState('idle');
-    setDiscordProfile(null);
-    setDiscordPlayerName('');
-    setDiscordMode('new');
-    setLinkTargetId('');
+
+
+
+
+
   }
 
   // Offline accounts are local Minecraft profiles. Never send usernames to the VoxelX API.
@@ -153,22 +153,28 @@ export default function AddAccountModal({ onClose, onAdd, onLinkDiscord, existin
   }
 
   async function doAddAccount(name) {
+    if (loading) return;
     setLoading(true);
-    const result = await onAdd({ type: 'offline', username: name });
-    if (result?.error) {
-      setError(result.error);
+    try {
+      const result = await onAdd({ type: 'offline', username: name });
+      if (result?.error) {
+        setError(result.error);
+        return;
+      }
+      onClose();
+    } catch (err) {
+      setError(err?.message || 'Unable to add Minecraft account');
+    } finally {
       setLoading(false);
-      return;
     }
-    onClose();
   }
 
   // Legacy web OTP was tied to VoxelX and is intentionally disabled.
-  async function handleOtpSubmit(e) {
-    e.preventDefault();
-    setOtpError(t('cyoria.legacyOtpDisabled'));
-    setOtpState('idle');
-  }
+
+
+
+
+
 
   async function startMsLogin() {
     if (!isElectron) {
@@ -196,103 +202,103 @@ export default function AddAccountModal({ onClose, onAdd, onLinkDiscord, existin
     }
   }
 
-  async function startDiscordLink() {
-    if (!isElectron) {
-      setError(t('account.addModal.discordOnlyElectron'));
-      return;
-    }
 
-    setError('');
-    setDiscordState('waiting');
 
-    try {
-      const result = await window.electronAPI.discordStartLink();
-      if (result?.error) {
-        setError(result.error);
-        setDiscordState('idle');
-        return;
-      }
 
-      const normalizedProfile = normalizeDiscordProfile(result?.profile);
-      if (!normalizedProfile) {
-        setError(t('account.addModal.discordInvalidData'));
-        setDiscordState('idle');
-        return;
-      }
 
-      setDiscordProfile(normalizedProfile);
-      setDiscordState('linked');
-    } catch (err) {
-      setError(err?.message || t('account.addModal.discordOnlyElectron'));
-      setDiscordState('idle');
-    }
-  }
 
-  async function handleDiscordSubmit(e) {
-    e.preventDefault();
-    setError('');
-    setLoading(true);
 
-    if (!discordProfile?.discordId) {
-      setError(t('account.addModal.discordNeedAuth'));
-      setLoading(false);
-      return;
-    }
 
-    if (discordMode === 'link') {
-      // Liên kết Discord vào account đã có
-      if (!linkTargetId) {
-        setError(t('account.addModal.discordSelectAccount'));
-        setLoading(false);
-        return;
-      }
-      const result = await onLinkDiscord?.(linkTargetId, discordProfile);
-      if (result?.error) {
-        setError(result.error);
-        setLoading(false);
-        return;
-      }
-      onClose();
-      return;
-    }
 
-    // Tạo tài khoản mới
-    const name = discordPlayerName.trim();
-    const validationError = validatePlayerName(name);
-    if (validationError) {
-      setError(t(validationError));
-      setLoading(false);
-      return;
-    }
 
-    const result = await onAdd({
-      type: 'discord',
-      username: name,
-      discordId: discordProfile.discordId,
-      discordUsername: discordProfile.discordUsername,
-      discordGlobalName: discordProfile.discordGlobalName,
-      discordDiscriminator: discordProfile.discordDiscriminator,
-      discordAvatarUrl: discordProfile.discordAvatarUrl,
-      linkedAt: new Date().toISOString()
-    });
 
-    if (result?.error) {
-      setError(result.error);
-      setLoading(false);
-      return;
-    }
 
-    onClose();
-  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   const offlinePreviewUuid = username.trim().length >= 3 ? offlineUUID(username.trim()) : null;
-  const discordPreviewUuid = discordPlayerName.trim().length >= 3 ? offlineUUID(discordPlayerName.trim()) : null;
-  const discordDisplayName = discordProfile?.discordGlobalName || discordProfile?.discordUsername || 'Discord user';
-  const discordTag = discordProfile?.discordUsername ?
-  `@${discordProfile.discordUsername}${discordProfile.discordDiscriminator && discordProfile.discordDiscriminator !== '0' ?
-  `#${discordProfile.discordDiscriminator}` :
-  ''}` :
-  null;
+
+
+
+
+
+
+
 
   return (
     <div
@@ -333,53 +339,53 @@ export default function AddAccountModal({ onClose, onAdd, onLinkDiscord, existin
           {tab === 'offline' &&
           <>
             {/* OTP verification screen */}
-            {otpState === 'sending' || otpState === 'waiting' || otpState === 'verifying' ?
-            <div className="flex flex-col gap-4">
-                {otpState === 'sending' ?
-              <div className="flex flex-col items-center gap-4 py-6">
-                    <svg className="animate-spin w-7 h-7 text-sky-400" viewBox="0 0 24 24" fill="none">
-                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
-                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
-                    </svg>
-                    <p className="text-sm text-white/60"><LocalizedText id="auto.83d00e280a7a" /></p>
-                  </div> :
+            {
 
-              <form onSubmit={handleOtpSubmit} className="flex flex-col gap-4">
-                    <div className="flex flex-col items-center gap-3 py-2">
-                      <div className="w-12 h-12 rounded-2xl bg-sky-500/15 border border-sky-500/25 flex items-center justify-center">
-                        <svg viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6 text-sky-400">
-                          <path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" />
-                        </svg>
-                      </div>
-                      <div className="text-center">
-                        <p className="text-sm font-semibold text-white/80"><LocalizedText id="auto.8170792eadc6" /></p>
-                        <p className="text-xs text-white/35 mt-1 leading-relaxed"><LocalizedText id="auto.db73bbf4379d" />
-                      <strong className="text-white/60">{otpPendingName}</strong>
-                        </p>
-                      </div>
-                    </div>
 
-                    <TextField
-                  label={t("auto.2378f2490009")}
-                  value={otpCode}
-                  onChange={setOtpCode}
-                  placeholder="000000"
-                  autoFocus />
-                
 
-                    {otpError && <ErrorBanner message={otpError} />}
 
-                    <div className="flex gap-2">
-                      <SecondaryButton type="button" onClick={() => {setOtpState('idle');setOtpCode('');setOtpError('');}}><LocalizedText id="auto.19ddb5379406" />
 
-                  </SecondaryButton>
-                      <PrimaryButton type="submit" disabled={otpState === 'verifying' || otpCode.length < 6}>
-                        {otpState === 'verifying' ? 'Đang xác nhận...' : 'Xác nhận'}
-                      </PrimaryButton>
-                    </div>
-                  </form>
-              }
-              </div> :
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
             <form onSubmit={handleOfflineSubmit} className="flex flex-col gap-4">
               <TextField
@@ -475,7 +481,7 @@ export default function AddAccountModal({ onClose, onAdd, onLinkDiscord, existin
           }
 
           {tab === 'cyoria' &&
-            <div className="rounded-2xl border border-sky-500/20 bg-sky-500/5 p-4 space-y-4">
+          <div className="rounded-2xl border border-sky-500/20 bg-sky-500/5 p-4 space-y-4">
               <div><p className="text-base font-semibold text-white">{t('cyoria.optionalTitle')}</p><p className="text-xs leading-relaxed text-white/55 mt-1">{t('cyoria.optionalDescription')}</p></div>
               <CyoriaIdentityPanel />
               <p className="text-[11px] text-white/40">{t('cyoria.minecraftIndependent')}</p>
@@ -620,13 +626,13 @@ function SecondaryButton({ children, ...props }) {
 
 }
 
-function DiscordGlyph({ className = '' }) {
-  return (
-    <svg viewBox="0 0 24 24" fill="currentColor" className={className}>
-      <path d="M20.317 4.369A19.791 19.791 0 0015.885 3c-.191.34-.404.798-.553 1.165a18.27 18.27 0 00-5.327 0A12.04 12.04 0 009.45 3a19.736 19.736 0 00-4.434 1.371C2.21 8.622 1.449 12.77 1.822 16.863A19.923 19.923 0 007.245 19.5c.438-.6.83-1.235 1.165-1.905-.63-.238-1.23-.53-1.793-.867.149-.107.294-.221.434-.339 3.46 1.623 7.214 1.623 10.633 0 .142.118.287.232.434.339-.565.339-1.167.63-1.795.867.336.67.728 1.307 1.167 1.905a19.874 19.874 0 005.422-2.638c.438-4.745-.75-8.855-3.595-12.494zM9.16 14.555c-1.036 0-1.886-.95-1.886-2.115 0-1.165.832-2.115 1.886-2.115 1.062 0 1.904.96 1.886 2.115 0 1.165-.832 2.115-1.886 2.115zm5.693 0c-1.036 0-1.886-.95-1.886-2.115 0-1.165.832-2.115 1.886-2.115 1.062 0 1.904.96 1.886 2.115 0 1.165-.824 2.115-1.886 2.115z" />
-    </svg>);
 
-}
+
+
+
+
+
+
 
 function ErrorBanner({ message }) {
   return (
