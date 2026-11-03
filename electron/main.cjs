@@ -36,6 +36,7 @@ const rpc  = require('./discordRPC.cjs')
 const { getHwid, getHwidFormatted } = require('./hwid.cjs')
 // Discord identity is verified only through CyoriaSMP OIDC (no VoxelX backend).
 const cyoriaIdentity = require('./cyoriaIdentity.cjs')
+const cyoriaWebIdentity = require('./cyoriaWebIdentity.cjs')
 const { sanitizeDiscordLink, verifiedDiscordPatch } = require('./accountLinking.cjs')
 const { validateNewOfflineAccount } = require('./offlineAccountPolicy.cjs')
 const { registerProfileHandlers, registerGroupHandlers, registerProfileContentHandlers, registerJavaDistroHandlers } = require('./profileManager.cjs')
@@ -122,6 +123,17 @@ function isTrustedOrigin(url) {
 }
 
 const USERNAME_RE = /^[a-zA-Z0-9_]{3,16}$/
+const MINECRAFT_UUID_RE = /^[0-9a-f]{8}-(?:[0-9a-f]{4}-){3}[0-9a-f]{12}$/i
+
+function normalizeMinecraftUuid(uuid) {
+  return typeof uuid === 'string' && MINECRAFT_UUID_RE.test(uuid) ? uuid.toLowerCase() : null
+}
+
+function expectedCyoriaOfflineName(identity) {
+  if (typeof identity?.minecraftName === 'string' && USERNAME_RE.test(identity.minecraftName.trim())) return identity.minecraftName.trim()
+  const webName = identity?.preferred_username || identity?.name
+  return typeof webName === 'string' && USERNAME_RE.test(webName.trim()) ? webName.trim() : null
+}
 
 function legacyValidateAccount(account) {
   if (!account || typeof account !== 'object') return 'Invalid data'
@@ -165,6 +177,9 @@ function sanitizeAccount(account) {
     base.msRefreshToken = account.msRefreshToken || null
     base.mcToken        = account.mcToken        || null
     base.mcTokenExpiry  = account.mcTokenExpiry  || 0
+  }
+  if (typeof account.cyoriaAccountUuid === 'string' && /^[0-9a-f]{8}-(?:[0-9a-f]{4}-){3}[0-9a-f]{12}$/i.test(account.cyoriaAccountUuid)) {
+    base.cyoriaAccountUuid = account.cyoriaAccountUuid
   }
   Object.assign(base, sanitizeDiscordLink(account))
   return base
@@ -1047,9 +1062,22 @@ ipcMain.handle('accounts:get', (e) => {
 ipcMain.handle('accounts:add', (e, account) => {
   if (!getTrustedWindow(e)) return { error: 'Unauthorized' }
 
+  const requestedCyoriaUuid = account && Object.hasOwn(account, 'cyoriaAccountUuid')
+    ? account.cyoriaAccountUuid
+    : undefined
   const checked = validateNewOfflineAccount(account)
   if (checked.error) return { error: checked.error }
   account = checked.account
+
+  if (requestedCyoriaUuid !== undefined) {
+    const identity = cyoriaWebIdentity.status().identity
+    const expectedName = expectedCyoriaOfflineName(identity)
+    if (!identity || requestedCyoriaUuid !== identity.sub || identity.minecraftPremium !== false
+      || !expectedName || account.username.toLowerCase() !== expectedName.toLowerCase()) {
+      return { error: 'This Offline profile does not match the verified Cyoria account' }
+    }
+    account.cyoriaAccountUuid = identity.sub
+  }
 
   const data = readAccounts()
   const exists = data.accounts.find(a => {
@@ -1106,9 +1134,31 @@ ipcMain.handle('accounts:update', (e, { id, patch }) => {
   const data = readAccounts()
   const idx = data.accounts.findIndex(a => a.id === id)
   if (idx === -1) return { error: 'Account not found' }
-  const result = verifiedDiscordPatch(patch, cyoriaIdentity.status().identity)
-  if (result.error) return { error: result.error }
-  const safePatch = result.patch
+  const safePatch = {}
+  if (Object.hasOwn(patch, 'cyoriaAccountUuid')) {
+    const identity = cyoriaWebIdentity.status().identity
+    const account = data.accounts[idx]
+    if (!identity || patch.cyoriaAccountUuid !== identity.sub) return { error: 'Cyoria account link requires a verified website sign-in' }
+    if (identity.minecraftPremium === true) {
+      if (account.type !== 'microsoft' || normalizeMinecraftUuid(account.uuid) !== normalizeMinecraftUuid(identity.minecraftUuid)) {
+        return { error: 'This Microsoft account does not match the verified Cyoria Minecraft UUID' }
+      }
+    } else if (identity.minecraftPremium === false) {
+      const expectedName = expectedCyoriaOfflineName(identity)
+      if (account.type !== 'offline' || !expectedName || account.username.toLowerCase() !== expectedName.toLowerCase()) {
+        return { error: 'This Offline profile does not match the linked Cyoria account name' }
+      }
+    } else {
+      return { error: 'Cyoria Minecraft verification status is unavailable' }
+    }
+    safePatch.cyoriaAccountUuid = identity.sub
+  }
+  if (Object.hasOwn(patch, 'discordId')) {
+    const result = verifiedDiscordPatch(patch, cyoriaIdentity.status().identity)
+    if (result.error) return { error: result.error }
+    Object.assign(safePatch, result.patch)
+  }
+  if (Object.keys(safePatch).length === 0) return { error: 'No supported account changes were provided' }
   if (safePatch.discordId) {
     const alreadyLinked = data.accounts.find(a => a.id !== id && a.discordId === safePatch.discordId)
     if (alreadyLinked) return {error:`This Discord account is already linked to account "${alreadyLinked.username}"`}
@@ -1120,14 +1170,24 @@ ipcMain.handle('accounts:update', (e, { id, patch }) => {
 })
 
 let msLoginGeneration = 0
-ipcMain.handle('ms:startLogin', async (e) => {
+ipcMain.handle('ms:startLogin', async (e, options = {}) => {
   const win = getTrustedWindow(e)
   if (!win) return { error: 'Unauthorized' }
+  const expectedUsername = typeof options?.expectedUsername === 'string' ? options.expectedUsername.trim() : null
+  const expectedUuid = typeof options?.expectedUuid === 'string' ? normalizeMinecraftUuid(options.expectedUuid) : null
+  if (expectedUsername && !USERNAME_RE.test(expectedUsername)) return { error: 'Invalid expected Minecraft name' }
+  if (options?.expectedUuid && !expectedUuid) return { error: 'Invalid expected Minecraft UUID' }
 
   const currentGeneration = ++msLoginGeneration
   try {
     const result = await loginWithWindow(win)
     if (currentGeneration !== msLoginGeneration) return { error: 'Microsoft sign-in was cancelled' }
+    if (expectedUuid && normalizeMinecraftUuid(result.uuid) !== expectedUuid) {
+      return { error: 'MICROSOFT_ACCOUNT_UUID_MISMATCH' }
+    }
+    if (!expectedUuid && expectedUsername && result.username.toLowerCase() !== expectedUsername.toLowerCase()) {
+      return { error: 'MICROSOFT_ACCOUNT_MISMATCH' }
+    }
     const data = readAccounts()
     const exists = data.accounts.find(a => a.uuid === result.uuid)
     if (exists) {
@@ -1205,15 +1265,15 @@ ipcMain.handle('ms:refreshToken', async (e, id) => {
 // Cyoria account is an OPTIONAL launcher identity, separate from Microsoft Minecraft auth.
 ipcMain.handle('cyoria:identityStatus', (event) => {
   if (!getTrustedWindow(event)) return { error: 'Unauthorized' }
-  return cyoriaIdentity.status()
+  return cyoriaWebIdentity.status()
 })
 ipcMain.handle('cyoria:identityLogin', async (event) => {
   if (!getTrustedWindow(event)) return { error: 'Unauthorized' }
-  try { return await cyoriaIdentity.login() } catch (err) { return { error: err.message } }
+  try { return await cyoriaWebIdentity.login() } catch (err) { return { error: err.message } }
 })
 ipcMain.handle('cyoria:identityLogout', (event) => {
   if (!getTrustedWindow(event)) return { error: 'Unauthorized' }
-  return cyoriaIdentity.logout()
+  return cyoriaWebIdentity.logout()
 })
 
 ipcMain.handle('shell:openExternal', (e, url) => {

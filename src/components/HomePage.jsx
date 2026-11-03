@@ -213,10 +213,10 @@ function PatchNotesModal({ patchNotes, onClose }) {
 
 }
 
-function getAccountTypeLabel(type) {
-  if (type === 'microsoft') return 'Microsoft';
-  if (type === 'discord') return 'Discord Linked';
-  return 'Offline Mode';
+function getAccountTypeLabel(account, t) {
+  let label = account?.type === 'microsoft' ? 'Microsoft' : account?.type === 'discord' ? 'Discord Linked' : 'Offline Mode';
+  if (account?.cyoriaAccountUuid) label += ` · ${t('cyoria.gameAccountTag')}`;
+  return label;
 }
 
 function AccountDropdown({ accounts, selectedAccount, selectAccount, onNavigate }) {
@@ -261,7 +261,7 @@ function AccountDropdown({ accounts, selectedAccount, selectAccount, onNavigate 
             </div>
             <div className="min-w-0 flex-1 text-left">
               <div className="text-sm text-white/80 font-medium truncate">{selectedAccount.username}</div>
-              <div className="text-[10px] text-white/30">{getAccountTypeLabel(selectedAccount.type)}</div>
+              <div className="text-[10px] text-white/30">{getAccountTypeLabel(selectedAccount, t)}</div>
             </div>
           </>
         }
@@ -293,7 +293,7 @@ function AccountDropdown({ accounts, selectedAccount, selectAccount, onNavigate 
                   </div>
                   <div className="min-w-0 flex-1">
                     <p className="text-xs text-white/80 font-semibold truncate">{account.username}</p>
-                    <p className="text-[10px] text-white/30">{getAccountTypeLabel(account.type)}</p>
+                    <p className="text-[10px] text-white/30">{getAccountTypeLabel(account, t)}</p>
                   </div>
                   {selectedAccount?.id === account.id &&
             <svg viewBox="0 0 24 24" fill="currentColor" className="w-3 h-3 text-sky-400 flex-shrink-0">
@@ -828,7 +828,7 @@ export default function HomePage({ onNavigate, launchState, progress, launchErro
   }, [launchState, selectedProfile]);
 
   const username = selectedAccount?.username ?? null;
-  const accountType = getAccountTypeLabel(selectedAccount?.type);
+  const accountType = getAccountTypeLabel(selectedAccount, t);
 
   function handleLaunch() {
     if (!selectedProfile || !isElectron) return;

@@ -79,6 +79,12 @@ function AccountTypeTag({ type }) {
 
 }
 
+function CyoriaLinkTag({ account }) {
+  const { t } = useLang();
+  if (!account?.cyoriaAccountUuid) return null;
+  return <span className="inline-flex items-center text-[9px] font-semibold px-1.5 py-0.5 rounded-full bg-sky-500/12 text-sky-300 border border-sky-400/15">{t('cyoria.gameAccountTag')}</span>;
+}
+
 function AccountRow({ account, isSelected, onSelect, onRemove, confirmId, onOpenSettings }) {const { t } = useLang();
   return (
     <div
@@ -104,6 +110,7 @@ function AccountRow({ account, isSelected, onSelect, onRemove, confirmId, onOpen
             {account.username}
           </span>
           <AccountTypeTag type={account.type} />
+          <CyoriaLinkTag account={account} />
           {/* Badge Discord liên kết — hiển thị khi account offline/discord đã có discordId */}
           {account.discordId && account.type !== 'discord' &&
           <span className="inline-flex items-center gap-0.5 text-[9px] font-semibold px-1.5 py-0.5 rounded-full bg-[#5865F2]/20 text-[#8b9cf4] border border-[#5865F2]/25 flex-shrink-0">
@@ -608,6 +615,7 @@ export default function AccountPage() {
               </div>
               <div className="mt-2 flex items-center justify-center gap-2">
                 <AccountTypeTag type={selected.type} />
+                <CyoriaLinkTag account={selected} />
                 {}
                 <button
                 onClick={() => setSlim((v) => !v)}

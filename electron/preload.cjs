@@ -114,7 +114,7 @@ contextBridge.exposeInMainWorld('electronAPI', {
   cyoriaIdentityLogin: () => ipcRenderer.invoke('cyoria:identityLogin'),
   cyoriaIdentityLogout: () => ipcRenderer.invoke('cyoria:identityLogout'),
 
-  msStartLogin:   ()   => ipcRenderer.invoke('ms:startLogin'),
+  msStartLogin:   (options) => ipcRenderer.invoke('ms:startLogin', options),
   msCancelLogin:  ()   => ipcRenderer.invoke('ms:cancelLogin'),
   msRefreshToken: (id) => ipcRenderer.invoke('ms:refreshToken', id),
   discordStartLink: () => ipcRenderer.invoke('discord:startLink'),
