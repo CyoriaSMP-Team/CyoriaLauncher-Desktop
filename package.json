@@ -76,13 +76,6 @@
       {
         "from": "public/icon.png",
         "to": "icon.png"
-      },
-      {
-        "from": "mod-skin",
-        "to": "mod-skin",
-        "filter": [
-          "**/*.jar"
-        ]
       }
     ],
     "win": {

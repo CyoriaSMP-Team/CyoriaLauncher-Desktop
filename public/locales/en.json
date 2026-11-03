@@ -1406,6 +1406,8 @@
       ]
     },
     "chooseJava": "Choose Java distribution",
-    "chooseVersion": "Choose version"
+    "chooseVersion": "Choose version",
+    "friendsUnavailableTitle": "Friends service is unavailable",
+    "friendsUnavailableDescription": "The previous Friends and Coins service belongs to VoxelX. It has been disabled to protect your Minecraft account data until a CyoriaSMP service is available."
   }
 }

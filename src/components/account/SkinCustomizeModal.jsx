@@ -57,11 +57,6 @@ export default function SkinCustomizeModal({ account, onClose, onApply }) {
   const fileInputRef = useRef(null);
   const dragCounter = useRef(0);
 
-  useEffect(() => {
-    setSelectedFile(null);
-    setPreviewUrl(null);
-    setDone(false);
-  }, [activeTab]);
 
   useEffect(() => {
     return () => {
@@ -138,30 +133,8 @@ export default function SkinCustomizeModal({ account, onClose, onApply }) {
       }).catch(() => url) :
       url;
 
-      // ── Upload lên web API nếu có token ──────────────────────────────────
-      let finalUrl = persistUrl;
-      const webToken = localStorage.getItem('vxc_auth_token');
-
-      if (webToken && isElectron && persistUrl.startsWith('data:')) {
-        try {
-          const uploadResult = await window.electronAPI.uploadSkinToWeb({
-            dataUrl: persistUrl,
-            type: activeTab,
-            skinType: activeTab === 'skin' ? skinType : undefined,
-            webToken,
-            uuid: account?.uuid
-          });
-          if (uploadResult?.ok && uploadResult?.url) {
-            // Dùng URL từ web server (CDN URL ổn định hơn data URL)
-            finalUrl = uploadResult.url;
-          } else if (uploadResult?.error) {
-            console.warn('[SkinModal] Web upload failed:', uploadResult.error);
-            // Vẫn tiếp tục với local prefs nếu web upload thất bại
-          }
-        } catch (webErr) {
-          console.warn('[SkinModal] Web upload error:', webErr.message);
-        }
-      }
+      // Save only to local preferences; never upload a skin or a legacy web token to VoxelX.
+      const finalUrl = persistUrl;
 
       // ── Lưu local prefs ───────────────────────────────────────────────────
       const newPrefs = {
@@ -220,7 +193,7 @@ export default function SkinCustomizeModal({ account, onClose, onApply }) {
         {}
         <div className="flex gap-0 border-b border-white/5 flex-shrink-0 px-5">
           {TABS.map((tab) =>
-          <button key={tab.id} onClick={() => setActiveTab(tab.id)}
+          <button key={tab.id} onClick={() => {setSelectedFile(null); setPreviewUrl(null); setDone(false); setActiveTab(tab.id)}}
           className={`px-4 py-2.5 text-xs font-semibold border-b-2 transition-all -mb-px ${
           activeTab === tab.id ?
           'border-sky-500 text-sky-400' :

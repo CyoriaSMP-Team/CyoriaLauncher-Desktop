@@ -1406,6 +1406,8 @@
       ]
     },
     "chooseJava": "Chọn bản phân phối Java",
-    "chooseVersion": "Chọn phiên bản"
+    "chooseVersion": "Chọn phiên bản",
+    "friendsUnavailableTitle": "Dịch vụ bạn bè chưa khả dụng",
+    "friendsUnavailableDescription": "Dịch vụ Bạn bè và Xu của VoxelX đã bị tắt để bảo vệ dữ liệu tài khoản Minecraft cho đến khi có dịch vụ CyoriaSMP."
   }
 }

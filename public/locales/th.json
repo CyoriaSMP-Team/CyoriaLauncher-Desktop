@@ -1406,6 +1406,8 @@
       ]
     },
     "chooseJava": "เลือกผู้ให้บริการ Java",
-    "chooseVersion": "เลือกเวอร์ชัน"
+    "chooseVersion": "เลือกเวอร์ชัน",
+    "friendsUnavailableTitle": "ระบบเพื่อนยังไม่พร้อมใช้งาน",
+    "friendsUnavailableDescription": "ระบบเพื่อนและเหรียญเดิมเป็นบริการของ VoxelX จึงปิดไว้เพื่อปกป้องข้อมูลบัญชี Minecraft จนกว่าจะมีบริการของ CyoriaSMP"
   }
 }

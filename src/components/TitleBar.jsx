@@ -35,7 +35,8 @@ import PlayerHead from './ui/PlayerHead';
 import coinIcon from '../assets/item/coin.png';import LocalizedText from "../i18n/LocalizedText.jsx";
 
 const isElectron = typeof window !== 'undefined' && window.electronAPI;
-const FRIENDS_API = 'https://www.voxelx.io.vn/api/friends';
+// VoxelX friends/coin endpoints are disabled. Never send Cyoria UUIDs there.
+const LEGACY_FRIENDS_ENABLED = false;
 
 function InstanceModal({ instances, onKill, onClose }) {const { t } = useLang();
   const runningInstances = instances.filter((i) => i.state === 'running' || i.state === 'downloading');
@@ -147,18 +148,18 @@ export default function TitleBar({ instances = [], onKillInstance }) {const { t 
 
   // Load pending friend requests
   const loadPending = useCallback(async () => {
-    if (!myUuid) return;
+    if (!myUuid || !LEGACY_FRIENDS_ENABLED) return;
     try {
-      const r = await fetch(`${FRIENDS_API}?action=pending&uuid=${myUuid}`).then((r) => r.json());
+      const r = await fetch(`/disabled-legacy-friends?action=pending&uuid=${myUuid}`).then((r) => r.json());
       if (r.ok) setPending(r.pending || []);
     } catch {}
   }, [myUuid]);
 
   // Load coins
   const loadCoins = useCallback(async () => {
-    if (!myUuid) return;
+    if (!myUuid || !LEGACY_FRIENDS_ENABLED) return;
     try {
-      const r = await fetch(`${FRIENDS_API}?action=get-coins&uuid=${myUuid}`).then((r) => r.json());
+      const r = await fetch(`/disabled-legacy-friends?action=get-coins&uuid=${myUuid}`).then((r) => r.json());
       if (r.ok) setCoins(r.coins ?? 0);
     } catch {}
   }, [myUuid]);
@@ -180,11 +181,13 @@ export default function TitleBar({ instances = [], onKillInstance }) {const { t 
   }, [notifOpen]);
 
   async function handleAccept(fromUuid) {
-    await fetch(`${FRIENDS_API}?action=accept`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ uuid: myUuid, fromUuid }) });
+    if (!LEGACY_FRIENDS_ENABLED) return;
+    await fetch(`/disabled-legacy-friends?action=accept`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ uuid: myUuid, fromUuid }) });
     setPending((p) => p.filter((r) => r.fromUuid !== fromUuid));
   }
   async function handleReject(fromUuid) {
-    await fetch(`${FRIENDS_API}?action=reject`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ uuid: myUuid, fromUuid }) });
+    if (!LEGACY_FRIENDS_ENABLED) return;
+    await fetch(`/disabled-legacy-friends?action=reject`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ uuid: myUuid, fromUuid }) });
     setPending((p) => p.filter((r) => r.fromUuid !== fromUuid));
   }
 

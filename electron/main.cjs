@@ -43,7 +43,7 @@ const { loginWithWindow, refreshMinecraftToken } = require('./msAuth.cjs')
 const { registerLanHandlers, setLanWindowRef } = require('./lanScanner.cjs')
 const { openLanWindow, registerLanWindowHandlers, injectSetLanWindowRef } = require('./lanWindow.cjs')
 const { registerVxLanHandlers } = require('./wireguard.cjs')
-const { startHeartbeat, setPlayingState } = require('./heartbeat.cjs')
+// No silent gameplay telemetry to VoxelX; Minecraft launch is independent.
 
 injectSetLanWindowRef(setLanWindowRef)
 
@@ -531,7 +531,7 @@ app.whenReady().then(() => {
           "font-src 'self' data:;" +
           "img-src 'self' data: blob: https:;" +
           "frame-src https://www.youtube-nocookie.com https://www.youtube.com https://youtube-nocookie.com https://youtube.com;" +
-          "connect-src 'self' blob: http://localhost:5173 ws://localhost:5173 https://minotar.net https://crafthead.net https://mc-heads.net https://meta.fabricmc.net https://maven.fabricmc.net https://api.modrinth.com https://cdn.modrinth.com https://maven.minecraftforge.net https://files.minecraftforge.net https://repo1.maven.org https://maven.neoforged.net https://api.foxstudio.site https://api.github.com https://github.com https://raw.githubusercontent.com https://voxelx.io.vn https://www.voxelx.io.vn https://foxstudio.site;"
+          "connect-src 'self' blob: http://localhost:5173 ws://localhost:5173 https://minotar.net https://crafthead.net https://mc-heads.net https://meta.fabricmc.net https://maven.fabricmc.net https://api.modrinth.com https://cdn.modrinth.com https://maven.minecraftforge.net https://files.minecraftforge.net https://repo1.maven.org https://maven.neoforged.net https://api.github.com https://github.com https://raw.githubusercontent.com;"
         ],
       },
     })
@@ -573,8 +573,7 @@ app.whenReady().then(() => {
   const initSettings = readSettings()
   if (initSettings.discordRPC) rpc.connect()
 
-  // Bắt đầu gửi online status
-  startHeartbeat()
+  // Legacy VoxelX heartbeat is disabled: no unsolicited account / activity uploads.
 
   app.on('activate', () => {
     if (!mainWindow) createMainWindow(); else mainWindow.show()
@@ -1075,13 +1074,13 @@ ipcMain.handle('accounts:add', (e, account) => {
     }
     return a.username === account.username && a.type === account.type
   })
-  if (exists) return { error: 'Tài khoản đã tồn tại' }
+  if (exists) return { error: 'Account already exists' }
 
   if (account.type === 'discord' && account.discordId) {
     const discordLinked = data.accounts.find(a => a.discordId === account.discordId)
     if (discordLinked) {
       return {
-        error: `Tài khoản Discord này đã được liên kết với tài khoản "${discordLinked.username}". Vui lòng dùng tài khoản Discord khác.`,
+        error: `This Discord account is already linked to account "${discordLinked.username}". Please use another Discord account.`,
       }
     }
   }
@@ -1095,7 +1094,7 @@ ipcMain.handle('accounts:add', (e, account) => {
 
 ipcMain.handle('accounts:remove', (e, id) => {
   if (!getTrustedWindow(e)) return { error: 'Unauthorized' }
-  if (!validateId(id)) return { error: 'ID không hợp lệ' }
+  if (!validateId(id)) return { error: 'Invalid account ID' }
 
   const data = readAccounts()
   data.accounts = data.accounts.filter(a => a.id !== id)
@@ -1106,7 +1105,7 @@ ipcMain.handle('accounts:remove', (e, id) => {
 
 ipcMain.handle('accounts:select', (e, id) => {
   if (!getTrustedWindow(e)) return { error: 'Unauthorized' }
-  if (!validateId(id)) return { error: 'ID không hợp lệ' }
+  if (!validateId(id)) return { error: 'Invalid account ID' }
 
   const data = readAccounts()
   if (!data.accounts.find(a => a.id === id)) return { error: 'Tài khoản không tồn tại' }
@@ -1117,7 +1116,7 @@ ipcMain.handle('accounts:select', (e, id) => {
 
 ipcMain.handle('accounts:update', (e, { id, patch }) => {
   if (!getTrustedWindow(e)) return { error: 'Unauthorized' }
-  if (!validateId(id)) return { error: 'ID không hợp lệ' }
+  if (!validateId(id)) return { error: 'Invalid account ID' }
   if (!patch || typeof patch !== 'object') return { error: 'Dữ liệu không hợp lệ' }
 
   const ALLOWED_PATCH_KEYS = [
@@ -1140,7 +1139,7 @@ ipcMain.handle('accounts:update', (e, { id, patch }) => {
     )
     if (alreadyLinked) {
       return {
-        error: `Tài khoản Discord này đã được liên kết với tài khoản "${alreadyLinked.username}". Vui lòng dùng tài khoản Discord khác.`,
+        error: `This Discord account is already linked to account "${alreadyLinked.username}". Please use another Discord account.`,
       }
     }
   }
@@ -1200,7 +1199,7 @@ ipcMain.handle('ms:cancelLogin', (e) => {
 
 ipcMain.handle('ms:refreshToken', async (e, id) => {
   if (!getTrustedWindow(e)) return { error: 'Unauthorized' }
-  if (!validateId(id)) return { error: 'ID không hợp lệ' }
+  if (!validateId(id)) return { error: 'Invalid account ID' }
 
   const data = readAccounts()
   const account = data.accounts.find(a => a.id === id)
